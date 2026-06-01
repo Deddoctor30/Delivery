@@ -28,3 +28,6 @@ out/
 # OS
 .DS_Store
 Thumbs.db
+
+02-design/README.md
+03-backend-nestjs/README.md
