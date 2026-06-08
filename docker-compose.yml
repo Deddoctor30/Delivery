@@ -1,0 +1,23 @@
+services:
+  postgres: 
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: delivery
+      POSTGRES_PASSWORD: delivery
+      POSTGRES_DB: delivery
+    ports:
+      ["5432:5432"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U delivery"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]  # refresh сессии
+    ports: ["6379:6379"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
