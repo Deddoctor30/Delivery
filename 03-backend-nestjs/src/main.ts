@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { AppModule } from './app.module';
+import { AllExceptionsFilter } from './core/filters/all-exceptions.filter';
 import { LoggingInterceptor } from './core/interceptors/logging.interceptor';
 
 async function bootstrap() {
@@ -28,6 +29,9 @@ async function bootstrap() {
   );
 
   app.useGlobalInterceptors(new LoggingInterceptor());
+
+  app.useGlobalInterceptors(new LoggingInterceptor());
+  app.useGlobalFilters(new AllExceptionsFilter());
 
   const port = configService.get<number>('PORT', 3001);
   await app.listen(port, '0.0.0.0');
