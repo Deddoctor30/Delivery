@@ -1,6 +1,5 @@
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -15,7 +14,7 @@ model User {
   lastName     String
   avatarId     String
   passwordHash String
-  role         Role @default(CLIENT)
+  role         Role   @default(CLIENT)
 
   createdAt DateTime @default(now())
 }
