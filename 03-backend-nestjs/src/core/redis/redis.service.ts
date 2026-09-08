@@ -1,24 +1,3 @@
-// import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
-// import { ConfigService } from '@nestjs/config';
-// import { Redis } from 'ioredis';
-
-// @Injectable()
-// export class RedisService extends Redis implements OnModuleInit, OnModuleDestroy {
-//   constructor(private readonly configService: ConfigService) {
-//     super(configService.get<string>('REDIS_URL')!);
-//   }
-
-//   onModuleInit() {
-//     // ioredis подключается автоматически при создании,
-//     // но можно добавить ping для проверки на старте
-//     void this.ping();
-//   }
-
-//   async onModuleDestroy() {
-//     await this.quit();
-//   }
-// }
-
 import { Injectable, Logger, OnModuleDestroy } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Redis } from 'ioredis';
