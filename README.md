@@ -52,8 +52,8 @@ React Native приложение (Expo). Переиспользует тот ж
 - Архитектура и решения фиксируются в `01-requirements` и в README соответствующего слоя.
 
 ## Что дальше
-1. Заполнить `01-requirements` бизнес-требованиями.
-2. Завести проект в Pencil и положить ссылку в `02-design/PENCIL_LINK.md`.
-3. Поднять NestJS + Postgres скелет.
-4. Поднять Next.js скелет.
-5. Поднять React Native скелет.
+1. [x] Заполнить `01-requirements` бизнес-требованиями.
+2. [x] Завести проект в Pencil и положить ссылку в `02-design/PENCIL_LINK.md`.
+3. [ ] Поднять NestJS + Postgres скелет.
+4. [ ] Поднять Next.js скелет.
+5. [ ] Поднять React Native скелет.
