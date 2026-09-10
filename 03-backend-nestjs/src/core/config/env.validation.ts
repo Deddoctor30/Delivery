@@ -38,6 +38,12 @@ class EnvironmentVariables {
   @IsBoolean()
   @IsOptional()
   SEED_ON_START: boolean = true;
+
+  @IsString()
+  ADMIN_EMAIL!: string;
+
+  @IsString()
+  ADMIN_PASSWORD!: string;
 }
 
 export function validate(config: Record<string, unknown>) {

@@ -7,18 +7,128 @@ datasource db {
 }
 
 model User {
-  id           String @id @default(uuid())
-  email        String @unique
+  id           String   @id @default(uuid())
+  email        String   @unique
   passwordHash String
   firstName    String?
   lastName     String?
-  phone        String? @unique
+  phone        String?  @unique
   avatarId     String?
-  role         Role   @default(CLIENT)
-  createdAt DateTime @default(now())
+  role         Role     @default(CLIENT)
+  createdAt    DateTime @default(now())
+
+  orders    Order[]
+  cartItems CartItem[]
+}
+
+model Category {
+  id        String  @id @default(cuid())
+  parentId  String?
+  slug      String  @unique
+  name      String
+  sortOrder Int     @default(0)
+
+  parent   Category?  @relation("CategoryTree", fields: [parentId], references: [id], onDelete: SetNull)
+  children Category[] @relation("CategoryTree")
+  products Product[]
+}
+
+model Product {
+  id            String   @id @default(cuid())
+  categoryId    String
+  slug          String   @unique
+  name          String
+  description   String
+  price         Int // в копейках
+  discountPrice Int?
+  imageUrl      String
+  stock         Int      @default(0)
+  isPopular     Boolean  @default(false)
+  isSeasonal    Boolean  @default(false)
+  season        String?
+  createdAt     DateTime @default(now())
+
+  category   Category    @relation(fields: [categoryId], references: [id])
+  cartItems  CartItem[]
+  orderItems OrderItem[]
+
+  @@index([categoryId])
+}
+
+model CartItem {
+  id        String @id @default(cuid())
+  userId    String
+  productId String
+  quantity  Int
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId]) // один товар — одна строка на юзера
+}
+
+model Order {
+  id              String      @id @default(cuid())
+  userId          String
+  status          OrderStatus @default(created)
+  totalAmount     Int
+  deliveryAmount  Int
+  deliveryAddress String
+  deliveryLat     Float
+  deliveryLng     Float
+  estimatedDays   Int
+  refunded        Boolean     @default(false)
+  createdAt       DateTime    @default(now())
+  cancelledAt     DateTime?
+  completedAt     DateTime?
+
+  user    User                 @relation(fields: [userId], references: [id])
+  items   OrderItem[]
+  history OrderStatusHistory[]
+
+  @@index([userId, status])
+}
+
+model OrderItem {
+  id            String @id @default(cuid())
+  orderId       String
+  productId     String
+  priceSnapshot Int // цена на момент заказа
+  quantity      Int
+
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+}
+
+model OrderStatusHistory {
+  id        String             @id @default(cuid())
+  orderId   String
+  status    OrderStatus
+  source    StatusChangeSource
+  changedAt DateTime           @default(now())
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
 }
 
 enum Role {
   CLIENT
   ADMIN
+}
+
+enum OrderStatus {
+  created
+  processing
+  courier_picked_up
+  in_delivery
+  arrived
+  completed
+  cancelled
+}
+
+enum StatusChangeSource {
+  cron
+  client
+  admin
 }
