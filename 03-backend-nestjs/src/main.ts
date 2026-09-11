@@ -39,6 +39,9 @@ async function bootstrap() {
   app.useGlobalInterceptors(new LoggingInterceptor());
   app.useGlobalFilters(new AllExceptionsFilter());
 
+  // все API-роуты под /api/v1, кроме health-проб
+  app.setGlobalPrefix('api/v1', { exclude: ['health', 'ready'] });
+
   // Swagger — только вне production
   if (configService.get<string>('NODE_ENV') !== 'production') {
     const swaggerConfig = new DocumentBuilder()
@@ -52,7 +55,6 @@ async function bootstrap() {
   }
 
   const port = configService.get<number>('PORT', 3001);
-
   await app.listen(port, '0.0.0.0');
 }
 void bootstrap();
