@@ -47,6 +47,8 @@ jobs:
       JWT_REFRESH_TTL: 7d
       CORS_ORIGINS: http://localhost:3000
       SEED_ON_START: 'false'
+      ADMIN_EMAIL: admin@delivery.local
+      ADMIN_PASSWORD: admin12345
 
     steps:
       - uses: actions/checkout@v4

@@ -7,3 +7,5 @@ process.env.JWT_ACCESS_TTL ??= '30m';
 process.env.JWT_REFRESH_TTL ??= '7d';
 process.env.CORS_ORIGINS ??= 'http://localhost:3000';
 process.env.SEED_ON_START ??= 'false';
+process.env.ADMIN_EMAIL ??= 'admin@delivery.local';
+process.env.ADMIN_PASSWORD ??= 'admin12345';        
