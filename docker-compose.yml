@@ -21,3 +21,18 @@ services:
       interval: 5s
       timeout: 3s
       retries: 5
+
+  backend:
+    build: ./03-backend-nestjs
+    env_file: ./03-backend-nestjs/.env
+    environment:
+      # внутри docker-сети адресуемся по именам сервисов, а не localhost
+      DATABASE_URL: postgresql://delivery:delivery@postgres:5432/delivery
+      REDIS_URL: redis://redis:6379
+      SEED_ON_START: "true"
+    ports: ["3001:3001"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
