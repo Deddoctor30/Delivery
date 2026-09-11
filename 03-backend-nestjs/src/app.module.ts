@@ -6,12 +6,23 @@ import { PrismaModule } from './core/prisma/prisma.module';
 import { RedisModule } from './core/redis/redis.module';
 import { HealthModule } from './health/health.module';
 import { AuthModule } from './modules/auth/auth.module';
-import { UsersModule } from './modules/users/users.module';
+import { CartModule } from './modules/cart/cart.module';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { ProductsModule } from './modules/products/products.module';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
-  imports: [AppConfigModule, PrismaModule, RedisModule, HealthModule, AuthModule, UsersModule, CategoriesModule, ProductsModule],
+  imports: [
+    AppConfigModule,
+    PrismaModule,
+    RedisModule,
+    HealthModule,
+    AuthModule,
+    UsersModule,
+    CategoriesModule,
+    ProductsModule,
+    CartModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
