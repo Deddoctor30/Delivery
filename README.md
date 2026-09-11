@@ -54,6 +54,6 @@ React Native приложение (Expo). Переиспользует тот ж
 ## Что дальше
 1. [x] Заполнить `01-requirements` бизнес-требованиями.
 2. [x] Завести проект в Pencil и положить ссылку в `02-design/PENCIL_LINK.md`.
-3. [ ] Поднять NestJS + Postgres скелет.
+3. [x] Поднять NestJS + Postgres скелет.
 4. [ ] Поднять Next.js скелет.
 5. [ ] Поднять React Native скелет.

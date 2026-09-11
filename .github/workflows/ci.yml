@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [develop]
+    paths:
+      - '03-backend-nestjs/**'
+      - '.github/workflows/ci.yml'
+
+jobs:
+  backend:
+    name: Backend checks
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 03-backend-nestjs
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: delivery
+          POSTGRES_PASSWORD: delivery
+          POSTGRES_DB: delivery
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U delivery"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 5
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: postgresql://delivery:delivery@localhost:5432/delivery
+      REDIS_URL: redis://localhost:6379
+      JWT_ACCESS_SECRET: ci-access-secret
+      JWT_ACCESS_TTL: 30m
+      JWT_REFRESH_TTL: 7d
+      CORS_ORIGINS: http://localhost:3000
+      SEED_ON_START: 'false'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: 03-backend-nestjs/package-lock.json
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Generate Prisma Client
+        run: npx prisma generate
+
+      - name: Lint
+        run: npm run lint:ci
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: E2E tests
+        run: npm run test:e2e
