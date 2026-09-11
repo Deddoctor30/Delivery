@@ -2,6 +2,10 @@
 CLAUDE.md
 .claude/settings.local.json
 
+# Планы разработки — держим локально, в публичный репозиторий не выкладываем
+PLAN.md
+**/PLAN.md
+
 # Node
 node_modules/
 *.log
