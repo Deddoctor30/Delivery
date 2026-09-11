@@ -10,6 +10,7 @@ import { SessionService } from './session.service';
 import { TokenService } from './token.service';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { AuthController } from './auth.controller';
+import { RolesGuard } from './guards/roles.guard';
 
 @Module({
   imports: [
@@ -31,7 +32,8 @@ import { AuthController } from './auth.controller';
     SessionService,
     AuthService,
     JwtStrategy,
-    { provide: APP_GUARD, useClass: JwtAuthGuard }, // защищаем ВСЁ по умолчанию
+    { provide: APP_GUARD, useClass: JwtAuthGuard }, // 1-й: аутентификация (ставит request.user)
+    { provide: APP_GUARD, useClass: RolesGuard },   // 2-й: авторизация по роли
   ],
   exports: [AuthService, SessionService],
 })

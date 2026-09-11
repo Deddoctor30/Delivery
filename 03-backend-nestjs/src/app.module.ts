@@ -6,6 +6,7 @@ import { AppConfigModule } from './core/config/config.module';
 import { PrismaModule } from './core/prisma/prisma.module';
 import { RedisModule } from './core/redis/redis.module';
 import { HealthModule } from './health/health.module';
+import { AdminModule } from './modules/admin/admin.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { CartModule } from './modules/cart/cart.module';
 import { CategoriesModule } from './modules/categories/categories.module';
@@ -30,6 +31,7 @@ import { UsersModule } from './modules/users/users.module';
     OrdersModule,
     ScheduleModule.forRoot(),
     CronModule,
+    AdminModule,
   ],
   controllers: [AppController],
   providers: [AppService],
