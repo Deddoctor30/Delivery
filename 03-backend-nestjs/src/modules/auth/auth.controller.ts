@@ -1,12 +1,5 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { AuthService } from './auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
@@ -15,6 +8,7 @@ import { LoginOrRegisterDto } from './dto/login-or-register.dto';
 import { RefreshDto } from './dto/refresh.dto';
 import { AuthUser } from './types';
 
+@ApiTags('auth')
 @Controller('auth')
 @UseGuards(ThrottlerGuard) // 5 req/min на IP ко всем /auth/* — против брутфорса
 export class AuthController {
@@ -34,18 +28,21 @@ export class AuthController {
     return this.auth.refresh(dto);
   }
 
+  @ApiBearerAuth()
   @Post('logout')
   @HttpCode(HttpStatus.NO_CONTENT)
   async logout(@CurrentUser() user: AuthUser) {
     await this.auth.logout(user);
   }
 
+  @ApiBearerAuth()
   @Post('logout-all')
   @HttpCode(HttpStatus.NO_CONTENT)
   async logoutAll(@CurrentUser('userId') userId: string) {
     await this.auth.logoutAll(userId);
   }
 
+  @ApiBearerAuth()
   @Get('me')
   me(@CurrentUser('userId') userId: string) {
     return this.auth.me(userId);

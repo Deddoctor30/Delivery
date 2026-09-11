@@ -1,8 +1,11 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
-import { AddCartItemDto, MergeCartDto, UpdateCartItemDto } from './dto/cart.dto';
 import { CartService } from './cart.service';
+import { AddCartItemDto, MergeCartDto, UpdateCartItemDto } from './dto/cart.dto';
 
+@ApiTags('cart')
+@ApiBearerAuth()
 @Controller('cart')
 export class CartController {
   constructor(private readonly cart: CartService) {}
@@ -27,10 +30,7 @@ export class CartController {
   }
 
   @Delete('items/:productId')
-  removeItem(
-    @CurrentUser('userId') userId: string,
-    @Param('productId') productId: string,
-  ) {
+  removeItem(@CurrentUser('userId') userId: string, @Param('productId') productId: string) {
     return this.cart.removeItem(userId, productId);
   }
 

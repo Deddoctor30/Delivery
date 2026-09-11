@@ -1,9 +1,11 @@
 import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { Public } from '../auth/decorators/public.decorator';
 import { ProductQueryDto } from './dto/product-query.dto';
 import { ProductsService } from './products.service';
 
+@ApiTags('products')
 @Controller('products')
 export class ProductsController {
   constructor(private readonly products: ProductsService) {}

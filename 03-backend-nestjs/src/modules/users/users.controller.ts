@@ -1,8 +1,11 @@
 import { Body, Controller, Get, Patch } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { UpdateMeDto } from './dto/update-me.dto';
 import { UsersService } from './users.service';
 
+@ApiTags('users')
+@ApiBearerAuth()
 @Controller('users')
 export class UsersController {
   constructor(private readonly users: UsersService) {}

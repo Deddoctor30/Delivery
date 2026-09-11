@@ -1,10 +1,13 @@
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { AuthUser } from '../auth/types';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { OrderListQueryDto } from './dto/order-list-query.dto';
 import { OrdersService } from './orders.service';
 
+@ApiTags('orders')
+@ApiBearerAuth()
 @Controller('orders')
 export class OrdersController {
   constructor(private readonly orders: OrdersService) {}
