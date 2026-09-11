@@ -1,13 +1,12 @@
 import helmet from '@fastify/helmet';
 import fastifyStatic from '@fastify/static';
-import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { join } from 'node:path';
 import { AppModule } from './app.module';
-import { AllExceptionsFilter } from './core/filters/all-exceptions.filter';
+import { configureApp } from './app.setup';
 import { LoggingInterceptor } from './core/interceptors/logging.interceptor';
 
 async function bootstrap() {
@@ -28,19 +27,9 @@ async function bootstrap() {
     credentials: true,
   });
 
-  app.useGlobalPipes(
-    new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: true,
-      transform: true,
-    }),
-  );
+  configureApp(app);
 
   app.useGlobalInterceptors(new LoggingInterceptor());
-  app.useGlobalFilters(new AllExceptionsFilter());
-
-  // все API-роуты под /api/v1, кроме health-проб
-  app.setGlobalPrefix('api/v1', { exclude: ['health', 'ready'] });
 
   // Swagger — только вне production
   if (configService.get<string>('NODE_ENV') !== 'production') {
