@@ -9,6 +9,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { CartModule } from './modules/cart/cart.module';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { DeliveryModule } from './modules/delivery/delivery.module';
+import { OrdersModule } from './modules/orders/orders.module';
 import { ProductsModule } from './modules/products/products.module';
 import { UsersModule } from './modules/users/users.module';
 
@@ -24,6 +25,7 @@ import { UsersModule } from './modules/users/users.module';
     ProductsModule,
     CartModule,
     DeliveryModule,
+    OrdersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
