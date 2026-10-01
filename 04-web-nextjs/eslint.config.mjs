@@ -26,17 +26,60 @@ const eslintConfig = defineConfig([
       },
     },
     rules: {
-      "boundaries/element-types": [
+      "boundaries/dependencies": [
         "error",
         {
           default: "disallow",
-          rules: [
-            { from: "app", allow: ["views", "widgets", "features", "entities", "shared"] },
-            { from: "views", allow: ["widgets", "features", "entities", "shared"] },
-            { from: "widgets", allow: ["features", "entities", "shared"] },
-            { from: "features", allow: ["entities", "shared"] },
-            { from: "entities", allow: ["entities", "shared"] },
-            { from: "shared", allow: ["shared"] },
+          policies: [
+            {
+              from: { element: { type: "app" } },
+              allow: {
+                to: [
+                  { element: { type: "views" } },
+                  { element: { type: "widgets" } },
+                  { element: { type: "features" } },
+                  { element: { type: "entities" } },
+                  { element: { type: "shared" } },
+                ],
+              },
+            },
+            {
+              from: { element: { type: "views" } },
+              allow: {
+                to: [
+                  { element: { type: "widgets" } },
+                  { element: { type: "features" } },
+                  { element: { type: "entities" } },
+                  { element: { type: "shared" } },
+                ],
+              },
+            },
+            {
+              from: { element: { type: "widgets" } },
+              allow: {
+                to: [
+                  { element: { type: "features" } },
+                  { element: { type: "entities" } },
+                  { element: { type: "shared" } },
+                ],
+              },
+            },
+            {
+              from: { element: { type: "features" } },
+              allow: {
+                to: [{ element: { type: "entities" } }, { element: { type: "shared" } }],
+              },
+            },
+            {
+              from: { element: { type: "entities" } },
+              allow: {
+                to: [{ element: { type: "entities" } }, { element: { type: "shared" } }],
+              },
+            },
+            {
+              from: { element: { type: "shared" } },
+              allow: { to: [{ element: { type: "shared" } }] },
+            },
           ],
         },
       ],
