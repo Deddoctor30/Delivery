@@ -1,5 +1,6 @@
 import { Button } from "@/shared/ui";
 
+import { publicEnv } from "@/shared/config/public-env"
 
 export default function Home() {
   return (
