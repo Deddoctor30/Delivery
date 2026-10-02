@@ -11,6 +11,7 @@ import { ThemeToggle } from "@/features/theme-toggle";
 import { Toaster } from "sonner";
 
 import { Funnel_Sans, Geist } from "next/font/google";
+import { Footer } from "@/widgets/footer";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin", "cyrillic"], display: "swap" });
 const geist = Geist({ variable: "--font-geist", subsets: ["latin"], display: "swap" });
@@ -47,6 +48,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
             </div>
           </header>
           <div className="mx-auto w-full max-w-[1100px] flex-1 px-4">{children}</div>
+          <Footer />
           <Toaster />
         </Providers>
       </body>
