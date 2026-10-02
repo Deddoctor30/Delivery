@@ -1,7 +1,5 @@
 import { Button } from "@/shared/ui";
 
-import { publicEnv } from "@/shared/config/public-env"
-
 export default function Home() {
   return (
     <main className="flex flex-col gap-5 flex-1 items-center justify-center">
