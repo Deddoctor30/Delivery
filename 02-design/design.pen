@@ -1,5 +1,5 @@
 {
-  "version": "2.11",
+  "version": "2.17",
   "children": [
     {
       "type": "frame",
@@ -22,10 +22,9 @@
           "height": 280,
           "fill": "$--card",
           "cornerRadius": "$--radius-lg",
-          "stroke": {
-            "thickness": 1,
-            "fill": "$--border"
-          },
+          "stroke": "$--border",
+          "strokeWidth": 1,
+          "strokeAlignment": "inner",
           "layout": "vertical",
           "gap": 16,
           "padding": 24,
@@ -117,10 +116,9 @@
           "height": 280,
           "fill": "$--card",
           "cornerRadius": "$--radius-lg",
-          "stroke": {
-            "thickness": 1,
-            "fill": "$--border"
-          },
+          "stroke": "$--border",
+          "strokeWidth": 1,
+          "strokeAlignment": "inner",
           "layout": "vertical",
           "gap": 16,
           "padding": 24,
@@ -316,10 +314,9 @@
           "height": 280,
           "fill": "$--card",
           "cornerRadius": "$--radius-lg",
-          "stroke": {
-            "thickness": 1,
-            "fill": "$--border"
-          },
+          "stroke": "$--border",
+          "strokeWidth": 1,
+          "strokeAlignment": "inner",
           "layout": "vertical",
           "gap": 16,
           "padding": 24,
@@ -332,12 +329,12 @@
               "reusable": true,
               "width": 390,
               "fill": "$--card",
-              "stroke": {
-                "thickness": {
-                  "top": 1
-                },
-                "fill": "$--border"
+              "stroke": "$--border",
+              "strokeWidth": {
+                "top": 1
               },
+              "strokeAlignment": "inner",
+              "strokeLinejoin": "round",
               "padding": [
                 12,
                 8
@@ -369,13 +366,13 @@
                       "alignItems": "center",
                       "children": [
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "jKE0a",
                           "name": "Icon",
                           "width": 24,
                           "height": 24,
-                          "iconFontName": "house",
-                          "iconFontFamily": "lucide",
+                          "icon": "house",
+                          "library": "lucide",
                           "fill": "$--primary"
                         }
                       ]
@@ -416,13 +413,13 @@
                       "alignItems": "center",
                       "children": [
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "eMAFG",
                           "name": "Icon",
                           "width": 24,
                           "height": 24,
-                          "iconFontName": "layout-grid",
-                          "iconFontFamily": "lucide",
+                          "icon": "layout-grid",
+                          "library": "lucide",
                           "fill": "$--muted-foreground"
                         }
                       ]
@@ -463,13 +460,13 @@
                       "alignItems": "center",
                       "children": [
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "UZmzh",
                           "name": "Icon",
                           "width": 24,
                           "height": 24,
-                          "iconFontName": "shopping-bag",
-                          "iconFontFamily": "lucide",
+                          "icon": "shopping-bag",
+                          "library": "lucide",
                           "fill": "$--muted-foreground"
                         },
                         {
@@ -521,13 +518,13 @@
                       "alignItems": "center",
                       "children": [
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "lhcIz",
                           "name": "Icon",
                           "width": 24,
                           "height": 24,
-                          "iconFontName": "package",
-                          "iconFontFamily": "lucide",
+                          "icon": "package",
+                          "library": "lucide",
                           "fill": "$--muted-foreground"
                         }
                       ]
@@ -568,13 +565,13 @@
                       "alignItems": "center",
                       "children": [
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "Z4mlq",
                           "name": "Icon",
                           "width": 24,
                           "height": 24,
-                          "iconFontName": "user",
-                          "iconFontFamily": "lucide",
+                          "icon": "user",
+                          "library": "lucide",
                           "fill": "$--muted-foreground"
                         }
                       ]
@@ -615,10 +612,9 @@
           "height": 580,
           "fill": "$--card",
           "cornerRadius": "$--radius-lg",
-          "stroke": {
-            "thickness": 1,
-            "fill": "$--border"
-          },
+          "stroke": "$--border",
+          "strokeWidth": 1,
+          "strokeAlignment": "inner",
           "layout": "vertical",
           "gap": 16,
           "padding": 24,
@@ -753,10 +749,9 @@
                   "fill": "$--card",
                   "width": 16,
                   "height": 16,
-                  "stroke": {
-                    "thickness": 3,
-                    "fill": "$--primary"
-                  }
+                  "stroke": "$--primary",
+                  "strokeWidth": 3,
+                  "strokeAlignment": "inner"
                 },
                 {
                   "type": "text",
@@ -791,10 +786,9 @@
                   "fill": "$--muted",
                   "width": 16,
                   "height": 16,
-                  "stroke": {
-                    "thickness": 1,
-                    "fill": "$--border"
-                  }
+                  "stroke": "$--border",
+                  "strokeWidth": 1,
+                  "strokeAlignment": "inner"
                 },
                 {
                   "type": "text",
@@ -829,10 +823,9 @@
                   "fill": "$--muted",
                   "width": 16,
                   "height": 16,
-                  "stroke": {
-                    "thickness": 1,
-                    "fill": "$--border"
-                  }
+                  "stroke": "$--border",
+                  "strokeWidth": 1,
+                  "strokeAlignment": "inner"
                 },
                 {
                   "type": "text",
@@ -882,10 +875,9 @@
           "height": 580,
           "fill": "$--card",
           "cornerRadius": "$--radius-lg",
-          "stroke": {
-            "thickness": 1,
-            "fill": "$--border"
-          },
+          "stroke": "$--border",
+          "strokeWidth": 1,
+          "strokeAlignment": "inner",
           "layout": "vertical",
           "gap": 16,
           "padding": 24,
@@ -1181,13 +1173,13 @@
                   "alignItems": "center",
                   "children": [
                     {
-                      "type": "icon_font",
+                      "type": "icon",
                       "id": "sGSlX",
                       "name": "Pin",
                       "width": 32,
                       "height": 32,
-                      "iconFontName": "map-pin",
-                      "iconFontFamily": "lucide",
+                      "icon": "map-pin",
+                      "library": "lucide",
                       "fill": "$--primary"
                     },
                     {
@@ -1226,10 +1218,9 @@
           "height": 580,
           "fill": "$--card",
           "cornerRadius": "$--radius-lg",
-          "stroke": {
-            "thickness": 1,
-            "fill": "$--border"
-          },
+          "stroke": "$--border",
+          "strokeWidth": 1,
+          "strokeAlignment": "inner",
           "layout": "vertical",
           "gap": 16,
           "padding": 24,
@@ -1245,10 +1236,9 @@
               "height": 340,
               "fill": "$--card",
               "cornerRadius": "$--radius-lg",
-              "stroke": {
-                "thickness": 1,
-                "fill": "$--border"
-              },
+              "stroke": "$--border",
+              "strokeWidth": 1,
+              "strokeAlignment": "inner",
               "layout": "vertical",
               "gap": 16,
               "padding": 24,
@@ -1364,10 +1354,9 @@
           "height": 260,
           "fill": "$--card",
           "cornerRadius": "$--radius-lg",
-          "stroke": {
-            "thickness": 1,
-            "fill": "$--border"
-          },
+          "stroke": "$--border",
+          "strokeWidth": 1,
+          "strokeAlignment": "inner",
           "layout": "vertical",
           "gap": 16,
           "padding": 24,
@@ -1393,10 +1382,9 @@
                   "name": "Bag Body",
                   "width": 64,
                   "height": 64,
-                  "stroke": {
-                    "thickness": 2.5,
-                    "fill": "$--muted-foreground"
-                  }
+                  "stroke": "$--muted-foreground",
+                  "strokeWidth": 2.5,
+                  "strokeAlignment": "inner"
                 },
                 {
                   "type": "path",
@@ -1413,11 +1401,10 @@
                   ],
                   "width": 64,
                   "height": 32,
-                  "stroke": {
-                    "thickness": 2.5,
-                    "cap": "round",
-                    "fill": "$--muted-foreground"
-                  }
+                  "stroke": "$--muted-foreground",
+                  "strokeWidth": 2.5,
+                  "strokeAlignment": "inner",
+                  "strokeLinecap": "round"
                 },
                 {
                   "type": "ellipse",
@@ -1453,10 +1440,9 @@
           "height": 260,
           "fill": "$--card",
           "cornerRadius": "$--radius-lg",
-          "stroke": {
-            "thickness": 1,
-            "fill": "$--border"
-          },
+          "stroke": "$--border",
+          "strokeWidth": 1,
+          "strokeAlignment": "inner",
           "layout": "vertical",
           "gap": 16,
           "padding": 24,
@@ -1482,10 +1468,9 @@
                   "name": "Box",
                   "width": 80,
                   "height": 68,
-                  "stroke": {
-                    "thickness": 2.5,
-                    "fill": "$--muted-foreground"
-                  }
+                  "stroke": "$--muted-foreground",
+                  "strokeWidth": 2.5,
+                  "strokeAlignment": "inner"
                 },
                 {
                   "type": "path",
@@ -1502,11 +1487,10 @@
                   ],
                   "width": 80,
                   "height": 18,
-                  "stroke": {
-                    "thickness": 2.5,
-                    "cap": "round",
-                    "fill": "$--muted-foreground"
-                  }
+                  "stroke": "$--muted-foreground",
+                  "strokeWidth": 2.5,
+                  "strokeAlignment": "inner",
+                  "strokeLinecap": "round"
                 },
                 {
                   "type": "ellipse",
@@ -1542,10 +1526,9 @@
           "height": 260,
           "fill": "$--card",
           "cornerRadius": "$--radius-lg",
-          "stroke": {
-            "thickness": 1,
-            "fill": "$--border"
-          },
+          "stroke": "$--border",
+          "strokeWidth": 1,
+          "strokeAlignment": "inner",
           "layout": "vertical",
           "gap": 16,
           "padding": 24,
@@ -1608,10 +1591,9 @@
           "height": 260,
           "fill": "$--card",
           "cornerRadius": "$--radius-lg",
-          "stroke": {
-            "thickness": 1,
-            "fill": "$--border"
-          },
+          "stroke": "$--border",
+          "strokeWidth": 1,
+          "strokeAlignment": "inner",
           "layout": "vertical",
           "gap": 16,
           "padding": 24,
@@ -1626,10 +1608,9 @@
               "width": 1280,
               "fill": "$--card",
               "cornerRadius": "$--radius-lg",
-              "stroke": {
-                "thickness": 1,
-                "fill": "$--border"
-              },
+              "stroke": "$--border",
+              "strokeWidth": 1,
+              "strokeAlignment": "inner",
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -1665,13 +1646,13 @@
                       "alignItems": "center",
                       "children": [
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "zgtB8",
                           "name": "Cookie Icon",
                           "width": 18,
                           "height": 18,
-                          "iconFontName": "cookie",
-                          "iconFontFamily": "lucide",
+                          "icon": "cookie",
+                          "library": "lucide",
                           "fill": "$--primary"
                         },
                         {
@@ -1714,10 +1695,9 @@
                       "name": "Ghost Button",
                       "fill": "$--card",
                       "cornerRadius": "$--radius-md",
-                      "stroke": {
-                        "thickness": 1,
-                        "fill": "$--border"
-                      },
+                      "stroke": "$--border",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner",
                       "padding": [
                         10,
                         16
@@ -1788,10 +1768,9 @@
           "height": 460,
           "fill": "$--card",
           "cornerRadius": "$--radius-lg",
-          "stroke": {
-            "thickness": 1,
-            "fill": "$--border"
-          },
+          "stroke": "$--border",
+          "strokeWidth": 1,
+          "strokeAlignment": "inner",
           "layout": "vertical",
           "gap": 16,
           "padding": 24,
@@ -1805,12 +1784,12 @@
               "width": 2160,
               "fill": "$--card",
               "cornerRadius": "$--radius-md",
-              "stroke": {
-                "thickness": {
-                  "top": 1
-                },
-                "fill": "$--border"
+              "stroke": "$--border",
+              "strokeWidth": {
+                "top": 1
               },
+              "strokeAlignment": "inner",
+              "strokeLinejoin": "round",
               "layout": "vertical",
               "gap": 32,
               "padding": [
@@ -1970,10 +1949,9 @@
                               "width": "fill_container",
                               "fill": "$--background",
                               "cornerRadius": "$--radius-md",
-                              "stroke": {
-                                "thickness": 1,
-                                "fill": "$--border"
-                              },
+                              "stroke": "$--border",
+                              "strokeWidth": 1,
+                              "strokeAlignment": "inner",
                               "padding": [
                                 10,
                                 12
@@ -2086,43 +2064,43 @@
                       "alignItems": "center",
                       "children": [
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "YumCh",
                           "name": "facebook",
                           "width": 18,
                           "height": 18,
-                          "iconFontName": "facebook",
-                          "iconFontFamily": "lucide",
+                          "icon": "facebook",
+                          "library": "lucide",
                           "fill": "$--muted-foreground"
                         },
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "XlTiO",
                           "name": "instagram",
                           "width": 18,
                           "height": 18,
-                          "iconFontName": "instagram",
-                          "iconFontFamily": "lucide",
+                          "icon": "instagram",
+                          "library": "lucide",
                           "fill": "$--muted-foreground"
                         },
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "lHwQX",
                           "name": "twitter",
                           "width": 18,
                           "height": 18,
-                          "iconFontName": "twitter",
-                          "iconFontFamily": "lucide",
+                          "icon": "twitter",
+                          "library": "lucide",
                           "fill": "$--muted-foreground"
                         },
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "KSd14",
                           "name": "youtube",
                           "width": 18,
                           "height": 18,
-                          "iconFontName": "youtube",
-                          "iconFontFamily": "lucide",
+                          "icon": "youtube",
+                          "library": "lucide",
                           "fill": "$--muted-foreground"
                         }
                       ]
@@ -2148,8 +2126,8 @@
     {
       "type": "frame",
       "id": "udTY6",
-      "x": 2500,
-      "y": 0,
+      "x": 1832,
+      "y": -200,
       "name": "My Work Area",
       "width": 3600,
       "height": 5000,
@@ -2174,7 +2152,7 @@
       "alignItems": "center",
       "children": [
         {
-          "type": "icon_font",
+          "type": "icon",
           "id": "K0WhsO",
           "x": 0,
           "y": 0,
@@ -2182,8 +2160,8 @@
           "enabled": false,
           "width": 16,
           "height": 16,
-          "iconFontName": "plus",
-          "iconFontFamily": "lucide",
+          "icon": "plus",
+          "library": "lucide",
           "fill": "$--primary-foreground"
         },
         {
@@ -2216,7 +2194,7 @@
       "alignItems": "center",
       "children": [
         {
-          "type": "icon_font",
+          "type": "icon",
           "id": "ANnnp",
           "x": 0,
           "y": 0,
@@ -2224,8 +2202,8 @@
           "enabled": false,
           "width": 16,
           "height": 16,
-          "iconFontName": "plus",
-          "iconFontFamily": "lucide",
+          "icon": "plus",
+          "library": "lucide",
           "fill": "$--secondary-foreground"
         },
         {
@@ -2249,10 +2227,9 @@
       "reusable": true,
       "fill": "$--card",
       "cornerRadius": "$--radius-md",
-      "stroke": {
-        "thickness": 1,
-        "fill": "$--border"
-      },
+      "stroke": "$--border",
+      "strokeWidth": 1,
+      "strokeAlignment": "inner",
       "gap": 8,
       "padding": [
         10,
@@ -2262,7 +2239,7 @@
       "alignItems": "center",
       "children": [
         {
-          "type": "icon_font",
+          "type": "icon",
           "id": "z9sCq",
           "x": 0,
           "y": 0,
@@ -2270,8 +2247,8 @@
           "enabled": false,
           "width": 16,
           "height": 16,
-          "iconFontName": "plus",
-          "iconFontFamily": "lucide",
+          "icon": "plus",
+          "library": "lucide",
           "fill": "$--foreground"
         },
         {
@@ -2303,7 +2280,7 @@
       "alignItems": "center",
       "children": [
         {
-          "type": "icon_font",
+          "type": "icon",
           "id": "pKSZS",
           "x": 0,
           "y": 0,
@@ -2311,8 +2288,8 @@
           "enabled": false,
           "width": 16,
           "height": 16,
-          "iconFontName": "plus",
-          "iconFontFamily": "lucide",
+          "icon": "plus",
+          "library": "lucide",
           "fill": "$--foreground"
         },
         {
@@ -2345,7 +2322,7 @@
       "alignItems": "center",
       "children": [
         {
-          "type": "icon_font",
+          "type": "icon",
           "id": "q7ThC",
           "x": 0,
           "y": 0,
@@ -2353,8 +2330,8 @@
           "enabled": false,
           "width": 16,
           "height": 16,
-          "iconFontName": "trash-2",
-          "iconFontFamily": "lucide",
+          "icon": "trash-2",
+          "library": "lucide",
           "fill": "$--destructive-foreground"
         },
         {
@@ -2387,7 +2364,7 @@
       "alignItems": "center",
       "children": [
         {
-          "type": "icon_font",
+          "type": "icon",
           "id": "FAwII",
           "x": 0,
           "y": 0,
@@ -2395,8 +2372,8 @@
           "enabled": false,
           "width": 18,
           "height": 18,
-          "iconFontName": "plus",
-          "iconFontFamily": "lucide",
+          "icon": "plus",
+          "library": "lucide",
           "fill": "$--primary-foreground"
         },
         {
@@ -2429,7 +2406,7 @@
       "alignItems": "center",
       "children": [
         {
-          "type": "icon_font",
+          "type": "icon",
           "id": "rIK47",
           "x": 0,
           "y": 0,
@@ -2437,8 +2414,8 @@
           "enabled": false,
           "width": 14,
           "height": 14,
-          "iconFontName": "plus",
-          "iconFontFamily": "lucide",
+          "icon": "plus",
+          "library": "lucide",
           "fill": "$--primary-foreground"
         },
         {
@@ -2468,13 +2445,13 @@
       "alignItems": "center",
       "children": [
         {
-          "type": "icon_font",
+          "type": "icon",
           "id": "kRCM5",
           "name": "Icon",
           "width": 18,
           "height": 18,
-          "iconFontName": "plus",
-          "iconFontFamily": "lucide",
+          "icon": "plus",
+          "library": "lucide",
           "fill": "$--primary-foreground"
         }
       ]
@@ -2490,21 +2467,20 @@
       "height": 40,
       "fill": "$--card",
       "cornerRadius": "$--radius-md",
-      "stroke": {
-        "thickness": 1,
-        "fill": "$--border"
-      },
+      "stroke": "$--border",
+      "strokeWidth": 1,
+      "strokeAlignment": "inner",
       "justifyContent": "center",
       "alignItems": "center",
       "children": [
         {
-          "type": "icon_font",
+          "type": "icon",
           "id": "JjT3Z",
           "name": "Icon",
           "width": 18,
           "height": 18,
-          "iconFontName": "settings",
-          "iconFontFamily": "lucide",
+          "icon": "settings",
+          "library": "lucide",
           "fill": "$--foreground"
         }
       ]
@@ -2523,13 +2499,13 @@
       "alignItems": "center",
       "children": [
         {
-          "type": "icon_font",
+          "type": "icon",
           "id": "wwI5C",
           "name": "Icon",
           "width": 18,
           "height": 18,
-          "iconFontName": "ellipsis",
-          "iconFontFamily": "lucide",
+          "icon": "ellipsis",
+          "library": "lucide",
           "fill": "$--foreground"
         }
       ]
@@ -2549,13 +2525,13 @@
       "alignItems": "center",
       "children": [
         {
-          "type": "icon_font",
+          "type": "icon",
           "id": "O7r9P",
           "name": "Icon",
           "width": 18,
           "height": 18,
-          "iconFontName": "trash-2",
-          "iconFontFamily": "lucide",
+          "icon": "trash-2",
+          "library": "lucide",
           "fill": "$--destructive-foreground"
         }
       ]
@@ -2791,10 +2767,9 @@
       "reusable": true,
       "fill": "$--card",
       "cornerRadius": "$--radius-md",
-      "stroke": {
-        "thickness": 1,
-        "fill": "$--border"
-      },
+      "stroke": "$--border",
+      "strokeWidth": 1,
+      "strokeAlignment": "inner",
       "alignItems": "center",
       "children": [
         {
@@ -2807,13 +2782,13 @@
           "alignItems": "center",
           "children": [
             {
-              "type": "icon_font",
+              "type": "icon",
               "id": "vxTBA",
               "name": "Icon",
               "width": 14,
               "height": 14,
-              "iconFontName": "minus",
-              "iconFontFamily": "lucide",
+              "icon": "minus",
+              "library": "lucide",
               "fill": "$--foreground"
             }
           ]
@@ -2849,13 +2824,13 @@
           "alignItems": "center",
           "children": [
             {
-              "type": "icon_font",
+              "type": "icon",
               "id": "VyQFZ",
               "name": "Icon",
               "width": 14,
               "height": 14,
-              "iconFontName": "plus",
-              "iconFontFamily": "lucide",
+              "icon": "plus",
+              "library": "lucide",
               "fill": "$--foreground"
             }
           ]
@@ -2873,10 +2848,9 @@
       "height": 40,
       "fill": "$--card",
       "cornerRadius": "$--radius-md",
-      "stroke": {
-        "thickness": 1,
-        "fill": "$--input"
-      },
+      "stroke": "$--input",
+      "strokeWidth": 1,
+      "strokeAlignment": "inner",
       "gap": 8,
       "padding": [
         0,
@@ -2885,7 +2859,7 @@
       "alignItems": "center",
       "children": [
         {
-          "type": "icon_font",
+          "type": "icon",
           "id": "oCAKY",
           "x": 0,
           "y": 0,
@@ -2893,8 +2867,8 @@
           "enabled": false,
           "width": 16,
           "height": 16,
-          "iconFontName": "mail",
-          "iconFontFamily": "lucide",
+          "icon": "mail",
+          "library": "lucide",
           "fill": "$--muted-foreground"
         },
         {
@@ -2910,7 +2884,7 @@
           "fontWeight": "normal"
         },
         {
-          "type": "icon_font",
+          "type": "icon",
           "id": "gnN4B",
           "x": 0,
           "y": 0,
@@ -2918,8 +2892,8 @@
           "enabled": false,
           "width": 16,
           "height": 16,
-          "iconFontName": "x",
-          "iconFontFamily": "lucide",
+          "icon": "x",
+          "library": "lucide",
           "fill": "$--muted-foreground"
         }
       ]
@@ -2935,10 +2909,9 @@
       "height": 40,
       "fill": "$--card",
       "cornerRadius": "$--radius-md",
-      "stroke": {
-        "thickness": 1,
-        "fill": "$--ring"
-      },
+      "stroke": "$--ring",
+      "strokeWidth": 1,
+      "strokeAlignment": "inner",
       "gap": 8,
       "padding": [
         0,
@@ -2947,7 +2920,7 @@
       "alignItems": "center",
       "children": [
         {
-          "type": "icon_font",
+          "type": "icon",
           "id": "Quy57",
           "x": 0,
           "y": 0,
@@ -2955,8 +2928,8 @@
           "enabled": false,
           "width": 16,
           "height": 16,
-          "iconFontName": "mail",
-          "iconFontFamily": "lucide",
+          "icon": "mail",
+          "library": "lucide",
           "fill": "$--foreground"
         },
         {
@@ -2972,13 +2945,13 @@
           "fontWeight": "normal"
         },
         {
-          "type": "icon_font",
+          "type": "icon",
           "id": "gANas",
           "name": "RightIcon",
           "width": 16,
           "height": 16,
-          "iconFontName": "x",
-          "iconFontFamily": "lucide",
+          "icon": "x",
+          "library": "lucide",
           "fill": "$--muted-foreground"
         }
       ]
@@ -2994,10 +2967,9 @@
       "height": 40,
       "fill": "$--card",
       "cornerRadius": "$--radius-md",
-      "stroke": {
-        "thickness": 1,
-        "fill": "$--destructive"
-      },
+      "stroke": "$--destructive",
+      "strokeWidth": 1,
+      "strokeAlignment": "inner",
       "gap": 8,
       "padding": [
         0,
@@ -3018,7 +2990,7 @@
           "fontWeight": "normal"
         },
         {
-          "type": "icon_font",
+          "type": "icon",
           "id": "g95uVp",
           "x": 252,
           "y": 12,
@@ -3026,8 +2998,8 @@
           "enabled": false,
           "width": 16,
           "height": 16,
-          "iconFontName": "circle-alert",
-          "iconFontFamily": "lucide",
+          "icon": "circle-alert",
+          "library": "lucide",
           "fill": "$--destructive"
         }
       ]
@@ -3083,10 +3055,9 @@
       "height": 100,
       "fill": "$--card",
       "cornerRadius": "$--radius-md",
-      "stroke": {
-        "thickness": 1,
-        "fill": "$--input"
-      },
+      "stroke": "$--input",
+      "strokeWidth": 1,
+      "strokeAlignment": "inner",
       "padding": [
         10,
         12
@@ -3117,10 +3088,9 @@
       "height": 40,
       "fill": "$--card",
       "cornerRadius": "$--radius-md",
-      "stroke": {
-        "thickness": 1,
-        "fill": "$--input"
-      },
+      "stroke": "$--input",
+      "strokeWidth": 1,
+      "strokeAlignment": "inner",
       "gap": 8,
       "padding": [
         0,
@@ -3140,13 +3110,13 @@
           "fontWeight": "normal"
         },
         {
-          "type": "icon_font",
+          "type": "icon",
           "id": "L0bMo",
           "name": "Chevron",
           "width": 16,
           "height": 16,
-          "iconFontName": "chevron-down",
-          "iconFontFamily": "lucide",
+          "icon": "chevron-down",
+          "library": "lucide",
           "fill": "$--muted-foreground"
         }
       ]
@@ -3162,10 +3132,9 @@
       "height": 18,
       "fill": "$--card",
       "cornerRadius": 4,
-      "stroke": {
-        "thickness": 1.5,
-        "fill": "$--border"
-      }
+      "stroke": "$--border",
+      "strokeWidth": 1.5,
+      "strokeAlignment": "inner"
     },
     {
       "type": "frame",
@@ -3182,13 +3151,13 @@
       "alignItems": "center",
       "children": [
         {
-          "type": "icon_font",
+          "type": "icon",
           "id": "GZmQT",
           "name": "Check",
           "width": 12,
           "height": 12,
-          "iconFontName": "check",
-          "iconFontFamily": "lucide",
+          "icon": "check",
+          "library": "lucide",
           "fill": "$--primary-foreground"
         }
       ]
@@ -3204,10 +3173,9 @@
       "height": 18,
       "fill": "$--card",
       "cornerRadius": 9999,
-      "stroke": {
-        "thickness": 1.5,
-        "fill": "$--border"
-      },
+      "stroke": "$--border",
+      "strokeWidth": 1.5,
+      "strokeAlignment": "inner",
       "justifyContent": "center",
       "alignItems": "center"
     },
@@ -3222,10 +3190,9 @@
       "height": 18,
       "fill": "$--card",
       "cornerRadius": 9999,
-      "stroke": {
-        "thickness": 1.5,
-        "fill": "$--primary"
-      },
+      "stroke": "$--primary",
+      "strokeWidth": 1.5,
+      "strokeAlignment": "inner",
       "justifyContent": "center",
       "alignItems": "center",
       "children": [
@@ -3477,13 +3444,13 @@
       "padding": 14,
       "children": [
         {
-          "type": "icon_font",
+          "type": "icon",
           "id": "LkdOw",
           "name": "Icon",
           "width": 18,
           "height": 18,
-          "iconFontName": "circle-check",
-          "iconFontFamily": "lucide",
+          "icon": "circle-check",
+          "library": "lucide",
           "fill": "$--color-success-foreground"
         },
         {
@@ -3535,13 +3502,13 @@
       "padding": 14,
       "children": [
         {
-          "type": "icon_font",
+          "type": "icon",
           "id": "wcWkf",
           "name": "Icon",
           "width": 18,
           "height": 18,
-          "iconFontName": "triangle-alert",
-          "iconFontFamily": "lucide",
+          "icon": "triangle-alert",
+          "library": "lucide",
           "fill": "$--color-warning-foreground"
         },
         {
@@ -3593,13 +3560,13 @@
       "padding": 14,
       "children": [
         {
-          "type": "icon_font",
+          "type": "icon",
           "id": "MMdRj",
           "name": "Icon",
           "width": 18,
           "height": 18,
-          "iconFontName": "circle-alert",
-          "iconFontFamily": "lucide",
+          "icon": "circle-alert",
+          "library": "lucide",
           "fill": "$--color-error-foreground"
         },
         {
@@ -3651,13 +3618,13 @@
       "padding": 14,
       "children": [
         {
-          "type": "icon_font",
+          "type": "icon",
           "id": "GklEC",
           "name": "Icon",
           "width": 18,
           "height": 18,
-          "iconFontName": "info",
-          "iconFontFamily": "lucide",
+          "icon": "info",
+          "library": "lucide",
           "fill": "$--color-info-foreground"
         },
         {
@@ -3802,10 +3769,9 @@
       "width": 400,
       "fill": "$--card",
       "cornerRadius": "$--radius-lg",
-      "stroke": {
-        "thickness": 1,
-        "fill": "$--border"
-      },
+      "stroke": "$--border",
+      "strokeWidth": 1,
+      "strokeAlignment": "inner",
       "layout": "vertical",
       "children": [
         {
@@ -3831,13 +3797,13 @@
               "fontWeight": "500"
             },
             {
-              "type": "icon_font",
+              "type": "icon",
               "id": "BfUOL",
               "name": "Chevron",
               "width": 16,
               "height": 16,
-              "iconFontName": "chevron-down",
-              "iconFontFamily": "lucide",
+              "icon": "chevron-down",
+              "library": "lucide",
               "fill": "$--muted-foreground"
             }
           ]
@@ -3854,10 +3820,9 @@
       "width": 400,
       "fill": "$--card",
       "cornerRadius": "$--radius-lg",
-      "stroke": {
-        "thickness": 1,
-        "fill": "$--border"
-      },
+      "stroke": "$--border",
+      "strokeWidth": 1,
+      "strokeAlignment": "inner",
       "layout": "vertical",
       "children": [
         {
@@ -3883,13 +3848,13 @@
               "fontWeight": "500"
             },
             {
-              "type": "icon_font",
+              "type": "icon",
               "id": "v1Y2ot",
               "name": "Chevron",
               "width": 16,
               "height": 16,
-              "iconFontName": "chevron-up",
-              "iconFontFamily": "lucide",
+              "icon": "chevron-up",
+              "library": "lucide",
               "fill": "$--muted-foreground"
             }
           ]
@@ -3989,13 +3954,13 @@
       "alignItems": "center",
       "children": [
         {
-          "type": "icon_font",
+          "type": "icon",
           "id": "N2XMA",
           "name": "Chevron",
           "width": 14,
           "height": 14,
-          "iconFontName": "chevron-right",
-          "iconFontFamily": "lucide",
+          "icon": "chevron-right",
+          "library": "lucide",
           "fill": "$--muted-foreground"
         }
       ]
@@ -4084,10 +4049,9 @@
       "reusable": true,
       "fill": "$--card",
       "cornerRadius": "$--radius-pill",
-      "stroke": {
-        "thickness": 1,
-        "fill": "$--border"
-      },
+      "stroke": "$--border",
+      "strokeWidth": 1,
+      "strokeAlignment": "inner",
       "gap": 8,
       "padding": [
         8,
@@ -4096,13 +4060,13 @@
       "alignItems": "center",
       "children": [
         {
-          "type": "icon_font",
+          "type": "icon",
           "id": "JeQ0K",
           "name": "Icon",
           "width": 14,
           "height": 14,
-          "iconFontName": "layers",
-          "iconFontFamily": "lucide",
+          "icon": "layers",
+          "library": "lucide",
           "fill": "$--muted-foreground"
         },
         {
@@ -4134,13 +4098,13 @@
       "alignItems": "center",
       "children": [
         {
-          "type": "icon_font",
+          "type": "icon",
           "id": "ruUrj",
           "name": "Icon",
           "width": 14,
           "height": 14,
-          "iconFontName": "layers",
-          "iconFontFamily": "lucide",
+          "icon": "layers",
+          "library": "lucide",
           "fill": "$--primary-foreground"
         },
         {
@@ -4206,13 +4170,13 @@
               "alignItems": "center",
               "children": [
                 {
-                  "type": "icon_font",
+                  "type": "icon",
                   "id": "rwS0n",
                   "name": "Heart",
                   "width": 14,
                   "height": 14,
-                  "iconFontName": "heart",
-                  "iconFontFamily": "lucide",
+                  "icon": "heart",
+                  "library": "lucide",
                   "fill": "$--muted-foreground"
                 }
               ]
@@ -4296,7 +4260,7 @@
               "descendants": {
                 "K0WhsO": {
                   "enabled": true,
-                  "iconFontName": "shopping-bag"
+                  "icon": "shopping-bag"
                 },
                 "VVDxZ": {
                   "content": "В корзину"
@@ -4400,13 +4364,13 @@
               "alignItems": "center",
               "children": [
                 {
-                  "type": "icon_font",
+                  "type": "icon",
                   "id": "dgKuD",
                   "name": "Icon",
                   "width": 18,
                   "height": 18,
-                  "iconFontName": "package",
-                  "iconFontFamily": "lucide",
+                  "icon": "package",
+                  "library": "lucide",
                   "fill": "$--muted-foreground"
                 }
               ]
@@ -4423,13 +4387,13 @@
               "alignItems": "center",
               "children": [
                 {
-                  "type": "icon_font",
+                  "type": "icon",
                   "id": "M5mhzR",
                   "name": "Icon",
                   "width": 18,
                   "height": 18,
-                  "iconFontName": "package",
-                  "iconFontFamily": "lucide",
+                  "icon": "package",
+                  "library": "lucide",
                   "fill": "$--muted-foreground"
                 }
               ]
@@ -4446,13 +4410,13 @@
               "alignItems": "center",
               "children": [
                 {
-                  "type": "icon_font",
+                  "type": "icon",
                   "id": "NpBPq",
                   "name": "Icon",
                   "width": 18,
                   "height": 18,
-                  "iconFontName": "package",
-                  "iconFontFamily": "lucide",
+                  "icon": "package",
+                  "library": "lucide",
                   "fill": "$--muted-foreground"
                 }
               ]
@@ -4536,8 +4500,8 @@
     {
       "type": "frame",
       "id": "yKhmp",
-      "x": 2540,
-      "y": 2300,
+      "x": 2530,
+      "y": 2375,
       "name": "Modal",
       "reusable": true,
       "width": 480,
@@ -4612,13 +4576,13 @@
               "alignItems": "center",
               "children": [
                 {
-                  "type": "icon_font",
+                  "type": "icon",
                   "id": "Ac2q5",
                   "name": "X",
                   "width": 18,
                   "height": 18,
-                  "iconFontName": "x",
-                  "iconFontFamily": "lucide",
+                  "icon": "x",
+                  "library": "lucide",
                   "fill": "$--muted-foreground"
                 }
               ]
@@ -4704,10 +4668,9 @@
       "width": 260,
       "fill": "$--popover",
       "cornerRadius": "$--radius-lg",
-      "stroke": {
-        "thickness": 1,
-        "fill": "$--border"
-      },
+      "stroke": "$--border",
+      "strokeWidth": 1,
+      "strokeAlignment": "inner",
       "effect": {
         "type": "shadow",
         "shadowType": "outer",
@@ -4736,13 +4699,13 @@
           "alignItems": "center",
           "children": [
             {
-              "type": "icon_font",
+              "type": "icon",
               "id": "s7HQ1v",
               "name": "Icon",
               "width": 14,
               "height": 14,
-              "iconFontName": "user",
-              "iconFontFamily": "lucide",
+              "icon": "user",
+              "library": "lucide",
               "fill": "$--muted-foreground"
             },
             {
@@ -4773,13 +4736,13 @@
           "alignItems": "center",
           "children": [
             {
-              "type": "icon_font",
+              "type": "icon",
               "id": "GOjUe",
               "name": "Icon",
               "width": 14,
               "height": 14,
-              "iconFontName": "package",
-              "iconFontFamily": "lucide",
+              "icon": "package",
+              "library": "lucide",
               "fill": "$--muted-foreground"
             },
             {
@@ -4810,13 +4773,13 @@
           "alignItems": "center",
           "children": [
             {
-              "type": "icon_font",
+              "type": "icon",
               "id": "VeCYI",
               "name": "Icon",
               "width": 14,
               "height": 14,
-              "iconFontName": "settings",
-              "iconFontFamily": "lucide",
+              "icon": "settings",
+              "library": "lucide",
               "fill": "$--muted-foreground"
             },
             {
@@ -4855,13 +4818,13 @@
           "alignItems": "center",
           "children": [
             {
-              "type": "icon_font",
+              "type": "icon",
               "id": "GmALX",
               "name": "Icon",
               "width": 14,
               "height": 14,
-              "iconFontName": "log-out",
-              "iconFontFamily": "lucide",
+              "icon": "log-out",
+              "library": "lucide",
               "fill": "$--destructive"
             },
             {
@@ -4889,10 +4852,9 @@
       "height": 44,
       "fill": "$--card",
       "cornerRadius": "$--radius-pill",
-      "stroke": {
-        "thickness": 1,
-        "fill": "$--border"
-      },
+      "stroke": "$--border",
+      "strokeWidth": 1,
+      "strokeAlignment": "inner",
       "gap": 10,
       "padding": [
         0,
@@ -4901,13 +4863,13 @@
       "alignItems": "center",
       "children": [
         {
-          "type": "icon_font",
+          "type": "icon",
           "id": "Pp9nE",
           "name": "Icon",
           "width": 16,
           "height": 16,
-          "iconFontName": "search",
-          "iconFontFamily": "lucide",
+          "icon": "search",
+          "library": "lucide",
           "fill": "$--muted-foreground"
         },
         {
@@ -4940,7 +4902,7 @@
           "name": "Все",
           "descendants": {
             "ruUrj": {
-              "iconFontName": "layers"
+              "icon": "layers"
             },
             "NYr46": {
               "content": "Все"
@@ -4954,7 +4916,7 @@
           "name": "Электроника",
           "descendants": {
             "JeQ0K": {
-              "iconFontName": "smartphone"
+              "icon": "smartphone"
             },
             "k3gLYU": {
               "content": "Электроника"
@@ -4968,7 +4930,7 @@
           "name": "Одежда",
           "descendants": {
             "JeQ0K": {
-              "iconFontName": "shirt"
+              "icon": "shirt"
             },
             "k3gLYU": {
               "content": "Одежда"
@@ -4982,7 +4944,7 @@
           "name": "Дом",
           "descendants": {
             "JeQ0K": {
-              "iconFontName": "sofa"
+              "icon": "sofa"
             },
             "k3gLYU": {
               "content": "Дом"
@@ -4996,7 +4958,7 @@
           "name": "Книги",
           "descendants": {
             "JeQ0K": {
-              "iconFontName": "book"
+              "icon": "book"
             },
             "k3gLYU": {
               "content": "Книги"
@@ -5010,7 +4972,7 @@
           "name": "Спорт",
           "descendants": {
             "JeQ0K": {
-              "iconFontName": "dumbbell"
+              "icon": "dumbbell"
             },
             "k3gLYU": {
               "content": "Спорт"
@@ -5024,7 +4986,7 @@
           "name": "Еда",
           "descendants": {
             "JeQ0K": {
-              "iconFontName": "apple"
+              "icon": "apple"
             },
             "k3gLYU": {
               "content": "Еда"
@@ -5043,12 +5005,12 @@
       "width": 1240,
       "height": 72,
       "fill": "$--card",
-      "stroke": {
-        "thickness": {
-          "bottom": 1
-        },
-        "fill": "$--border"
+      "stroke": "$--border",
+      "strokeWidth": {
+        "bottom": 1
       },
+      "strokeAlignment": "inner",
+      "strokeLinejoin": "round",
       "gap": 24,
       "padding": [
         0,
@@ -5075,13 +5037,13 @@
               "alignItems": "center",
               "children": [
                 {
-                  "type": "icon_font",
+                  "type": "icon",
                   "id": "aPOwS",
                   "name": "Icon",
                   "width": 16,
                   "height": 16,
-                  "iconFontName": "package",
-                  "iconFontFamily": "lucide",
+                  "icon": "package",
+                  "library": "lucide",
                   "fill": "$--primary-foreground"
                 }
               ]
@@ -5219,13 +5181,13 @@
               "alignItems": "center",
               "children": [
                 {
-                  "type": "icon_font",
+                  "type": "icon",
                   "id": "ziTup",
                   "name": "Icon",
                   "width": 18,
                   "height": 18,
-                  "iconFontName": "sun",
-                  "iconFontFamily": "lucide",
+                  "icon": "sun",
+                  "library": "lucide",
                   "fill": "$--foreground"
                 }
               ]
@@ -5241,13 +5203,13 @@
               "alignItems": "center",
               "children": [
                 {
-                  "type": "icon_font",
+                  "type": "icon",
                   "id": "n7DZn",
                   "name": "Icon",
                   "width": 18,
                   "height": 18,
-                  "iconFontName": "user",
-                  "iconFontFamily": "lucide",
+                  "icon": "user",
+                  "library": "lucide",
                   "fill": "$--foreground"
                 }
               ]
@@ -5263,13 +5225,13 @@
               "alignItems": "center",
               "children": [
                 {
-                  "type": "icon_font",
+                  "type": "icon",
                   "id": "ge6WO",
                   "name": "Icon",
                   "width": 18,
                   "height": 18,
-                  "iconFontName": "shopping-bag",
-                  "iconFontFamily": "lucide",
+                  "icon": "shopping-bag",
+                  "library": "lucide",
                   "fill": "$--foreground"
                 },
                 {
@@ -5297,12 +5259,12 @@
       "width": 390,
       "height": 60,
       "fill": "$--card",
-      "stroke": {
-        "thickness": {
-          "bottom": 1
-        },
-        "fill": "$--border"
+      "stroke": "$--border",
+      "strokeWidth": {
+        "bottom": 1
       },
+      "strokeAlignment": "inner",
+      "strokeLinejoin": "round",
       "padding": [
         0,
         16
@@ -5329,13 +5291,13 @@
               "alignItems": "center",
               "children": [
                 {
-                  "type": "icon_font",
+                  "type": "icon",
                   "id": "Pa5rp",
                   "name": "Icon",
                   "width": 14,
                   "height": 14,
-                  "iconFontName": "package",
-                  "iconFontFamily": "lucide",
+                  "icon": "package",
+                  "library": "lucide",
                   "fill": "$--primary-foreground"
                 }
               ]
@@ -5369,13 +5331,13 @@
               "alignItems": "center",
               "children": [
                 {
-                  "type": "icon_font",
+                  "type": "icon",
                   "id": "TEU0K",
                   "name": "Icon",
                   "width": 18,
                   "height": 18,
-                  "iconFontName": "search",
-                  "iconFontFamily": "lucide",
+                  "icon": "search",
+                  "library": "lucide",
                   "fill": "$--foreground"
                 }
               ]
@@ -5390,13 +5352,13 @@
               "alignItems": "center",
               "children": [
                 {
-                  "type": "icon_font",
+                  "type": "icon",
                   "id": "jQ5OS",
                   "name": "Icon",
                   "width": 18,
                   "height": 18,
-                  "iconFontName": "shopping-bag",
-                  "iconFontFamily": "lucide",
+                  "icon": "shopping-bag",
+                  "library": "lucide",
                   "fill": "$--foreground"
                 }
               ]
@@ -5411,13 +5373,13 @@
               "alignItems": "center",
               "children": [
                 {
-                  "type": "icon_font",
+                  "type": "icon",
                   "id": "bSWZL",
                   "name": "Icon",
                   "width": 18,
                   "height": 18,
-                  "iconFontName": "menu",
-                  "iconFontFamily": "lucide",
+                  "icon": "menu",
+                  "library": "lucide",
                   "fill": "$--foreground"
                 }
               ]
@@ -5436,10 +5398,9 @@
       "width": 340,
       "fill": "$--popover",
       "cornerRadius": "$--radius-lg",
-      "stroke": {
-        "thickness": 1,
-        "fill": "$--border"
-      },
+      "stroke": "$--border",
+      "strokeWidth": 1,
+      "strokeAlignment": "inner",
       "effect": {
         "type": "shadow",
         "shadowType": "outer",
@@ -5455,13 +5416,13 @@
       "alignItems": "center",
       "children": [
         {
-          "type": "icon_font",
+          "type": "icon",
           "id": "X5G1c",
           "name": "Icon",
           "width": 18,
           "height": 18,
-          "iconFontName": "circle-check",
-          "iconFontFamily": "lucide",
+          "icon": "circle-check",
+          "library": "lucide",
           "fill": "$--color-success-foreground"
         },
         {
@@ -5495,13 +5456,13 @@
           ]
         },
         {
-          "type": "icon_font",
+          "type": "icon",
           "id": "p81P6N",
           "name": "Close",
           "width": 14,
           "height": 14,
-          "iconFontName": "x",
-          "iconFontFamily": "lucide",
+          "icon": "x",
+          "library": "lucide",
           "fill": "$--muted-foreground"
         }
       ]
@@ -5516,10 +5477,9 @@
       "width": 480,
       "fill": "$--popover",
       "cornerRadius": "$--radius-lg",
-      "stroke": {
-        "thickness": 1,
-        "fill": "$--border"
-      },
+      "stroke": "$--border",
+      "strokeWidth": 1,
+      "strokeAlignment": "inner",
       "effect": {
         "type": "shadow",
         "shadowType": "outer",
@@ -5570,13 +5530,13 @@
           "alignItems": "center",
           "children": [
             {
-              "type": "icon_font",
+              "type": "icon",
               "id": "rbHQi",
               "name": "Icon",
               "width": 14,
               "height": 14,
-              "iconFontName": "trending-up",
-              "iconFontFamily": "lucide",
+              "icon": "trending-up",
+              "library": "lucide",
               "fill": "$--muted-foreground"
             },
             {
@@ -5607,13 +5567,13 @@
           "alignItems": "center",
           "children": [
             {
-              "type": "icon_font",
+              "type": "icon",
               "id": "mOeW5",
               "name": "Icon",
               "width": 14,
               "height": 14,
-              "iconFontName": "trending-up",
-              "iconFontFamily": "lucide",
+              "icon": "trending-up",
+              "library": "lucide",
               "fill": "$--muted-foreground"
             },
             {
@@ -5644,13 +5604,13 @@
           "alignItems": "center",
           "children": [
             {
-              "type": "icon_font",
+              "type": "icon",
               "id": "Z0s834",
               "name": "Icon",
               "width": 14,
               "height": 14,
-              "iconFontName": "trending-up",
-              "iconFontFamily": "lucide",
+              "icon": "trending-up",
+              "library": "lucide",
               "fill": "$--muted-foreground"
             },
             {
@@ -5681,13 +5641,13 @@
           "alignItems": "center",
           "children": [
             {
-              "type": "icon_font",
+              "type": "icon",
               "id": "GvYmb",
               "name": "Icon",
               "width": 14,
               "height": 14,
-              "iconFontName": "trending-up",
-              "iconFontFamily": "lucide",
+              "icon": "trending-up",
+              "library": "lucide",
               "fill": "$--muted-foreground"
             },
             {
@@ -5835,10 +5795,9 @@
                       "height": 80,
                       "fill": "$--background",
                       "cornerRadius": "$--radius-lg",
-                      "stroke": {
-                        "thickness": 1,
-                        "fill": "$--border"
-                      }
+                      "stroke": "$--border",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner"
                     },
                     {
                       "type": "frame",
@@ -5891,10 +5850,9 @@
                       "height": 80,
                       "fill": "$--card",
                       "cornerRadius": "$--radius-lg",
-                      "stroke": {
-                        "thickness": 1,
-                        "fill": "$--border"
-                      }
+                      "stroke": "$--border",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner"
                     },
                     {
                       "type": "frame",
@@ -5947,10 +5905,9 @@
                       "height": 80,
                       "fill": "$--foreground",
                       "cornerRadius": "$--radius-lg",
-                      "stroke": {
-                        "thickness": 1,
-                        "fill": "$--border"
-                      }
+                      "stroke": "$--border",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner"
                     },
                     {
                       "type": "frame",
@@ -6003,10 +5960,9 @@
                       "height": 80,
                       "fill": "$--muted",
                       "cornerRadius": "$--radius-lg",
-                      "stroke": {
-                        "thickness": 1,
-                        "fill": "$--border"
-                      }
+                      "stroke": "$--border",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner"
                     },
                     {
                       "type": "frame",
@@ -6059,10 +6015,9 @@
                       "height": 80,
                       "fill": "$--primary",
                       "cornerRadius": "$--radius-lg",
-                      "stroke": {
-                        "thickness": 1,
-                        "fill": "$--border"
-                      }
+                      "stroke": "$--border",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner"
                     },
                     {
                       "type": "frame",
@@ -6115,10 +6070,9 @@
                       "height": 80,
                       "fill": "$--border",
                       "cornerRadius": "$--radius-lg",
-                      "stroke": {
-                        "thickness": 1,
-                        "fill": "$--border"
-                      }
+                      "stroke": "$--border",
+                      "strokeWidth": 1,
+                      "strokeAlignment": "inner"
                     },
                     {
                       "type": "frame",
@@ -6357,12 +6311,12 @@
                   "id": "orJ3k",
                   "name": "H1 Display",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "$--border"
+                  "stroke": "$--border",
+                  "strokeWidth": {
+                    "bottom": 1
                   },
+                  "strokeAlignment": "inner",
+                  "strokeLinejoin": "round",
                   "gap": 24,
                   "padding": [
                     12,
@@ -6419,12 +6373,12 @@
                   "id": "ArRRD",
                   "name": "H2",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "$--border"
+                  "stroke": "$--border",
+                  "strokeWidth": {
+                    "bottom": 1
                   },
+                  "strokeAlignment": "inner",
+                  "strokeLinejoin": "round",
                   "gap": 24,
                   "padding": [
                     12,
@@ -6481,12 +6435,12 @@
                   "id": "KNkSZ",
                   "name": "H3",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "$--border"
+                  "stroke": "$--border",
+                  "strokeWidth": {
+                    "bottom": 1
                   },
+                  "strokeAlignment": "inner",
+                  "strokeLinejoin": "round",
                   "gap": 24,
                   "padding": [
                     12,
@@ -6543,12 +6497,12 @@
                   "id": "M4zt1V",
                   "name": "Body Large",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "$--border"
+                  "stroke": "$--border",
+                  "strokeWidth": {
+                    "bottom": 1
                   },
+                  "strokeAlignment": "inner",
+                  "strokeLinejoin": "round",
                   "gap": 24,
                   "padding": [
                     12,
@@ -6605,12 +6559,12 @@
                   "id": "K5lV6",
                   "name": "Body",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "$--border"
+                  "stroke": "$--border",
+                  "strokeWidth": {
+                    "bottom": 1
                   },
+                  "strokeAlignment": "inner",
+                  "strokeLinejoin": "round",
                   "gap": 24,
                   "padding": [
                     12,
@@ -6667,12 +6621,12 @@
                   "id": "W62WA",
                   "name": "Caption",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "$--border"
+                  "stroke": "$--border",
+                  "strokeWidth": {
+                    "bottom": 1
                   },
+                  "strokeAlignment": "inner",
+                  "strokeLinejoin": "round",
                   "gap": 24,
                   "padding": [
                     12,
@@ -6729,12 +6683,12 @@
                   "id": "oQwNc",
                   "name": "Mono / Data",
                   "width": "fill_container",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "$--border"
+                  "stroke": "$--border",
+                  "strokeWidth": {
+                    "bottom": 1
                   },
+                  "strokeAlignment": "inner",
+                  "strokeLinejoin": "round",
                   "gap": 24,
                   "padding": [
                     12,
@@ -7169,7 +7123,7 @@
                       "descendants": {
                         "K0WhsO": {
                           "enabled": true,
-                          "iconFontName": "shopping-bag"
+                          "icon": "shopping-bag"
                         },
                         "VVDxZ": {
                           "content": "В корзину"
@@ -8204,7 +8158,7 @@
                   "fill": "$--muted-foreground",
                   "textGrowth": "fixed-width",
                   "width": "fill_container",
-                  "content": "Modal / Dialog, Dropdown, SearchDropdown",
+                  "content": "Modal / Dialog, Dropdown, SearchDropdown, Модальное окно входа",
                   "fontFamily": "$--font-body",
                   "fontSize": 14,
                   "fontWeight": "normal"
@@ -8238,6 +8192,209 @@
                   "type": "ref",
                   "ref": "bNUgA",
                   "name": "SearchDropdown"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "S6RWM",
+              "name": "Tile / AuthModal",
+              "width": "fill_container",
+              "fill": "$--muted",
+              "cornerRadius": "$--radius-xl",
+              "layout": "vertical",
+              "gap": 16,
+              "padding": 32,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "o7iYC",
+                  "name": "TileCaption",
+                  "fill": "$--muted-foreground",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "AuthModal / Вход — используется на экране Desktop/Авторизация",
+                  "textAlign": "center",
+                  "fontFamily": "$--font-body",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "t2woFh",
+                  "name": "AuthModal / Вход",
+                  "width": 420,
+                  "fill": "$--card",
+                  "cornerRadius": "$--radius-xl",
+                  "layout": "vertical",
+                  "gap": 20,
+                  "padding": 40,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "GVMSP",
+                      "name": "MHead",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 6,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "r6Or0",
+                          "name": "MTitle",
+                          "fill": "$--foreground",
+                          "content": "Войти в аккаунт",
+                          "fontFamily": "Geist",
+                          "fontSize": 24,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "B86I5k",
+                          "name": "MSub",
+                          "fill": "$--muted-foreground",
+                          "content": "Введите email и пароль для входа",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "JxZjC",
+                      "name": "Tabs",
+                      "width": "fill_container",
+                      "fill": "$--muted",
+                      "cornerRadius": "$--radius-md",
+                      "padding": 4,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "P06aPA",
+                          "name": "TLogin",
+                          "width": "fill_container",
+                          "height": 36,
+                          "fill": "$--card",
+                          "cornerRadius": "$--radius-sm",
+                          "layout": "vertical",
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "phFMs",
+                              "name": "TLoginLbl",
+                              "fill": "$--foreground",
+                              "content": "Войти",
+                              "fontFamily": "Inter",
+                              "fontSize": 14,
+                              "fontWeight": "500"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "VsMWA",
+                          "name": "TReg",
+                          "width": "fill_container",
+                          "height": 36,
+                          "layout": "vertical",
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "pINyc",
+                              "name": "TRegLbl",
+                              "fill": "$--muted-foreground",
+                              "content": "Регистрация",
+                              "fontFamily": "Inter",
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "id": "lfFkS",
+                      "type": "ref",
+                      "ref": "CGTHe",
+                      "name": "Email",
+                      "width": "fill_container"
+                    },
+                    {
+                      "id": "MLah9",
+                      "type": "ref",
+                      "ref": "CGTHe",
+                      "name": "Password",
+                      "width": "fill_container"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "FyKaI",
+                      "name": "Forgot",
+                      "width": "fill_container",
+                      "justifyContent": "end",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "wpG1Y",
+                          "name": "ForgotLnk",
+                          "fill": "$--primary",
+                          "content": "Забыли пароль?",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "IYRV2",
+                      "type": "ref",
+                      "ref": "XGeT4",
+                      "name": "LoginBtn",
+                      "width": "fill_container",
+                      "descendants": {
+                        "W4CaBw": {
+                          "content": "Войти"
+                        }
+                      }
+                    },
+                    {
+                      "type": "frame",
+                      "id": "x1v9U",
+                      "name": "PolicyRow",
+                      "width": "fill_container",
+                      "gap": 4,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "joYbe",
+                          "name": "PT",
+                          "fill": "$--muted-foreground",
+                          "content": "Продолжая, вы принимаете",
+                          "fontFamily": "Inter",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "qUlaD",
+                          "name": "PL",
+                          "fill": "$--primary",
+                          "content": "условия обработки данных",
+                          "fontFamily": "Inter",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             }
@@ -8579,10 +8736,9 @@
               "width": "fill_container",
               "fill": "$--card",
               "cornerRadius": "$--radius-xl",
-              "stroke": {
-                "thickness": 1,
-                "fill": "$--border"
-              },
+              "stroke": "$--border",
+              "strokeWidth": 1,
+              "strokeAlignment": "inner",
               "gap": 48,
               "padding": 32,
               "justifyContent": "space_between",
@@ -8853,10 +9009,9 @@
               "width": "fill_container",
               "fill": "$--card",
               "cornerRadius": "$--radius-xl",
-              "stroke": {
-                "thickness": 1,
-                "fill": "$--border"
-              },
+              "stroke": "$--border",
+              "strokeWidth": 1,
+              "strokeAlignment": "inner",
               "layout": "vertical",
               "gap": 28,
               "padding": 32,
@@ -8868,10 +9023,9 @@
                   "clip": true,
                   "width": "fill_container",
                   "cornerRadius": "$--radius-lg",
-                  "stroke": {
-                    "thickness": 1,
-                    "fill": "$--border"
-                  },
+                  "stroke": "$--border",
+                  "strokeWidth": 1,
+                  "strokeAlignment": "inner",
                   "layout": "vertical",
                   "children": [
                     {
@@ -8994,10 +9148,9 @@
               "width": "fill_container",
               "fill": "$--card",
               "cornerRadius": "$--radius-xl",
-              "stroke": {
-                "thickness": 1,
-                "fill": "$--border"
-              },
+              "stroke": "$--border",
+              "strokeWidth": 1,
+              "strokeAlignment": "inner",
               "gap": 32,
               "padding": 32,
               "justifyContent": "center",
@@ -9011,10 +9164,9 @@
                   "height": 640,
                   "fill": "$--background",
                   "cornerRadius": 28,
-                  "stroke": {
-                    "thickness": 1,
-                    "fill": "$--border"
-                  },
+                  "stroke": "$--border",
+                  "strokeWidth": 1,
+                  "strokeAlignment": "inner",
                   "layout": "vertical",
                   "children": [
                     {
@@ -9117,10 +9269,9 @@
                   "height": 640,
                   "fill": "$--background",
                   "cornerRadius": 28,
-                  "stroke": {
-                    "thickness": 1,
-                    "fill": "$--border"
-                  },
+                  "stroke": "$--border",
+                  "strokeWidth": 1,
+                  "strokeAlignment": "inner",
                   "layout": "vertical",
                   "children": [
                     {
@@ -9263,10 +9414,9 @@
               "width": "fill_container",
               "fill": "$--card",
               "cornerRadius": "$--radius-xl",
-              "stroke": {
-                "thickness": 1,
-                "fill": "$--border"
-              },
+              "stroke": "$--border",
+              "strokeWidth": 1,
+              "strokeAlignment": "inner",
               "gap": 20,
               "padding": 32,
               "children": [
@@ -9415,10 +9565,9 @@
               "width": "fill_container",
               "fill": "$--card",
               "cornerRadius": "$--radius-xl",
-              "stroke": {
-                "thickness": 1,
-                "fill": "$--border"
-              },
+              "stroke": "$--border",
+              "strokeWidth": 1,
+              "strokeAlignment": "inner",
               "gap": 24,
               "padding": 32,
               "justifyContent": "center",
@@ -9561,10 +9710,9 @@
               "width": "fill_container",
               "fill": "$--card",
               "cornerRadius": "$--radius-xl",
-              "stroke": {
-                "thickness": 1,
-                "fill": "$--border"
-              },
+              "stroke": "$--border",
+              "strokeWidth": 1,
+              "strokeAlignment": "inner",
               "layout": "vertical",
               "gap": 24,
               "padding": 32,
@@ -9656,7 +9804,7 @@
                       "name": "Chip Электроника",
                       "descendants": {
                         "JeQ0K": {
-                          "iconFontName": "smartphone"
+                          "icon": "smartphone"
                         },
                         "k3gLYU": {
                           "content": "Электроника"
@@ -9670,7 +9818,7 @@
                       "name": "Chip Одежда",
                       "descendants": {
                         "JeQ0K": {
-                          "iconFontName": "shirt"
+                          "icon": "shirt"
                         },
                         "k3gLYU": {
                           "content": "Одежда"
@@ -9684,7 +9832,7 @@
                       "name": "Chip Дом",
                       "descendants": {
                         "JeQ0K": {
-                          "iconFontName": "house"
+                          "icon": "house"
                         },
                         "k3gLYU": {
                           "content": "Дом"
@@ -9698,7 +9846,7 @@
                       "name": "Chip Книги",
                       "descendants": {
                         "JeQ0K": {
-                          "iconFontName": "book-open"
+                          "icon": "book-open"
                         },
                         "k3gLYU": {
                           "content": "Книги"
@@ -9982,7 +10130,7 @@
                       "descendants": {
                         "z9sCq": {
                           "enabled": true,
-                          "iconFontName": "arrow-up-down"
+                          "icon": "arrow-up-down"
                         },
                         "WdN3x": {
                           "content": "Сортировка"
@@ -10007,7 +10155,7 @@
                           "descendants": {
                             "z9sCq": {
                               "enabled": true,
-                              "iconFontName": "sliders-horizontal"
+                              "icon": "sliders-horizontal"
                             },
                             "WdN3x": {
                               "content": "Фильтры"
@@ -10232,7 +10380,7 @@
               "width": "fill_container",
               "descendants": {
                 "bSWZL": {
-                  "iconFontName": "arrow-left"
+                  "icon": "arrow-left"
                 }
               }
             },
@@ -10255,15 +10403,15 @@
                   "layout": "none",
                   "children": [
                     {
-                      "type": "icon_font",
+                      "type": "icon",
                       "id": "Gxxlk",
                       "x": 163,
                       "y": 138,
                       "name": "PackageIcon",
                       "width": 64,
                       "height": 64,
-                      "iconFontName": "package",
-                      "iconFontFamily": "lucide",
+                      "icon": "package",
+                      "library": "lucide",
                       "fill": "$--muted-foreground"
                     },
                     {
@@ -10303,13 +10451,13 @@
                       "alignItems": "center",
                       "children": [
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "EPnI3",
                           "name": "Heart",
                           "width": 18,
                           "height": 18,
-                          "iconFontName": "heart",
-                          "iconFontFamily": "lucide",
+                          "icon": "heart",
+                          "library": "lucide",
                           "fill": "$--foreground"
                         }
                       ]
@@ -10353,53 +10501,53 @@
                           "alignItems": "center",
                           "children": [
                             {
-                              "type": "icon_font",
+                              "type": "icon",
                               "id": "GaQjH",
                               "name": "Star 1",
                               "width": 14,
                               "height": 14,
-                              "iconFontName": "star",
-                              "iconFontFamily": "lucide",
+                              "icon": "star",
+                              "library": "lucide",
                               "fill": "$--color-warning-foreground"
                             },
                             {
-                              "type": "icon_font",
+                              "type": "icon",
                               "id": "z4OX8W",
                               "name": "Star 2",
                               "width": 14,
                               "height": 14,
-                              "iconFontName": "star",
-                              "iconFontFamily": "lucide",
+                              "icon": "star",
+                              "library": "lucide",
                               "fill": "$--color-warning-foreground"
                             },
                             {
-                              "type": "icon_font",
+                              "type": "icon",
                               "id": "Ke296",
                               "name": "Star 3",
                               "width": 14,
                               "height": 14,
-                              "iconFontName": "star",
-                              "iconFontFamily": "lucide",
+                              "icon": "star",
+                              "library": "lucide",
                               "fill": "$--color-warning-foreground"
                             },
                             {
-                              "type": "icon_font",
+                              "type": "icon",
                               "id": "mj3nt",
                               "name": "Star 4",
                               "width": 14,
                               "height": 14,
-                              "iconFontName": "star",
-                              "iconFontFamily": "lucide",
+                              "icon": "star",
+                              "library": "lucide",
                               "fill": "$--color-warning-foreground"
                             },
                             {
-                              "type": "icon_font",
+                              "type": "icon",
                               "id": "FAAm7",
                               "name": "Star 5",
                               "width": 14,
                               "height": 14,
-                              "iconFontName": "star",
-                              "iconFontFamily": "lucide",
+                              "icon": "star",
+                              "library": "lucide",
                               "fill": "$--color-warning-foreground"
                             }
                           ]
@@ -10468,12 +10616,12 @@
               "name": "Bottom Toolbar",
               "width": "fill_container",
               "fill": "$--card",
-              "stroke": {
-                "thickness": {
-                  "top": 1
-                },
-                "fill": "$--border"
+              "stroke": "$--border",
+              "strokeWidth": {
+                "top": 1
               },
+              "strokeAlignment": "inner",
+              "strokeLinejoin": "round",
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -10503,7 +10651,7 @@
                   "descendants": {
                     "K0WhsO": {
                       "enabled": true,
-                      "iconFontName": "shopping-bag"
+                      "icon": "shopping-bag"
                     },
                     "VVDxZ": {
                       "content": "В корзину"
@@ -10595,13 +10743,13 @@
                       "alignItems": "center",
                       "children": [
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "RhrSl",
                           "name": "Icon",
                           "width": 24,
                           "height": 24,
-                          "iconFontName": "package",
-                          "iconFontFamily": "lucide",
+                          "icon": "package",
+                          "library": "lucide",
                           "fill": "$--muted-foreground"
                         }
                       ]
@@ -10679,13 +10827,13 @@
                       "alignItems": "center",
                       "children": [
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "LMSzY",
                           "name": "Icon",
                           "width": 24,
                           "height": 24,
-                          "iconFontName": "package",
-                          "iconFontFamily": "lucide",
+                          "icon": "package",
+                          "library": "lucide",
                           "fill": "$--muted-foreground"
                         }
                       ]
@@ -10763,13 +10911,13 @@
                       "alignItems": "center",
                       "children": [
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "cAnQF",
                           "name": "Icon",
                           "width": 24,
                           "height": 24,
-                          "iconFontName": "package",
-                          "iconFontFamily": "lucide",
+                          "icon": "package",
+                          "library": "lucide",
                           "fill": "$--muted-foreground"
                         }
                       ]
@@ -10822,10 +10970,9 @@
                   "height": 44,
                   "fill": "$--card",
                   "cornerRadius": "$--radius-pill",
-                  "stroke": {
-                    "thickness": 1,
-                    "fill": "$--border"
-                  },
+                  "stroke": "$--border",
+                  "strokeWidth": 1,
+                  "strokeAlignment": "inner",
                   "gap": 10,
                   "padding": [
                     0,
@@ -10834,13 +10981,13 @@
                   "alignItems": "center",
                   "children": [
                     {
-                      "type": "icon_font",
+                      "type": "icon",
                       "id": "R688G",
                       "name": "Ticket",
                       "width": 16,
                       "height": 16,
-                      "iconFontName": "ticket-percent",
-                      "iconFontFamily": "lucide",
+                      "icon": "ticket-percent",
+                      "library": "lucide",
                       "fill": "$--muted-foreground"
                     },
                     {
@@ -10994,12 +11141,12 @@
               "name": "Bottom Bar",
               "width": "fill_container",
               "fill": "$--card",
-              "stroke": {
-                "thickness": {
-                  "top": 1
-                },
-                "fill": "$--border"
+              "stroke": "$--border",
+              "strokeWidth": {
+                "top": 1
               },
+              "strokeAlignment": "inner",
+              "strokeLinejoin": "round",
               "effect": {
                 "type": "shadow",
                 "shadowType": "outer",
@@ -11021,7 +11168,7 @@
                   "descendants": {
                     "FAwII": {
                       "enabled": true,
-                      "iconFontName": "shopping-bag"
+                      "icon": "shopping-bag"
                     },
                     "W4CaBw": {
                       "content": "Оформить заказ"
@@ -11076,13 +11223,13 @@
               "alignItems": "center",
               "children": [
                 {
-                  "type": "icon_font",
+                  "type": "icon",
                   "id": "T56Xp",
                   "name": "Logo",
                   "width": 48,
                   "height": 48,
-                  "iconFontName": "package",
-                  "iconFontFamily": "lucide",
+                  "icon": "package",
+                  "library": "lucide",
                   "fill": "#3A8DD0"
                 },
                 {
@@ -11151,7 +11298,7 @@
                   "descendants": {
                     "oCAKY": {
                       "enabled": true,
-                      "iconFontName": "mail"
+                      "icon": "mail"
                     },
                     "kWciP": {
                       "content": "Email или телефон"
@@ -11167,7 +11314,7 @@
                   "descendants": {
                     "oCAKY": {
                       "enabled": true,
-                      "iconFontName": "lock"
+                      "icon": "lock"
                     },
                     "kWciP": {
                       "content": "Пароль"
@@ -11321,7 +11468,7 @@
                   "content": "Оформление заказа"
                 },
                 "bSWZL": {
-                  "iconFontName": "arrow-left"
+                  "icon": "arrow-left"
                 }
               }
             },
@@ -11347,10 +11494,9 @@
                   "width": "fill_container",
                   "fill": "$--card",
                   "cornerRadius": 12,
-                  "stroke": {
-                    "thickness": 1,
-                    "fill": "$--border"
-                  },
+                  "stroke": "$--border",
+                  "strokeWidth": 1,
+                  "strokeAlignment": "inner",
                   "layout": "vertical",
                   "gap": 8,
                   "padding": 16,
@@ -11364,13 +11510,13 @@
                       "alignItems": "center",
                       "children": [
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "Bxc78",
                           "name": "Icon",
                           "width": 16,
                           "height": 16,
-                          "iconFontName": "map-pin",
-                          "iconFontFamily": "lucide",
+                          "icon": "map-pin",
+                          "library": "lucide",
                           "fill": "$--primary"
                         },
                         {
@@ -11386,13 +11532,13 @@
                           "fontWeight": "600"
                         },
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "U5rXo4",
                           "name": "Edit",
                           "width": 14,
                           "height": 14,
-                          "iconFontName": "pencil",
-                          "iconFontFamily": "lucide",
+                          "icon": "pencil",
+                          "library": "lucide",
                           "fill": "$--muted-foreground"
                         }
                       ]
@@ -11426,10 +11572,9 @@
                   "width": "fill_container",
                   "fill": "$--card",
                   "cornerRadius": 12,
-                  "stroke": {
-                    "thickness": 1,
-                    "fill": "$--border"
-                  },
+                  "stroke": "$--border",
+                  "strokeWidth": 1,
+                  "strokeAlignment": "inner",
                   "layout": "vertical",
                   "children": [
                     {
@@ -11618,7 +11763,7 @@
                       "descendants": {
                         "oCAKY": {
                           "enabled": true,
-                          "iconFontName": "tag"
+                          "icon": "tag"
                         },
                         "kWciP": {
                           "content": "Промокод"
@@ -11645,22 +11790,21 @@
                   "width": "fill_container",
                   "fill": "$--card",
                   "cornerRadius": 12,
-                  "stroke": {
-                    "thickness": 1,
-                    "fill": "$--border"
-                  },
+                  "stroke": "$--border",
+                  "strokeWidth": 1,
+                  "strokeAlignment": "inner",
                   "gap": 12,
                   "padding": 16,
                   "alignItems": "center",
                   "children": [
                     {
-                      "type": "icon_font",
+                      "type": "icon",
                       "id": "xEYJ8",
                       "name": "Icon",
                       "width": 20,
                       "height": 20,
-                      "iconFontName": "credit-card",
-                      "iconFontFamily": "lucide",
+                      "icon": "credit-card",
+                      "library": "lucide",
                       "fill": "$--primary"
                     },
                     {
@@ -11686,13 +11830,13 @@
                       "fontWeight": "normal"
                     },
                     {
-                      "type": "icon_font",
+                      "type": "icon",
                       "id": "snWg7",
                       "name": "Chev",
                       "width": 16,
                       "height": 16,
-                      "iconFontName": "chevron-right",
-                      "iconFontFamily": "lucide",
+                      "icon": "chevron-right",
+                      "library": "lucide",
                       "fill": "$--muted-foreground"
                     }
                   ]
@@ -11704,10 +11848,9 @@
                   "width": "fill_container",
                   "fill": "$--card",
                   "cornerRadius": 12,
-                  "stroke": {
-                    "thickness": 1,
-                    "fill": "$--border"
-                  },
+                  "stroke": "$--border",
+                  "strokeWidth": 1,
+                  "strokeAlignment": "inner",
                   "layout": "vertical",
                   "gap": 8,
                   "padding": 16,
@@ -11851,12 +11994,12 @@
               "name": "BottomBar",
               "width": "fill_container",
               "fill": "$--card",
-              "stroke": {
-                "thickness": {
-                  "top": 1
-                },
-                "fill": "$--border"
+              "stroke": "$--border",
+              "strokeWidth": {
+                "top": 1
               },
+              "strokeAlignment": "inner",
+              "strokeLinejoin": "round",
               "layout": "vertical",
               "padding": [
                 12,
@@ -12041,13 +12184,13 @@
                       ]
                     },
                     {
-                      "type": "icon_font",
+                      "type": "icon",
                       "id": "V3ofQG",
                       "name": "EditIcon",
                       "width": 18,
                       "height": 18,
-                      "iconFontName": "pencil",
-                      "iconFontFamily": "lucide",
+                      "icon": "pencil",
+                      "library": "lucide",
                       "fill": "$--muted-foreground"
                     }
                   ]
@@ -12075,13 +12218,13 @@
                       "alignItems": "center",
                       "children": [
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "sVs76",
                           "name": "Icon",
                           "width": 20,
                           "height": 20,
-                          "iconFontName": "package",
-                          "iconFontFamily": "lucide",
+                          "icon": "package",
+                          "library": "lucide",
                           "fill": "$--primary"
                         },
                         {
@@ -12097,13 +12240,13 @@
                           "fontWeight": "normal"
                         },
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "f2BWk9",
                           "name": "Arr",
                           "width": 16,
                           "height": 16,
-                          "iconFontName": "chevron-right",
-                          "iconFontFamily": "lucide",
+                          "icon": "chevron-right",
+                          "library": "lucide",
                           "fill": "$--muted-foreground"
                         }
                       ]
@@ -12129,13 +12272,13 @@
                       "alignItems": "center",
                       "children": [
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "cyo2q",
                           "name": "Icon",
                           "width": 20,
                           "height": 20,
-                          "iconFontName": "map-pin",
-                          "iconFontFamily": "lucide",
+                          "icon": "map-pin",
+                          "library": "lucide",
                           "fill": "$--primary"
                         },
                         {
@@ -12151,13 +12294,13 @@
                           "fontWeight": "normal"
                         },
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "S9zXB",
                           "name": "Arr",
                           "width": 16,
                           "height": 16,
-                          "iconFontName": "chevron-right",
-                          "iconFontFamily": "lucide",
+                          "icon": "chevron-right",
+                          "library": "lucide",
                           "fill": "$--muted-foreground"
                         }
                       ]
@@ -12183,13 +12326,13 @@
                       "alignItems": "center",
                       "children": [
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "E78BP",
                           "name": "Icon",
                           "width": 20,
                           "height": 20,
-                          "iconFontName": "credit-card",
-                          "iconFontFamily": "lucide",
+                          "icon": "credit-card",
+                          "library": "lucide",
                           "fill": "$--primary"
                         },
                         {
@@ -12205,13 +12348,13 @@
                           "fontWeight": "normal"
                         },
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "HYq5q",
                           "name": "Arr",
                           "width": 16,
                           "height": 16,
-                          "iconFontName": "chevron-right",
-                          "iconFontFamily": "lucide",
+                          "icon": "chevron-right",
+                          "library": "lucide",
                           "fill": "$--muted-foreground"
                         }
                       ]
@@ -12237,13 +12380,13 @@
                       "alignItems": "center",
                       "children": [
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "e8Vbuk",
                           "name": "Icon",
                           "width": 20,
                           "height": 20,
-                          "iconFontName": "bell",
-                          "iconFontFamily": "lucide",
+                          "icon": "bell",
+                          "library": "lucide",
                           "fill": "$--primary"
                         },
                         {
@@ -12259,13 +12402,13 @@
                           "fontWeight": "normal"
                         },
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "z0IKAj",
                           "name": "Arr",
                           "width": 16,
                           "height": 16,
-                          "iconFontName": "chevron-right",
-                          "iconFontFamily": "lucide",
+                          "icon": "chevron-right",
+                          "library": "lucide",
                           "fill": "$--muted-foreground"
                         }
                       ]
@@ -12291,13 +12434,13 @@
                       "alignItems": "center",
                       "children": [
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "GfEbp",
                           "name": "Icon",
                           "width": 20,
                           "height": 20,
-                          "iconFontName": "headphones",
-                          "iconFontFamily": "lucide",
+                          "icon": "headphones",
+                          "library": "lucide",
                           "fill": "$--primary"
                         },
                         {
@@ -12313,13 +12456,13 @@
                           "fontWeight": "normal"
                         },
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "Q6AG2C",
                           "name": "Arr",
                           "width": 16,
                           "height": 16,
-                          "iconFontName": "chevron-right",
-                          "iconFontFamily": "lucide",
+                          "icon": "chevron-right",
+                          "library": "lucide",
                           "fill": "$--muted-foreground"
                         }
                       ]
@@ -12338,13 +12481,13 @@
                   "alignItems": "center",
                   "children": [
                     {
-                      "type": "icon_font",
+                      "type": "icon",
                       "id": "C176J",
                       "name": "Icon",
                       "width": 20,
                       "height": 20,
-                      "iconFontName": "log-out",
-                      "iconFontFamily": "lucide",
+                      "icon": "log-out",
+                      "library": "lucide",
                       "fill": "$--destructive"
                     },
                     {
@@ -12430,13 +12573,13 @@
                   "alignItems": "center",
                   "children": [
                     {
-                      "type": "icon_font",
+                      "type": "icon",
                       "id": "Ivg0b",
                       "name": "Check",
                       "width": 40,
                       "height": 40,
-                      "iconFontName": "check",
-                      "iconFontFamily": "lucide",
+                      "icon": "check",
+                      "library": "lucide",
                       "fill": "#10B981"
                     }
                   ]
@@ -12555,7 +12698,7 @@
                   "content": "Заказ #20847"
                 },
                 "bSWZL": {
-                  "iconFontName": "arrow-left"
+                  "icon": "arrow-left"
                 }
               }
             },
@@ -12651,20 +12794,22 @@
                           "descendants": {
                             "vwPeI": {
                               "fill": "$--card",
-                              "stroke": {
-                                "thickness": 3,
-                                "fill": "$--primary"
-                              }
+                              "stroke": "$--primary",
+                              "strokeWidth": 3,
+                              "strokeLinejoin": "miter",
+                              "strokeLinecap": "butt",
+                              "strokeAlignment": "inner"
                             },
                             "Qf1ia": {
                               "fontWeight": "600"
                             },
                             "xF1wQ": {
                               "fill": "$--muted",
-                              "stroke": {
-                                "thickness": 1,
-                                "fill": "$--border"
-                              }
+                              "stroke": "$--border",
+                              "strokeWidth": 1,
+                              "strokeLinejoin": "miter",
+                              "strokeLinecap": "butt",
+                              "strokeAlignment": "inner"
                             },
                             "Z51uo": {
                               "fill": "$--muted-foreground"
@@ -12674,10 +12819,11 @@
                             },
                             "UWHNM": {
                               "fill": "$--muted",
-                              "stroke": {
-                                "thickness": 1,
-                                "fill": "$--border"
-                              }
+                              "stroke": "$--border",
+                              "strokeWidth": 1,
+                              "strokeLinejoin": "miter",
+                              "strokeLinecap": "butt",
+                              "strokeAlignment": "inner"
                             },
                             "wTqoE": {
                               "fill": "$--muted-foreground"
@@ -12890,13 +13036,13 @@
                       "alignItems": "center",
                       "children": [
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "sRgKC",
                           "name": "MapPin Icon",
                           "width": 16,
                           "height": 16,
-                          "iconFontName": "map-pin",
-                          "iconFontFamily": "lucide",
+                          "icon": "map-pin",
+                          "library": "lucide",
                           "fill": "$--primary"
                         },
                         {
@@ -12986,7 +13132,7 @@
                   "content": "Заказ #20847"
                 },
                 "bSWZL": {
-                  "iconFontName": "arrow-left"
+                  "icon": "arrow-left"
                 }
               }
             },
@@ -13294,13 +13440,13 @@
                   "alignItems": "center",
                   "children": [
                     {
-                      "type": "icon_font",
+                      "type": "icon",
                       "id": "HDbib",
                       "name": "Pin",
                       "width": 16,
                       "height": 16,
-                      "iconFontName": "map-pin",
-                      "iconFontFamily": "lucide",
+                      "icon": "map-pin",
+                      "library": "lucide",
                       "fill": "$--primary"
                     },
                     {
@@ -13362,7 +13508,7 @@
                   "content": "Заказ #20847"
                 },
                 "bSWZL": {
-                  "iconFontName": "arrow-left"
+                  "icon": "arrow-left"
                 }
               }
             },
@@ -13397,10 +13543,9 @@
                   "width": "fill_container",
                   "fill": "$--card",
                   "cornerRadius": 12,
-                  "stroke": {
-                    "thickness": 1,
-                    "fill": "$--border"
-                  },
+                  "stroke": "$--border",
+                  "strokeWidth": 1,
+                  "strokeAlignment": "inner",
                   "layout": "vertical",
                   "gap": 10,
                   "padding": 16,
@@ -13414,13 +13559,13 @@
                       "alignItems": "center",
                       "children": [
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "q1Zt5",
                           "name": "Icon",
                           "width": 18,
                           "height": 18,
-                          "iconFontName": "truck",
-                          "iconFontFamily": "lucide",
+                          "icon": "truck",
+                          "library": "lucide",
                           "fill": "$--primary"
                         },
                         {
@@ -13585,10 +13730,9 @@
                               "fill": "$--muted",
                               "width": 10,
                               "height": 10,
-                              "stroke": {
-                                "thickness": 1,
-                                "fill": "$--border"
-                              }
+                              "stroke": "$--border",
+                              "strokeWidth": 1,
+                              "strokeAlignment": "inner"
                             },
                             {
                               "type": "text",
@@ -13614,10 +13758,9 @@
                   "width": "fill_container",
                   "fill": "$--card",
                   "cornerRadius": 12,
-                  "stroke": {
-                    "thickness": 1,
-                    "fill": "$--border"
-                  },
+                  "stroke": "$--border",
+                  "strokeWidth": 1,
+                  "strokeAlignment": "inner",
                   "gap": 12,
                   "padding": 16,
                   "alignItems": "center",
@@ -13659,23 +13802,23 @@
                       ]
                     },
                     {
-                      "type": "icon_font",
+                      "type": "icon",
                       "id": "mQkwh",
                       "name": "Phone",
                       "width": 20,
                       "height": 20,
-                      "iconFontName": "phone",
-                      "iconFontFamily": "lucide",
+                      "icon": "phone",
+                      "library": "lucide",
                       "fill": "$--primary"
                     },
                     {
-                      "type": "icon_font",
+                      "type": "icon",
                       "id": "HRlib",
                       "name": "Chat",
                       "width": 20,
                       "height": 20,
-                      "iconFontName": "message-circle",
-                      "iconFontFamily": "lucide",
+                      "icon": "message-circle",
+                      "library": "lucide",
                       "fill": "$--muted-foreground"
                     }
                   ]
@@ -13687,10 +13830,9 @@
                   "width": "fill_container",
                   "fill": "$--card",
                   "cornerRadius": 12,
-                  "stroke": {
-                    "thickness": 1,
-                    "fill": "$--border"
-                  },
+                  "stroke": "$--border",
+                  "strokeWidth": 1,
+                  "strokeAlignment": "inner",
                   "layout": "vertical",
                   "children": [
                     {
@@ -13873,12 +14015,12 @@
               "name": "BottomBar",
               "width": "fill_container",
               "fill": "$--card",
-              "stroke": {
-                "thickness": {
-                  "top": 1
-                },
-                "fill": "$--border"
+              "stroke": "$--border",
+              "strokeWidth": {
+                "top": 1
               },
+              "strokeAlignment": "inner",
+              "strokeLinejoin": "round",
               "layout": "vertical",
               "padding": [
                 12,
@@ -14074,13 +14216,13 @@
                                   "fontWeight": "600"
                                 },
                                 {
-                                  "type": "icon_font",
+                                  "type": "icon",
                                   "id": "u1ZQIg",
                                   "name": "I",
                                   "width": 16,
                                   "height": 16,
-                                  "iconFontName": "arrow-right",
-                                  "iconFontFamily": "lucide",
+                                  "icon": "arrow-right",
+                                  "library": "lucide",
                                   "fill": "$--foreground"
                                 }
                               ]
@@ -14133,13 +14275,13 @@
                               "alignItems": "center",
                               "children": [
                                 {
-                                  "type": "icon_font",
+                                  "type": "icon",
                                   "id": "xjCul",
                                   "name": "I",
                                   "width": 24,
                                   "height": 24,
-                                  "iconFontName": "sparkles",
-                                  "iconFontFamily": "lucide",
+                                  "icon": "sparkles",
+                                  "library": "lucide",
                                   "fill": "$--accent-foreground"
                                 }
                               ]
@@ -14202,13 +14344,13 @@
                               "alignItems": "center",
                               "children": [
                                 {
-                                  "type": "icon_font",
+                                  "type": "icon",
                                   "id": "zYmvH",
                                   "name": "I",
                                   "width": 24,
                                   "height": 24,
-                                  "iconFontName": "truck",
-                                  "iconFontFamily": "lucide",
+                                  "icon": "truck",
+                                  "library": "lucide",
                                   "fill": "$--background"
                                 }
                               ]
@@ -14314,13 +14456,13 @@
                               "fontWeight": "500"
                             },
                             {
-                              "type": "icon_font",
+                              "type": "icon",
                               "id": "sdTdP",
                               "name": "I",
                               "width": 14,
                               "height": 14,
-                              "iconFontName": "arrow-right",
-                              "iconFontFamily": "lucide",
+                              "icon": "arrow-right",
+                              "library": "lucide",
                               "fill": "$--primary"
                             }
                           ]
@@ -14367,13 +14509,13 @@
                                   "alignItems": "center",
                                   "children": [
                                     {
-                                      "type": "icon_font",
+                                      "type": "icon",
                                       "id": "wGRrS",
                                       "name": "I",
                                       "width": 22,
                                       "height": 22,
-                                      "iconFontName": "smartphone",
-                                      "iconFontFamily": "lucide",
+                                      "icon": "smartphone",
+                                      "library": "lucide",
                                       "fill": "$--accent-foreground"
                                     }
                                   ]
@@ -14435,13 +14577,13 @@
                                   "alignItems": "center",
                                   "children": [
                                     {
-                                      "type": "icon_font",
+                                      "type": "icon",
                                       "id": "MvW7u",
                                       "name": "I",
                                       "width": 22,
                                       "height": 22,
-                                      "iconFontName": "shirt",
-                                      "iconFontFamily": "lucide",
+                                      "icon": "shirt",
+                                      "library": "lucide",
                                       "fill": "$--foreground"
                                     }
                                   ]
@@ -14503,13 +14645,13 @@
                                   "alignItems": "center",
                                   "children": [
                                     {
-                                      "type": "icon_font",
+                                      "type": "icon",
                                       "id": "kDOHy",
                                       "name": "I",
                                       "width": 22,
                                       "height": 22,
-                                      "iconFontName": "sofa",
-                                      "iconFontFamily": "lucide",
+                                      "icon": "sofa",
+                                      "library": "lucide",
                                       "fill": "$--color-success-foreground"
                                     }
                                   ]
@@ -14571,13 +14713,13 @@
                                   "alignItems": "center",
                                   "children": [
                                     {
-                                      "type": "icon_font",
+                                      "type": "icon",
                                       "id": "fiKZh",
                                       "name": "I",
                                       "width": 22,
                                       "height": 22,
-                                      "iconFontName": "book",
-                                      "iconFontFamily": "lucide",
+                                      "icon": "book",
+                                      "library": "lucide",
                                       "fill": "$--color-warning-foreground"
                                     }
                                   ]
@@ -14648,13 +14790,13 @@
                                   "alignItems": "center",
                                   "children": [
                                     {
-                                      "type": "icon_font",
+                                      "type": "icon",
                                       "id": "EVZZk",
                                       "name": "I",
                                       "width": 22,
                                       "height": 22,
-                                      "iconFontName": "dumbbell",
-                                      "iconFontFamily": "lucide",
+                                      "icon": "dumbbell",
+                                      "library": "lucide",
                                       "fill": "$--color-info-foreground"
                                     }
                                   ]
@@ -14716,13 +14858,13 @@
                                   "alignItems": "center",
                                   "children": [
                                     {
-                                      "type": "icon_font",
+                                      "type": "icon",
                                       "id": "bRQ0G",
                                       "name": "I",
                                       "width": 22,
                                       "height": 22,
-                                      "iconFontName": "sparkles",
-                                      "iconFontFamily": "lucide",
+                                      "icon": "sparkles",
+                                      "library": "lucide",
                                       "fill": "$--accent-foreground"
                                     }
                                   ]
@@ -14784,13 +14926,13 @@
                                   "alignItems": "center",
                                   "children": [
                                     {
-                                      "type": "icon_font",
+                                      "type": "icon",
                                       "id": "Kz24P",
                                       "name": "I",
                                       "width": 22,
                                       "height": 22,
-                                      "iconFontName": "apple",
-                                      "iconFontFamily": "lucide",
+                                      "icon": "apple",
+                                      "library": "lucide",
                                       "fill": "$--color-success-foreground"
                                     }
                                   ]
@@ -14852,13 +14994,13 @@
                                   "alignItems": "center",
                                   "children": [
                                     {
-                                      "type": "icon_font",
+                                      "type": "icon",
                                       "id": "sjZOt",
                                       "name": "I",
                                       "width": 22,
                                       "height": 22,
-                                      "iconFontName": "baby",
-                                      "iconFontFamily": "lucide",
+                                      "icon": "baby",
+                                      "library": "lucide",
                                       "fill": "$--color-warning-foreground"
                                     }
                                   ]
@@ -14960,21 +15102,20 @@
                               "height": 36,
                               "fill": "$--card",
                               "cornerRadius": "$--radius-md",
-                              "stroke": {
-                                "thickness": 1,
-                                "fill": "$--border"
-                              },
+                              "stroke": "$--border",
+                              "strokeWidth": 1,
+                              "strokeAlignment": "inner",
                               "justifyContent": "center",
                               "alignItems": "center",
                               "children": [
                                 {
-                                  "type": "icon_font",
+                                  "type": "icon",
                                   "id": "b5Pvb",
                                   "name": "I",
                                   "width": 16,
                                   "height": 16,
-                                  "iconFontName": "chevron-left",
-                                  "iconFontFamily": "lucide",
+                                  "icon": "chevron-left",
+                                  "library": "lucide",
                                   "fill": "$--foreground"
                                 }
                               ]
@@ -14987,21 +15128,20 @@
                               "height": 36,
                               "fill": "$--card",
                               "cornerRadius": "$--radius-md",
-                              "stroke": {
-                                "thickness": 1,
-                                "fill": "$--border"
-                              },
+                              "stroke": "$--border",
+                              "strokeWidth": 1,
+                              "strokeAlignment": "inner",
                               "justifyContent": "center",
                               "alignItems": "center",
                               "children": [
                                 {
-                                  "type": "icon_font",
+                                  "type": "icon",
                                   "id": "TZkT3",
                                   "name": "I",
                                   "width": 16,
                                   "height": 16,
-                                  "iconFontName": "chevron-right",
-                                  "iconFontFamily": "lucide",
+                                  "icon": "chevron-right",
+                                  "library": "lucide",
                                   "fill": "$--foreground"
                                 }
                               ]
@@ -15168,21 +15308,20 @@
                               "height": 36,
                               "fill": "$--card",
                               "cornerRadius": "$--radius-md",
-                              "stroke": {
-                                "thickness": 1,
-                                "fill": "$--border"
-                              },
+                              "stroke": "$--border",
+                              "strokeWidth": 1,
+                              "strokeAlignment": "inner",
                               "justifyContent": "center",
                               "alignItems": "center",
                               "children": [
                                 {
-                                  "type": "icon_font",
+                                  "type": "icon",
                                   "id": "UyE6n",
                                   "name": "I",
                                   "width": 16,
                                   "height": 16,
-                                  "iconFontName": "chevron-left",
-                                  "iconFontFamily": "lucide",
+                                  "icon": "chevron-left",
+                                  "library": "lucide",
                                   "fill": "$--foreground"
                                 }
                               ]
@@ -15195,21 +15334,20 @@
                               "height": 36,
                               "fill": "$--card",
                               "cornerRadius": "$--radius-md",
-                              "stroke": {
-                                "thickness": 1,
-                                "fill": "$--border"
-                              },
+                              "stroke": "$--border",
+                              "strokeWidth": 1,
+                              "strokeAlignment": "inner",
                               "justifyContent": "center",
                               "alignItems": "center",
                               "children": [
                                 {
-                                  "type": "icon_font",
+                                  "type": "icon",
                                   "id": "Sw7X2",
                                   "name": "I",
                                   "width": 16,
                                   "height": 16,
-                                  "iconFontName": "chevron-right",
-                                  "iconFontFamily": "lucide",
+                                  "icon": "chevron-right",
+                                  "library": "lucide",
                                   "fill": "$--foreground"
                                 }
                               ]
@@ -15574,10 +15712,9 @@
                                   "width": "fill_container",
                                   "fill": "$--background",
                                   "cornerRadius": "$--radius-md",
-                                  "stroke": {
-                                    "thickness": 1,
-                                    "fill": "$--input"
-                                  },
+                                  "stroke": "$--input",
+                                  "strokeWidth": 1,
+                                  "strokeAlignment": "inner",
                                   "padding": [
                                     8,
                                     12
@@ -15603,10 +15740,9 @@
                                   "width": "fill_container",
                                   "fill": "$--background",
                                   "cornerRadius": "$--radius-md",
-                                  "stroke": {
-                                    "thickness": 1,
-                                    "fill": "$--input"
-                                  },
+                                  "stroke": "$--input",
+                                  "strokeWidth": 1,
+                                  "strokeAlignment": "inner",
                                   "padding": [
                                     8,
                                     12
@@ -16403,10 +16539,9 @@
                               "id": "zp7rJ",
                               "name": "Prev",
                               "cornerRadius": "$--radius-md",
-                              "stroke": {
-                                "thickness": 1,
-                                "fill": "$--border"
-                              },
+                              "stroke": "$--border",
+                              "strokeWidth": 1,
+                              "strokeAlignment": "inner",
                               "gap": 6,
                               "padding": [
                                 8,
@@ -16416,13 +16551,13 @@
                               "alignItems": "center",
                               "children": [
                                 {
-                                  "type": "icon_font",
+                                  "type": "icon",
                                   "id": "q2YCL8",
                                   "name": "I",
                                   "width": 14,
                                   "height": 14,
-                                  "iconFontName": "chevron-left",
-                                  "iconFontFamily": "lucide",
+                                  "icon": "chevron-left",
+                                  "library": "lucide",
                                   "fill": "$--foreground"
                                 },
                                 {
@@ -16492,10 +16627,9 @@
                               "id": "IbqTV",
                               "name": "Next",
                               "cornerRadius": "$--radius-md",
-                              "stroke": {
-                                "thickness": 1,
-                                "fill": "$--border"
-                              },
+                              "stroke": "$--border",
+                              "strokeWidth": 1,
+                              "strokeAlignment": "inner",
                               "gap": 6,
                               "padding": [
                                 8,
@@ -16515,13 +16649,13 @@
                                   "fontWeight": "normal"
                                 },
                                 {
-                                  "type": "icon_font",
+                                  "type": "icon",
                                   "id": "CyBF1",
                                   "name": "I",
                                   "width": 14,
                                   "height": 14,
-                                  "iconFontName": "chevron-right",
-                                  "iconFontFamily": "lucide",
+                                  "icon": "chevron-right",
+                                  "library": "lucide",
                                   "fill": "$--foreground"
                                 }
                               ]
@@ -16683,13 +16817,13 @@
                           "alignItems": "center",
                           "children": [
                             {
-                              "type": "icon_font",
+                              "type": "icon",
                               "id": "nLyyY",
                               "name": "Icon",
                               "width": 140,
                               "height": 140,
-                              "iconFontName": "headphones",
-                              "iconFontFamily": "lucide",
+                              "icon": "headphones",
+                              "library": "lucide",
                               "fill": "$--muted-foreground"
                             },
                             {
@@ -16721,13 +16855,13 @@
                               "alignItems": "center",
                               "children": [
                                 {
-                                  "type": "icon_font",
+                                  "type": "icon",
                                   "id": "dKlVE",
                                   "name": "Heart",
                                   "width": 18,
                                   "height": 18,
-                                  "iconFontName": "heart",
-                                  "iconFontFamily": "lucide",
+                                  "icon": "heart",
+                                  "library": "lucide",
                                   "fill": "$--foreground"
                                 }
                               ]
@@ -16749,21 +16883,20 @@
                               "height": 96,
                               "fill": "$--secondary",
                               "cornerRadius": "$--radius-lg",
-                              "stroke": {
-                                "thickness": 2,
-                                "fill": "$--primary"
-                              },
+                              "stroke": "$--primary",
+                              "strokeWidth": 2,
+                              "strokeAlignment": "inner",
                               "justifyContent": "center",
                               "alignItems": "center",
                               "children": [
                                 {
-                                  "type": "icon_font",
+                                  "type": "icon",
                                   "id": "cS4zz",
                                   "name": "Icon",
                                   "width": 32,
                                   "height": 32,
-                                  "iconFontName": "headphones",
-                                  "iconFontFamily": "lucide",
+                                  "icon": "headphones",
+                                  "library": "lucide",
                                   "fill": "$--muted-foreground"
                                 }
                               ]
@@ -16780,13 +16913,13 @@
                               "alignItems": "center",
                               "children": [
                                 {
-                                  "type": "icon_font",
+                                  "type": "icon",
                                   "id": "U2BKu",
                                   "name": "Icon",
                                   "width": 32,
                                   "height": 32,
-                                  "iconFontName": "headphones",
-                                  "iconFontFamily": "lucide",
+                                  "icon": "headphones",
+                                  "library": "lucide",
                                   "fill": "$--muted-foreground"
                                 }
                               ]
@@ -16803,13 +16936,13 @@
                               "alignItems": "center",
                               "children": [
                                 {
-                                  "type": "icon_font",
+                                  "type": "icon",
                                   "id": "SNyxF",
                                   "name": "Icon",
                                   "width": 32,
                                   "height": 32,
-                                  "iconFontName": "headphones",
-                                  "iconFontFamily": "lucide",
+                                  "icon": "headphones",
+                                  "library": "lucide",
                                   "fill": "$--muted-foreground"
                                 }
                               ]
@@ -16826,13 +16959,13 @@
                               "alignItems": "center",
                               "children": [
                                 {
-                                  "type": "icon_font",
+                                  "type": "icon",
                                   "id": "KAV5R",
                                   "name": "Icon",
                                   "width": 32,
                                   "height": 32,
-                                  "iconFontName": "headphones",
-                                  "iconFontFamily": "lucide",
+                                  "icon": "headphones",
+                                  "library": "lucide",
                                   "fill": "$--muted-foreground"
                                 }
                               ]
@@ -16849,13 +16982,13 @@
                               "alignItems": "center",
                               "children": [
                                 {
-                                  "type": "icon_font",
+                                  "type": "icon",
                                   "id": "DQxss",
                                   "name": "Icon",
                                   "width": 32,
                                   "height": 32,
-                                  "iconFontName": "headphones",
-                                  "iconFontFamily": "lucide",
+                                  "icon": "headphones",
+                                  "library": "lucide",
                                   "fill": "$--muted-foreground"
                                 }
                               ]
@@ -16910,53 +17043,53 @@
                               "gap": 2,
                               "children": [
                                 {
-                                  "type": "icon_font",
+                                  "type": "icon",
                                   "id": "GknN7",
                                   "name": "S0",
                                   "width": 16,
                                   "height": 16,
-                                  "iconFontName": "star",
-                                  "iconFontFamily": "lucide",
+                                  "icon": "star",
+                                  "library": "lucide",
                                   "fill": "$--color-warning-foreground"
                                 },
                                 {
-                                  "type": "icon_font",
+                                  "type": "icon",
                                   "id": "S4kbp",
                                   "name": "S1",
                                   "width": 16,
                                   "height": 16,
-                                  "iconFontName": "star",
-                                  "iconFontFamily": "lucide",
+                                  "icon": "star",
+                                  "library": "lucide",
                                   "fill": "$--color-warning-foreground"
                                 },
                                 {
-                                  "type": "icon_font",
+                                  "type": "icon",
                                   "id": "f9sXdW",
                                   "name": "S2",
                                   "width": 16,
                                   "height": 16,
-                                  "iconFontName": "star",
-                                  "iconFontFamily": "lucide",
+                                  "icon": "star",
+                                  "library": "lucide",
                                   "fill": "$--color-warning-foreground"
                                 },
                                 {
-                                  "type": "icon_font",
+                                  "type": "icon",
                                   "id": "K9K7A",
                                   "name": "S3",
                                   "width": 16,
                                   "height": 16,
-                                  "iconFontName": "star",
-                                  "iconFontFamily": "lucide",
+                                  "icon": "star",
+                                  "library": "lucide",
                                   "fill": "$--color-warning-foreground"
                                 },
                                 {
-                                  "type": "icon_font",
+                                  "type": "icon",
                                   "id": "vkLq0",
                                   "name": "S4",
                                   "width": 16,
                                   "height": 16,
-                                  "iconFontName": "star",
-                                  "iconFontFamily": "lucide",
+                                  "icon": "star",
+                                  "library": "lucide",
                                   "fill": "$--muted-foreground"
                                 }
                               ]
@@ -17066,7 +17199,7 @@
                                   "descendants": {
                                     "K0WhsO": {
                                       "enabled": true,
-                                      "iconFontName": "shopping-bag"
+                                      "icon": "shopping-bag"
                                     },
                                     "VVDxZ": {
                                       "content": "В корзину"
@@ -17084,7 +17217,7 @@
                               "descendants": {
                                 "z9sCq": {
                                   "enabled": true,
-                                  "iconFontName": "heart"
+                                  "icon": "heart"
                                 },
                                 "WdN3x": {
                                   "content": "В избранное"
@@ -17123,13 +17256,13 @@
                                   "alignItems": "center",
                                   "children": [
                                     {
-                                      "type": "icon_font",
+                                      "type": "icon",
                                       "id": "h5C6Y",
                                       "name": "I",
                                       "width": 18,
                                       "height": 18,
-                                      "iconFontName": "truck",
-                                      "iconFontFamily": "lucide",
+                                      "icon": "truck",
+                                      "library": "lucide",
                                       "fill": "$--foreground"
                                     }
                                   ]
@@ -17187,13 +17320,13 @@
                                   "alignItems": "center",
                                   "children": [
                                     {
-                                      "type": "icon_font",
+                                      "type": "icon",
                                       "id": "TtOFF",
                                       "name": "I",
                                       "width": 18,
                                       "height": 18,
-                                      "iconFontName": "refresh-ccw",
-                                      "iconFontFamily": "lucide",
+                                      "icon": "refresh-ccw",
+                                      "library": "lucide",
                                       "fill": "$--foreground"
                                     }
                                   ]
@@ -17251,13 +17384,13 @@
                                   "alignItems": "center",
                                   "children": [
                                     {
-                                      "type": "icon_font",
+                                      "type": "icon",
                                       "id": "YyZ7v",
                                       "name": "I",
                                       "width": 18,
                                       "height": 18,
-                                      "iconFontName": "shield-check",
-                                      "iconFontFamily": "lucide",
+                                      "icon": "shield-check",
+                                      "library": "lucide",
                                       "fill": "$--foreground"
                                     }
                                   ]
@@ -17857,13 +17990,13 @@
                       "alignItems": "center",
                       "children": [
                         {
-                          "type": "icon_font",
+                          "type": "icon",
                           "id": "fNB07",
                           "name": "I",
                           "width": 14,
                           "height": 14,
-                          "iconFontName": "trash-2",
-                          "iconFontFamily": "lucide",
+                          "icon": "trash-2",
+                          "library": "lucide",
                           "fill": "$--muted-foreground"
                         },
                         {
@@ -17918,13 +18051,13 @@
                               "alignItems": "center",
                               "children": [
                                 {
-                                  "type": "icon_font",
+                                  "type": "icon",
                                   "id": "RNx0k",
                                   "name": "Icon",
                                   "width": 36,
                                   "height": 36,
-                                  "iconFontName": "headphones",
-                                  "iconFontFamily": "lucide",
+                                  "icon": "headphones",
+                                  "library": "lucide",
                                   "fill": "$--muted-foreground"
                                 }
                               ]
@@ -18020,13 +18153,13 @@
                               "alignItems": "center",
                               "children": [
                                 {
-                                  "type": "icon_font",
+                                  "type": "icon",
                                   "id": "fMuXX",
                                   "name": "I",
                                   "width": 16,
                                   "height": 16,
-                                  "iconFontName": "x",
-                                  "iconFontFamily": "lucide",
+                                  "icon": "x",
+                                  "library": "lucide",
                                   "fill": "$--muted-foreground"
                                 }
                               ]
@@ -18056,13 +18189,13 @@
                               "alignItems": "center",
                               "children": [
                                 {
-                                  "type": "icon_font",
+                                  "type": "icon",
                                   "id": "XVHRP",
                                   "name": "Icon",
                                   "width": 36,
                                   "height": 36,
-                                  "iconFontName": "coffee",
-                                  "iconFontFamily": "lucide",
+                                  "icon": "coffee",
+                                  "library": "lucide",
                                   "fill": "$--muted-foreground"
                                 }
                               ]
@@ -18158,13 +18291,13 @@
                               "alignItems": "center",
                               "children": [
                                 {
-                                  "type": "icon_font",
+                                  "type": "icon",
                                   "id": "phqKF",
                                   "name": "I",
                                   "width": 16,
                                   "height": 16,
-                                  "iconFontName": "x",
-                                  "iconFontFamily": "lucide",
+                                  "icon": "x",
+                                  "library": "lucide",
                                   "fill": "$--muted-foreground"
                                 }
                               ]
@@ -18194,13 +18327,13 @@
                               "alignItems": "center",
                               "children": [
                                 {
-                                  "type": "icon_font",
+                                  "type": "icon",
                                   "id": "GCqu5",
                                   "name": "Icon",
                                   "width": 36,
                                   "height": 36,
-                                  "iconFontName": "footprints",
-                                  "iconFontFamily": "lucide",
+                                  "icon": "footprints",
+                                  "library": "lucide",
                                   "fill": "$--muted-foreground"
                                 }
                               ]
@@ -18286,13 +18419,13 @@
                               "alignItems": "center",
                               "children": [
                                 {
-                                  "type": "icon_font",
+                                  "type": "icon",
                                   "id": "o0s7lD",
                                   "name": "I",
                                   "width": 16,
                                   "height": 16,
-                                  "iconFontName": "x",
-                                  "iconFontFamily": "lucide",
+                                  "icon": "x",
+                                  "library": "lucide",
                                   "fill": "$--muted-foreground"
                                 }
                               ]
@@ -18322,13 +18455,13 @@
                               "alignItems": "center",
                               "children": [
                                 {
-                                  "type": "icon_font",
+                                  "type": "icon",
                                   "id": "m18qo",
                                   "name": "I",
                                   "width": 20,
                                   "height": 20,
-                                  "iconFontName": "ticket-percent",
-                                  "iconFontFamily": "lucide",
+                                  "icon": "ticket-percent",
+                                  "library": "lucide",
                                   "fill": "$--accent-foreground"
                                 }
                               ]
@@ -18341,10 +18474,9 @@
                               "height": 40,
                               "fill": "$--background",
                               "cornerRadius": "$--radius-md",
-                              "stroke": {
-                                "thickness": 1,
-                                "fill": "$--input"
-                              },
+                              "stroke": "$--input",
+                              "strokeWidth": 1,
+                              "strokeAlignment": "inner",
                               "padding": [
                                 0,
                                 12
@@ -18533,7 +18665,7 @@
                           "descendants": {
                             "FAwII": {
                               "enabled": true,
-                              "iconFontName": "arrow-right"
+                              "icon": "arrow-right"
                             },
                             "W4CaBw": {
                               "content": "Оформить заказ"
@@ -18551,13 +18683,13 @@
                           "alignItems": "center",
                           "children": [
                             {
-                              "type": "icon_font",
+                              "type": "icon",
                               "id": "Drab1",
                               "name": "I",
                               "width": 16,
                               "height": 16,
-                              "iconFontName": "truck",
-                              "iconFontFamily": "lucide",
+                              "icon": "truck",
+                              "library": "lucide",
                               "fill": "$--color-success-foreground"
                             },
                             {
@@ -19297,13 +19429,13 @@
                   "alignItems": "center",
                   "children": [
                     {
-                      "type": "icon_font",
+                      "type": "icon",
                       "id": "wa2y1",
                       "name": "Check",
                       "width": 48,
                       "height": 48,
-                      "iconFontName": "check",
-                      "iconFontFamily": "lucide",
+                      "icon": "check",
+                      "library": "lucide",
                       "fill": "#10B981"
                     }
                   ]
@@ -20653,5 +20785,6 @@
   },
   "imports": {
     "a": "pencil:shadcn.lib.pen"
-  }
+  },
+  "fileToken": "a4ca7b5f-8429-4b75-8481-8ad4cc88d9a9"
 }
