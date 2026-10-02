@@ -6,19 +6,19 @@ import { getCurrentUser } from "@/features/auth/api/bridge";
 import "./globals.css";
 import { Providers } from "./providers";
 
+import { AuthButton } from "@/features/auth";
 import { ThemeToggle } from "@/features/theme-toggle";
 import { Toaster } from "sonner";
-import { AuthButton } from "@/features/auth";
 
-const inter = Inter({
-  variable: "--font-sans",
-  subsets: ["latin", "cyrillic"],
-  display: "swap",
-});
+import { Funnel_Sans, Geist } from "next/font/google";
 
+const inter = Inter({ variable: "--font-inter", subsets: ["latin", "cyrillic"], display: "swap" });
+const geist = Geist({ variable: "--font-geist", subsets: ["latin"], display: "swap" });
+const funnelSans = Funnel_Sans({ variable: "--font-funnel", subsets: ["latin"], display: "swap" });
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -32,7 +32,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="ru"
-      className={`${inter.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${geist.variable} ${funnelSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">

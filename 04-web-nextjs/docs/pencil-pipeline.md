@@ -19,13 +19,31 @@ DS — в `src/shared/ui`. Каждый компонент: файл + эксп�
 
 shadcn-примитивы добавляй через `npx shadcn@latest add <name>` (лягут в `shared/ui` по алиасам из `components.json`), затем экспортни из `index.ts` и приведи к нашим токенам.
 
-## 3. Токены (Tailwind v4)
-Токены — CSS-переменные в `src/app/globals.css` (`:root` и `.dark`), замаплены в `@theme inline`:
-- Цвета: `--primary` (голубой), `--background` (серый), `--card` (белый), `--muted`, `--border`, `--ring`, `--destructive`, `--success`, `--warning`.
-- Радиусы: `--radius` (16px) → `rounded-md/lg/...`.
-- Тени: `--shadow-sm/md/lg` (мягкие).
+## 3. Токены (Tailwind v4) — маппинг Pencil → утилиты
+Токены живут как CSS-переменные в `src/app/globals.css` (`:root`/`.dark`) и доступны **семантическими утилитами Tailwind** через `@theme inline`. Используй семантические утилиты (`bg-primary`, `text-foreground`, …), а не произвольные значения с `var()`.
 
-**Правило:** токен из Pencil **маппится на существующую нашу переменную**. Новую переменную заводи, только если аналога нет — и тогда добавь её в `:root`, `.dark` **и** `@theme inline`.
+| Pencil `$--` | Утилита Tailwind |
+|---|---|
+| `$--background` / `$--foreground` | `bg-background` / `text-foreground` |
+| `$--card` (+`-foreground`) | `bg-card` / `text-card-foreground` |
+| `$--popover` (+`-foreground`) | `bg-popover` / `text-popover-foreground` |
+| `$--primary` (+`-foreground`) | `bg-primary` / `text-primary-foreground` |
+| `$--secondary` / `$--muted` / `$--accent` (+`-foreground`) | `bg-secondary|muted|accent` (+ `text-*-foreground`) |
+| `$--border` / `$--input` / `$--ring` | `border-border` / `border-input` / `ring-ring` |
+| `$--destructive` (+`-foreground`) | `bg-destructive` / `text-destructive-foreground` |
+| `$--color-success\|warning\|error\|info` (+`-foreground`) | `bg-success\|warning\|error\|info` (+ `text-*-foreground`) |
+| `$--radius-sm\|md\|lg\|xl` | `rounded-sm`(6) / `rounded-md`(8) / `rounded-lg`(12) / `rounded-xl`(16) |
+| `$--radius-pill` | `rounded-full` |
+| `$--font-heading` | `font-heading` (Geist) |
+| `$--font-body` | `font-sans` (Inter, дефолт body) |
+| `$--font-caption` | `font-caption` (Funnel Sans) |
+| `$--font-mono` | `font-mono` (Geist Mono) |
+
+**Правила:**
+- Цвет/радиус/тень/шрифт — только через эти утилиты; не хардкодь hex и не используй произвольные значения с `var()` (arbitrary values).
+- Нет подходящего токена → заведи переменную в `:root` + `.dark` + `@theme inline`, потом используй её утилиту.
+- Семантика success/warning/error/info — это пара «тон-фон + цветной текст» (`bg-success text-success-foreground`), для Label/Alert/статусов заказа.
+- Радиусы по типам: кнопки/инпуты → `rounded-md`; карточки/модалки → `rounded-xl`; бейджи/чипы/аватар → `rounded-full`.
 
 ## 4. Карта Pencil → FSD
 | Pencil-узел | FSD-путь |

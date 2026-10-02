@@ -4,7 +4,7 @@ import { NextResponse, type NextRequest } from "next/server";
 // импортировать server-only мост сюда нельзя. Источник правды — ACCESS_COOKIE в features/auth/api/bridge.
 const ACCESS_COOKIE = "access_token";
 
-export default function middleware(request: NextRequest) {
+export default function proxy(request: NextRequest) {
   if (request.cookies.has(ACCESS_COOKIE)) {
     return NextResponse.next();
   }
