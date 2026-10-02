@@ -22,6 +22,8 @@ DS — в `src/shared/ui`. Каждый компонент: файл + эксп�
 
 shadcn-примитивы добавляй через `npx shadcn@latest add <name>` (лягут в `shared/ui` по алиасам из `components.json`), затем экспортни из `index.ts` и приведи к нашим токенам.
 
+⚠️ **`cn` импортируй ТОЛЬКО из `@/shared/lib/utils`** (единая точка; `utils.ts` — шим над пакетом `cn`). Стиль shadcn base-nova при `add` иногда переписывает импорт на пакет `"cn"` и правит чужие файлы — после `add` проверь `grep 'from "cn"'` и верни все импорты (кроме самого `utils.ts`) на `@/shared/lib/utils`.
+
 ## 3. Токены (Tailwind v4) — маппинг Pencil → утилиты
 
 Токены живут как CSS-переменные в `src/app/globals.css` (`:root`/`.dark`) и доступны **семантическими утилитами Tailwind** через `@theme inline`. Используй семантические утилиты (`bg-primary`, `text-foreground`, …), а не произвольные значения с `var()`.
