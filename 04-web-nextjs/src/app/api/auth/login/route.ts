@@ -8,7 +8,10 @@ export async function POST(request: Request) {
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json({ code: "BAD_REQUEST", message: "Некорректный JSON" }, { status: 400 });
+    return NextResponse.json(
+      { code: "BAD_REQUEST", message: "Некорректный JSON" },
+      { status: 400 },
+    );
   }
   if (!body.email || !body.password) {
     return NextResponse.json(
