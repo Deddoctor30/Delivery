@@ -13,6 +13,15 @@ export const ORDER_STATUS_LABELS: Record<OrderStatus, string> = {
 
 export type OrderStatusBadgeVariant = "default" | "success" | "warning" | "info" | "error";
 
+export const ORDER_STATUS_SEQUENCE: OrderStatus[] = [
+  "created",
+  "processing",
+  "assembling",
+  "shipping",
+  "delivering",
+  "completed",
+];
+
 export const ORDER_STATUS_BADGE_VARIANT: Record<OrderStatus, OrderStatusBadgeVariant> = {
   created: "default",
   processing: "success",
