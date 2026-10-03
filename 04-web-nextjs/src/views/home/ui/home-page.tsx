@@ -1,78 +1,19 @@
 import Link from "next/link";
 import { ArrowRight, Sparkles, Truck } from "lucide-react";
 
-import { ProductCard } from "@/entities/product";
+import { ProductCard, MOCK_PRODUCTS } from "@/entities/product";
 import type { Product } from "@/entities/product";
 
 import { HomeCategories } from "./home-categories";
 
-// TODO: заменить на реальный API — фетч популярных товаров
-const MOCK_POPULAR: Product[] = [
-  {
-    id: "p1",
-    title: "Наушники Sound X3",
-    price: 4990,
-    oldPrice: 6100,
-    discountPercent: 18,
-    inStock: true,
-  },
-  {
-    id: "p2",
-    title: "Робот-пылесос Vac Pro",
-    price: 19800,
-    inStock: true,
-  },
-  {
-    id: "p3",
-    title: "Чайник Smart 1.7л",
-    price: 2490,
-    oldPrice: 2990,
-    discountPercent: 17,
-    inStock: true,
-  },
-  {
-    id: "p4",
-    title: "Кофемашина CremaOne",
-    price: 32900,
-    inStock: true,
-  },
-];
-
-// TODO: заменить на реальный API — фетч товаров со скидкой
-const MOCK_DISCOUNTED: Product[] = [
-  {
-    id: "d1",
-    title: "Куртка Winter Pro",
-    price: 6490,
-    oldPrice: 9200,
-    discountPercent: 29,
-    inStock: true,
-  },
-  {
-    id: "d2",
-    title: "Кроссовки Run Pro",
-    price: 5490,
-    oldPrice: 6990,
-    discountPercent: 21,
-    inStock: true,
-  },
-  {
-    id: "d3",
-    title: "Книга «Эссенциализм»",
-    price: 890,
-    oldPrice: 1200,
-    discountPercent: 26,
-    inStock: true,
-  },
-  {
-    id: "d4",
-    title: "Гантели 2×8 кг",
-    price: 3290,
-    oldPrice: 4100,
-    discountPercent: 20,
-    inStock: true,
-  },
-];
+// Витрины главной собираем из единого mock-источника (@/entities/product),
+// чтобы id совпадали и ссылки вели на реальные страницы товара.
+// TODO: заменить на реальный API.
+const MOCK_POPULAR: Product[] = MOCK_PRODUCTS.slice(0, 4);
+const MOCK_DISCOUNTED: Product[] = MOCK_PRODUCTS.filter((p) => (p.discountPercent ?? 0) > 0).slice(
+  0,
+  4,
+);
 
 /**
  * SectionHead — заголовок секции с подписью и навигационными стрелками.

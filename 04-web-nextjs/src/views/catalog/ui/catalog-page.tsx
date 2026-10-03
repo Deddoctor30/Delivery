@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { PackageSearch } from "lucide-react";
 
-import { ProductCard } from "@/entities/product";
+import { ProductCard, MOCK_PRODUCTS } from "@/entities/product";
 import type { Product } from "@/entities/product";
 
 import {
@@ -20,120 +20,10 @@ import { CatalogCategoryFilter } from "./catalog-category-filter";
 import { CatalogPagination } from "./catalog-pagination";
 import { CatalogSort } from "./catalog-sort";
 
-// ─── Mock-данные ────────────────────────────────────────────────────────────
+// Товары берём из единого mock-источника (@/entities/product).
 // TODO: заменить на реальный API (apiServer из @/shared/api/server)
 
-const ALL_PRODUCTS: Product[] = [
-  {
-    id: "p01",
-    title: "Наушники Sound X3",
-    price: 4990,
-    oldPrice: 6100,
-    discountPercent: 18,
-    inStock: true,
-  },
-  { id: "p02", title: "Робот-пылесос Vac Pro", price: 19800, inStock: true },
-  {
-    id: "p03",
-    title: "Чайник Smart 1.7л",
-    price: 2490,
-    oldPrice: 2990,
-    discountPercent: 17,
-    inStock: true,
-  },
-  { id: "p04", title: "Кофемашина CremaOne", price: 32900, inStock: true },
-  {
-    id: "p05",
-    title: "Смартфон Pixel 9",
-    price: 74990,
-    oldPrice: 84990,
-    discountPercent: 12,
-    inStock: true,
-  },
-  { id: "p06", title: "Планшет Slate 11", price: 38500, inStock: true },
-  {
-    id: "p07",
-    title: "Наушники Bass M2",
-    price: 7990,
-    oldPrice: 9990,
-    discountPercent: 20,
-    inStock: true,
-  },
-  { id: "p08", title: "Колонка Boom 5", price: 5490, inStock: true },
-  {
-    id: "p09",
-    title: "Часы Move 2",
-    price: 14990,
-    oldPrice: 17990,
-    discountPercent: 17,
-    inStock: true,
-  },
-  { id: "p10", title: "Камера Pro 4K", price: 54900, inStock: false },
-  { id: "p11", title: "Микрофон Voice X", price: 9990, inStock: true },
-  {
-    id: "p12",
-    title: "Power Bank 20K",
-    price: 2990,
-    oldPrice: 3490,
-    discountPercent: 14,
-    inStock: true,
-  },
-  {
-    id: "p13",
-    title: "Куртка Winter Pro",
-    price: 6490,
-    oldPrice: 9200,
-    discountPercent: 29,
-    inStock: true,
-  },
-  {
-    id: "p14",
-    title: "Кроссовки Run Pro",
-    price: 5490,
-    oldPrice: 6990,
-    discountPercent: 21,
-    inStock: true,
-  },
-  {
-    id: "p15",
-    title: "Книга «Эссенциализм»",
-    price: 890,
-    oldPrice: 1200,
-    discountPercent: 26,
-    inStock: true,
-  },
-  {
-    id: "p16",
-    title: "Гантели 2×8 кг",
-    price: 3290,
-    oldPrice: 4100,
-    discountPercent: 20,
-    inStock: true,
-  },
-];
-
-// Маппинг category-id (из CategoryNav) → ключевые слова названий
-const CATEGORY_KEYWORDS: Record<string, string[]> = {
-  electronics: [
-    "наушники",
-    "робот",
-    "чайник",
-    "кофемашина",
-    "смартфон",
-    "планшет",
-    "колонка",
-    "часы",
-    "камера",
-    "микрофон",
-    "power bank",
-  ],
-  clothing: ["куртка", "кроссовки"],
-  books: ["книга"],
-  sport: ["гантели"],
-  home: ["чайник", "кофемашина", "робот"],
-};
-
-const PAGE_SIZE = 4;
+const PAGE_SIZE = 8;
 
 // ─── Фильтрация и сортировка (демонстрация серверной логики) ─────────────────
 
@@ -151,12 +41,7 @@ function filterProducts(
   let result = [...products];
 
   if (opts.category && opts.category !== "all") {
-    const keywords = CATEGORY_KEYWORDS[opts.category] ?? [];
-    if (keywords.length > 0) {
-      result = result.filter((p) =>
-        keywords.some((kw) => p.title.toLowerCase().includes(kw.toLowerCase())),
-      );
-    }
+    result = result.filter((p) => p.category === opts.category);
   }
 
   if (opts.inStock) {
@@ -340,7 +225,7 @@ export function CatalogPage({
   minPrice,
   maxPrice,
 }: CatalogPageProps) {
-  const filtered = filterProducts(ALL_PRODUCTS, {
+  const filtered = filterProducts(MOCK_PRODUCTS, {
     category,
     inStock,
     discount,

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { Heart, ShoppingBag } from "lucide-react";
 
 import { cn } from "@/shared/lib/utils";
@@ -23,26 +24,35 @@ export function ProductCard({
   onQuantityChange,
   className,
 }: ProductCardProps) {
-  const { title, price, oldPrice, imageUrl, discountPercent, inStock = true } = product;
+  const { id, title, price, oldPrice, imageUrl, discountPercent, inStock = true } = product;
 
+  const href = `/product/${id}`;
   const formattedPrice = price.toLocaleString("ru-RU") + " ₽";
   const formattedOldPrice = oldPrice ? oldPrice.toLocaleString("ru-RU") + " ₽" : null;
   const discountLabel = discountPercent ? `−${discountPercent}%` : null;
 
   return (
     <div
-      className={cn("flex w-60 flex-col overflow-hidden rounded-xl bg-card shadow-sm", className)}
+      className={cn("flex w-full flex-col overflow-hidden rounded-xl bg-card shadow-sm", className)}
     >
       {/* ImageWrap */}
       <div className="relative flex h-50 w-full items-start justify-between bg-secondary p-2.5">
-        {/* Product image */}
-        {imageUrl ? (
-          <Image src={imageUrl} alt={title} fill sizes="240px" className="object-contain p-2.5" />
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <ShoppingBag className="size-16 text-muted-foreground/30" />
-          </div>
-        )}
+        {/* Clickable image area → product page (sits below badge/fav via z-0) */}
+        <Link href={href} aria-label={title} className="absolute inset-0 z-0">
+          {imageUrl ? (
+            <Image
+              src={imageUrl}
+              alt={title}
+              fill
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              className="object-contain p-2.5"
+            />
+          ) : (
+            <span className="flex h-full w-full items-center justify-center">
+              <ShoppingBag className="size-16 text-muted-foreground/30" />
+            </span>
+          )}
+        </Link>
 
         {/* Discount badge (on top of image layer) */}
         {discountLabel && (
@@ -63,7 +73,12 @@ export function ProductCard({
 
       {/* Body */}
       <div className="flex flex-col gap-1.5 px-3.5 py-3">
-        <p className="font-heading text-sm font-medium text-foreground">{title}</p>
+        <Link
+          href={href}
+          className="line-clamp-2 font-heading text-sm font-medium text-foreground transition-colors hover:text-primary"
+        >
+          {title}
+        </Link>
 
         {/* PriceRow */}
         <div className="flex items-center gap-2">
