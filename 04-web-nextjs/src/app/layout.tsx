@@ -6,12 +6,11 @@ import { getCurrentUser } from "@/features/auth/api/bridge";
 import "./globals.css";
 import { Providers } from "./providers";
 
-import { AuthButton } from "@/features/auth";
-import { ThemeToggle } from "@/features/theme-toggle";
 import { Toaster } from "sonner";
 
 import { Funnel_Sans, Geist } from "next/font/google";
 import { Footer } from "@/widgets/footer";
+import { HeaderDesktop, HeaderMobile } from "@/widgets/header";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin", "cyrillic"], display: "swap" });
 const geist = Geist({ variable: "--font-geist", subsets: ["latin"], display: "swap" });
@@ -38,16 +37,10 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         <Providers initialUser={user}>
-          <header className="border-b">
-            <div className="mx-auto flex h-14 max-w-[1100px] items-center justify-between px-4">
-              <span className="font-semibold">Delivery</span>
-              <div className="flex items-center gap-1">
-                <AuthButton />
-                <ThemeToggle />
-              </div>
-            </div>
-          </header>
-          <div className="mx-auto w-full max-w-[1100px] flex-1 px-4">{children}</div>
+          {/* Responsive header: desktop bar ≥ md, mobile bar < md */}
+          <HeaderDesktop className="hidden md:block" />
+          <HeaderMobile className="block md:hidden" />
+          <main className="mx-auto w-full max-w-[1100px] flex-1 px-4">{children}</main>
           <Footer />
           <Toaster />
         </Providers>

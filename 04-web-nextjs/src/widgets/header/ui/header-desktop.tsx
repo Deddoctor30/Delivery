@@ -43,71 +43,72 @@ export function HeaderDesktop({ cartCount, className }: HeaderDesktopProps) {
   return (
     <header
       className={cn(
-        // height 72px, card bg, bottom border
-        "h-18 w-full bg-card border-b border-border",
-        // horizontal flex, gap 24px, horizontal padding 28px, centre-align
-        "flex flex-row items-center gap-6 px-7",
+        // full-width bar: card bg, bottom border (height lives on inner container)
+        "w-full bg-card border-b border-border",
         className,
       )}
     >
-      {/* Logo — size 18 matches Pencil wordmark 18px / mark proportions */}
-      <Link href="/" aria-label="На главную" className="shrink-0">
-        <Logo size={18} />
-      </Link>
+      {/* Inner column — aligned to the site content width (same as Footer) */}
+      <div className="mx-auto flex h-18 max-w-[1100px] flex-row items-center gap-6 px-4">
+        {/* Logo — size 18 matches Pencil wordmark 18px / mark proportions */}
+        <Link href="/" aria-label="На главную" className="shrink-0">
+          <Logo size={18} />
+        </Link>
 
-      {/* Nav links — gap 4, each: rounded-md, px-3 py-2, font-sans 14px medium */}
-      <nav aria-label="Навигация" className="flex flex-row items-center gap-1 shrink-0">
-        {NAV_LINKS.map(({ label, href }) => (
-          <Link
-            key={href}
-            href={href}
-            className={cn(
-              "rounded-md px-3 py-2",
-              "font-sans text-sm font-medium text-muted-foreground",
-              "transition-colors hover:bg-muted hover:text-foreground",
-            )}
-          >
-            {label}
-          </Link>
-        ))}
-      </nav>
-
-      {/* Search — fills remaining space */}
-      <div className="flex-1 min-w-0">
-        <SearchInput />
-      </div>
-
-      {/* Actions: ThemeToggle | AuthButton | Cart */}
-      <div className="flex flex-row items-center gap-2 shrink-0">
-        {/* Theme toggle — 40×40 ghost icon button */}
-        <ThemeToggle />
-
-        {/* Profile / auth — 40×40 ghost icon button */}
-        <AuthButton />
-
-        {/* Cart — ghost icon link with optional CartBadge overlay */}
-        <div className="relative">
-          <Link
-            href="/cart"
-            aria-label="Корзина"
-            className={cn(
-              "inline-flex size-10 items-center justify-center rounded-md",
-              "text-foreground transition-colors",
-              "hover:bg-muted hover:text-foreground",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-            )}
-          >
-            <ShoppingBag className="size-4.5" aria-hidden="true" />
-          </Link>
-          {cartCount != null && cartCount > 0 && (
-            <Badge
-              variant="cartBadge"
-              className="pointer-events-none absolute right-0 top-1.5 -translate-y-1/2 translate-x-1/2"
-              aria-label={`${cartCount} товар(а) в корзине`}
+        {/* Nav links — gap 4, each: rounded-md, px-3 py-2, font-sans 14px medium */}
+        <nav aria-label="Навигация" className="flex flex-row items-center gap-1 shrink-0">
+          {NAV_LINKS.map(({ label, href }) => (
+            <Link
+              key={href}
+              href={href}
+              className={cn(
+                "rounded-md px-3 py-2",
+                "font-sans text-sm font-medium text-muted-foreground",
+                "transition-colors hover:bg-muted hover:text-foreground",
+              )}
             >
-              {cartCount > 99 ? "99+" : cartCount}
-            </Badge>
-          )}
+              {label}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Search — fills remaining space */}
+        <div className="flex-1 min-w-0">
+          <SearchInput />
+        </div>
+
+        {/* Actions: ThemeToggle | AuthButton | Cart */}
+        <div className="flex flex-row items-center gap-2 shrink-0">
+          {/* Theme toggle — 40×40 ghost icon button */}
+          <ThemeToggle />
+
+          {/* Profile / auth — 40×40 ghost icon button */}
+          <AuthButton />
+
+          {/* Cart — ghost icon link with optional CartBadge overlay */}
+          <div className="relative">
+            <Link
+              href="/cart"
+              aria-label="Корзина"
+              className={cn(
+                "inline-flex size-10 items-center justify-center rounded-md",
+                "text-foreground transition-colors",
+                "hover:bg-muted hover:text-foreground",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+              )}
+            >
+              <ShoppingBag className="size-4.5" aria-hidden="true" />
+            </Link>
+            {cartCount != null && cartCount > 0 && (
+              <Badge
+                variant="cartBadge"
+                className="pointer-events-none absolute right-0 top-1.5 -translate-y-1/2 translate-x-1/2"
+                aria-label={`${cartCount} товар(а) в корзине`}
+              >
+                {cartCount > 99 ? "99+" : cartCount}
+              </Badge>
+            )}
+          </div>
         </div>
       </div>
     </header>
