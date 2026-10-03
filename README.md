@@ -41,7 +41,7 @@ NestJS-приложение:
 - авторизация, валидация, миграции, тесты.
 
 ### 04-web-nextjs
-Next.js приложение (App Router): SSR/SSG, общий API-клиент с бэком, дизайн-система из 02-design.
+Next.js приложение (App Router): SSR/SSG, общий API-клиент с бэком, дизайн-система из 02-design. Архитектура — Feature-Sliced Design. Превращение дизайна Pencil в код автоматизировано **конвейером из субагентов и слэш-команд** (`/pencil-pull`, `/update-ds`, `/make-component`, `/make-page`) — подробности в [`04-web-nextjs/README.md`](04-web-nextjs/README.md) и контракте [`04-web-nextjs/docs/pencil-pipeline.md`](04-web-nextjs/docs/pencil-pipeline.md).
 
 ### 05-mobile-rn
 React Native приложение (Expo). Переиспользует тот же бэк и доменные типы.
