@@ -5,6 +5,7 @@ export * from "./badge";
 export * from "./breadcrumb";
 export * from "./button";
 export * from "./card";
+export * from "./category-chip";
 export * from "./checkbox";
 export * from "./counter";
 export * from "./dialog";
