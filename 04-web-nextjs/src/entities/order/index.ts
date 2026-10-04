@@ -4,6 +4,7 @@ export {
   ORDER_STATUS_LABELS,
   ORDER_STATUS_SEQUENCE,
 } from "./model/types";
+export { MOCK_ORDERS, getOrderById } from "./model/mock";
 export { OrderCard } from "./ui/order-card";
 export type { OrderCardProps } from "./ui/order-card";
 export { StatusTimeline } from "./ui/status-timeline";
