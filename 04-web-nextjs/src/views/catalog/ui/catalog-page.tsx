@@ -11,12 +11,12 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-  Checkbox,
   EmptyState,
   Skeleton,
 } from "@/shared/ui";
 
 import { CatalogCategoryFilter } from "./catalog-category-filter";
+import { CatalogFilters } from "./catalog-filters";
 import { CatalogPagination } from "./catalog-pagination";
 import { CatalogSort } from "./catalog-sort";
 
@@ -90,99 +90,6 @@ export interface CatalogPageProps {
   discount?: boolean;
   minPrice?: number;
   maxPrice?: number;
-}
-
-// ─── Sidebar-фильтры (RSC, статические) ─────────────────────────────────────
-
-/** FilterSection — раздел сайдбара с заголовком и контентом. */
-function FilterSection({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div className="flex flex-col gap-2.5">
-      <span className="font-heading text-[13px] font-semibold text-foreground">{title}</span>
-      {children}
-    </div>
-  );
-}
-
-/** FilterCheckRow — строка чекбокса в сайдбаре. */
-function FilterCheckRow({
-  label,
-  count,
-  checked,
-}: {
-  label: string;
-  count?: string;
-  checked?: boolean;
-}) {
-  return (
-    <label className="flex w-full cursor-pointer items-center gap-2.5">
-      <Checkbox defaultChecked={checked} />
-      <span className="flex-1 text-[13px] text-foreground">{label}</span>
-      {count && <span className="font-mono text-[11px] text-muted-foreground">{count}</span>}
-    </label>
-  );
-}
-
-/**
- * CatalogFilters — статический RSC-сайдбар фильтров.
- *
- * Pencil: Filters frame, w=280, bg=card, cornerRadius=xl, padding=24, gap=16.
- * Разделы: Цена / Подкатегория / Бренд / В наличии.
- * Интерактив (диапазон цены, динамические чекбоксы) — TODO при подключении API.
- */
-function CatalogFilters() {
-  return (
-    <aside className="flex w-[280px] shrink-0 flex-col gap-4 rounded-xl bg-card p-6">
-      {/* Заголовок фильтров */}
-      <div className="flex items-center justify-between">
-        <span className="font-heading text-base font-semibold text-foreground">Фильтры</span>
-        <button
-          type="button"
-          className="text-[12px] text-primary transition-opacity hover:opacity-70"
-        >
-          Сбросить
-        </button>
-      </div>
-
-      {/* Цена */}
-      <FilterSection title="Цена, ₽">
-        <div className="flex gap-2">
-          <div className="flex flex-1 items-center rounded-md border border-input bg-muted px-3 py-2">
-            <span className="font-mono text-[13px] text-foreground">от 500</span>
-          </div>
-          <div className="flex flex-1 items-center rounded-md border border-input bg-muted px-3 py-2">
-            <span className="font-mono text-[13px] text-foreground">до 35 000</span>
-          </div>
-        </div>
-        {/* Ползунок-диапазон: TODO при подключении интерактивного фильтра */}
-        <div className="relative h-1 w-full overflow-hidden rounded-full bg-muted">
-          <div className="absolute left-0 h-full w-[60%] rounded-full bg-primary" />
-        </div>
-      </FilterSection>
-
-      {/* Подкатегория */}
-      <FilterSection title="Подкатегория">
-        <FilterCheckRow label="Смартфоны" count="2 410" checked />
-        <FilterCheckRow label="Ноутбуки" count="1 820" />
-        <FilterCheckRow label="Наушники" count="3 290" checked />
-        <FilterCheckRow label="Планшеты" count="840" />
-        <FilterCheckRow label="Аксессуары" count="4 120" />
-      </FilterSection>
-
-      {/* Бренд */}
-      <FilterSection title="Бренд">
-        <FilterCheckRow label="Apple" count="1 240" />
-        <FilterCheckRow label="Samsung" count="980" />
-        <FilterCheckRow label="Xiaomi" count="720" checked />
-        <FilterCheckRow label="Sony" count="460" />
-      </FilterSection>
-
-      {/* В наличии */}
-      <FilterSection title="В наличии">
-        <FilterCheckRow label="Только в наличии" checked />
-      </FilterSection>
-    </aside>
-  );
 }
 
 // ─── Скелетон загрузки ───────────────────────────────────────────────────────
@@ -299,9 +206,16 @@ export function CatalogPage({
       {/* ── 4. Cols: Filters + Products ─────────────────────────────── */}
       {/* Pencil: Y8INV Cols, gap=24 */}
       <div className="flex w-full gap-6">
-        {/* Filters sidebar — десктоп */}
+        {/* Filters sidebar — десктоп (client-остров: пишет фильтры в URL) */}
         <div className="hidden lg:block">
-          <CatalogFilters />
+          <Suspense fallback={<Skeleton className="h-96 w-[280px] rounded-xl" />}>
+            <CatalogFilters
+              inStock={inStock}
+              discount={discount}
+              minPrice={minPrice}
+              maxPrice={maxPrice}
+            />
+          </Suspense>
         </div>
 
         {/* Products area */}
