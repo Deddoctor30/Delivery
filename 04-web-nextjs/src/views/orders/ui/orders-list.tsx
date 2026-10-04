@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 import { OrderCard } from "@/entities/order";
@@ -15,14 +16,14 @@ interface OrdersListProps {
  * Обёртка нужна, чтобы передавать функции-обработчики в OrderCard («use client»)
  * из RSC-родителя OrdersPage (в RSC нельзя сериализовать функции).
  *
- * Обработчики пока дают placeholder-отклик через toast (Toaster смонтирован в layout).
- * TODO: подключить реальную навигацию/API:
- *   details → /orders/{id} (отдельный экран деталей, пока не построен),
- *   repeat  → повторить заказ, cancel → отмена заказа.
+ * handleDetails → router.push(/orders/{id}) — переход на экран деталей заказа.
+ * handleRepeat, handleCancel — placeholder через toast до интеграции с API.
  */
 export function OrdersList({ orders }: OrdersListProps) {
+  const router = useRouter();
+
   function handleDetails(id: string) {
-    toast(`Детали заказа №${id} — экран в разработке`);
+    router.push(`/orders/${id}`);
   }
 
   function handleRepeat(id: string) {

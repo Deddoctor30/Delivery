@@ -52,4 +52,6 @@ export type Order = {
   address?: string;
   addressComment?: string;
   paymentMethod?: string;
+  /** Опциональные временны́е метки по статусам для StatusTimeline (детальный экран). */
+  statusTimestamps?: Partial<Record<OrderStatus, string>>;
 };

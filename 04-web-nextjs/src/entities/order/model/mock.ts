@@ -21,6 +21,12 @@ export const MOCK_ORDERS: Order[] = [
     total: 10970,
     address: "г. Москва, ул. Ленина, д. 12, кв. 45",
     paymentMethod: "Карта •••• 4242",
+    statusTimestamps: {
+      created: "09:15",
+      processing: "09:32",
+      assembling: "10:04",
+      shipping: "10:45",
+    },
   },
 
   // ── 2. Заказ завершён ────────────────────────────────────────────────────
@@ -38,6 +44,14 @@ export const MOCK_ORDERS: Order[] = [
     total: 77480,
     address: "г. Москва, ул. Ленина, д. 12, кв. 45",
     paymentMethod: "Карта •••• 4242",
+    statusTimestamps: {
+      created: "14:30",
+      processing: "14:45",
+      assembling: "15:10",
+      shipping: "16:00",
+      delivering: "17:30",
+      completed: "18:05",
+    },
   },
 
   // ── 3. Заказ отменён ─────────────────────────────────────────────────────
@@ -52,6 +66,11 @@ export const MOCK_ORDERS: Order[] = [
     total: 38799,
     address: "г. Санкт-Петербург, пр. Невский, д. 88, оф. 5",
     paymentMethod: "СБП",
+    statusTimestamps: {
+      created: "11:00",
+      processing: "11:15",
+      cancelled: "12:00",
+    },
   },
 
   // ── 4. Заказ в обработке ─────────────────────────────────────────────────
@@ -70,6 +89,10 @@ export const MOCK_ORDERS: Order[] = [
     total: 15270,
     address: "г. Москва, ул. Ленина, д. 12, кв. 45",
     paymentMethod: "Карта •••• 4242",
+    statusTimestamps: {
+      created: "08:45",
+      processing: "08:52",
+    },
   },
 
   // ── 5. Заказ создан (только что) ─────────────────────────────────────────
@@ -86,6 +109,9 @@ export const MOCK_ORDERS: Order[] = [
     deliveryPrice: 0,
     total: 15480,
     paymentMethod: "СБП",
+    statusTimestamps: {
+      created: "10:20",
+    },
   },
 
   // ── 6. Заказ доставляется (финальный этап) ───────────────────────────────
@@ -101,6 +127,13 @@ export const MOCK_ORDERS: Order[] = [
     address: "г. Москва, ул. Ленина, д. 12, кв. 45",
     addressComment: "Домофон 45Б",
     paymentMethod: "Карта •••• 4242",
+    statusTimestamps: {
+      created: "16:00",
+      processing: "16:10",
+      assembling: "16:45",
+      shipping: "18:00",
+      delivering: "19:30",
+    },
   },
 ];
 
