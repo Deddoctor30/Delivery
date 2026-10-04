@@ -29,7 +29,7 @@ export interface ProductPageProps {
  *
  * Из Pencil-фрейма p9B5ZP / Body D5nEvM:
  *   layout: vertical, gap: 40, padding: [28, 170, 80, 170]
- *   (горизонтальные отступы — в layout.tsx через max-w-[1100px] + px-4)
+ *   (горизонтальные отступы — в layout.tsx через max-w-[1328px] + px-4)
  *
  * Структура (снизу вверх по Pencil):
  *   1. Breadcrumbs — Главная / Каталог / Электроника / <название>

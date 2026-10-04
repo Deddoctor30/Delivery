@@ -49,7 +49,7 @@ export function HeaderDesktop({ cartCount, className }: HeaderDesktopProps) {
       )}
     >
       {/* Inner column — aligned to the site content width (same as Footer) */}
-      <div className="mx-auto flex h-18 max-w-[1100px] flex-row items-center gap-6 px-4">
+      <div className="mx-auto flex h-18 max-w-[1328px] flex-row items-center gap-6 px-4">
         {/* Logo — size 18 matches Pencil wordmark 18px / mark proportions */}
         <Link href="/" aria-label="На главную" className="shrink-0">
           <Logo size={18} />

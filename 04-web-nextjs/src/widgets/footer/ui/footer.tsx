@@ -17,7 +17,7 @@ export function Footer() {
 
   return (
     <footer className="bg-card border-t border-border w-full">
-      <div className="mx-auto max-w-[1100px] px-4 py-9 flex flex-col gap-8">
+      <div className="mx-auto max-w-[1328px] px-4 py-9 flex flex-col gap-8">
         {/* Nav links row */}
         <nav aria-label="Навигация по сайту" className="flex flex-wrap gap-x-8 gap-y-2">
           {NAV_LINKS.map(({ label, href }) => (

@@ -204,7 +204,7 @@ function ProductGridSkeleton() {
  *
  * Из Pencil-фрейма uZ4Ex / Body K2wsL:
  *   layout: vertical, gap: 24, padding: [28, 170, 80, 170]
- *   (горизонтальные отступы — в layout.tsx через max-w-[1100px] + px-4)
+ *   (горизонтальные отступы — в layout.tsx через max-w-[1328px] + px-4)
  *
  * Структура:
  *   1. Breadcrumbs — Главная / Каталог / Электроника

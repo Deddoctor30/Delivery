@@ -64,7 +64,7 @@ export function HeaderMobile({ cartCount, className }: HeaderMobileProps) {
       )}
     >
       {/* Inner column — aligned to the site content width (same as Footer/desktop) */}
-      <div className="mx-auto flex h-[60px] max-w-[1100px] flex-row items-center justify-between px-4">
+      <div className="mx-auto flex h-[60px] max-w-[1328px] flex-row items-center justify-between px-4">
         {/* Logo — mark 24px, brand text 16px (Pencil: mark 24×24, font 16px Geist 600) */}
         <Link href="/" aria-label="На главную" className="shrink-0">
           <Logo size={16} />
