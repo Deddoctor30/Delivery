@@ -10,6 +10,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "arch": "steiger ./src",
+    "typecheck": "next typegen && tsc --noEmit",
     "gen:api": "openapi-typescript http://localhost:3001/api/docs-json -o src/shared/api/schema.d.ts"
   },
   "dependencies": {

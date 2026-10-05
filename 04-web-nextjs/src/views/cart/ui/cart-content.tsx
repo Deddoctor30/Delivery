@@ -23,7 +23,7 @@ import { Trash2, ShoppingBag, ArrowRight } from "lucide-react";
 
 import type { Product } from "@/entities/product";
 
-import { Button, Counter, Badge, EmptyState, Illustration } from "@/shared/ui";
+import { Counter, Badge, EmptyState, Illustration, buttonVariants } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
 
 /* ── Тип строки корзины ──────────────────────────────────────────── */
@@ -73,11 +73,9 @@ export function CartContent({ initialLines }: CartContentProps) {
         title="Корзина пуста"
         description="Добавьте товары, чтобы оформить заказ"
         action={
-          <Button asChild variant="default" size="lg">
-            <Link href="/catalog">
-              В каталог <ArrowRight className="ml-2 size-4" />
-            </Link>
-          </Button>
+          <Link href="/catalog" className={buttonVariants({ variant: "default", size: "lg" })}>
+            В каталог <ArrowRight className="ml-2 size-4" />
+          </Link>
         }
         className="py-16"
       />
@@ -152,9 +150,12 @@ export function CartContent({ initialLines }: CartContentProps) {
 
         {/* Кнопка оформить */}
         {/* Pencil: Button/Primary-Large fill_container «Оформить заказ» */}
-        <Button variant="default" size="lg" className="w-full gap-2">
+        <Link
+          href="/checkout"
+          className={buttonVariants({ variant: "default", size: "lg", className: "w-full gap-2" })}
+        >
           Оформить заказ <ArrowRight className="size-4" />
-        </Button>
+        </Link>
       </aside>
     </div>
   );

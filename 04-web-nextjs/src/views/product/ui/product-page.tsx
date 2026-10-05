@@ -25,27 +25,19 @@ export interface ProductPageProps {
 }
 
 /**
- * ProductPage — экран карточки товара (RSC).
+ * ProductPage — экран карточки товара (async RSC).
  *
  * Из Pencil-фрейма p9B5ZP / Body D5nEvM:
  *   layout: vertical, gap: 40, padding: [28, 170, 80, 170]
  *   (горизонтальные отступы — в layout.tsx через max-w-[1328px] + px-4)
  *
- * Структура (снизу вверх по Pencil):
+ * Структура:
  *   1. Breadcrumbs — Главная / Каталог / Электроника / <название>
  *   2. Cols — Gallery (fill_container) + Info (w=440)
- *      Gallery: MainImage h=540 + Thumbs (5 ячеек h=96)
- *      Info: InStock badge, Title, Rating (Stars+Score+Reviews),
- *            PriceCard (client-остров ProductBuyBlock), Benefits
  *   3. DetailsTabs — Описание / Характеристики / Отзывы / Вопросы
- *   4. Similar — сетка 4 колонки ProductCard
- *
- * Интерактивные части вынесены в client-острова:
- *   - ProductGallery: выбор миниатюры → useState
- *   - ProductBuyBlock: Counter qty → useState + кнопки
- * ProductPage остаётся RSC: нет браузерных хуков, нет состояния.
+ *   4. Similar — сетка 4 колонки ProductCard (из бэкенда)
  */
-export function ProductPage({ product }: ProductPageProps) {
+export async function ProductPage({ product }: ProductPageProps) {
   const {
     title,
     price,
@@ -60,7 +52,7 @@ export function ProductPage({ product }: ProductPageProps) {
     brand,
   } = product;
 
-  const similar = getSimilarProducts(product.id);
+  const similar = await getSimilarProducts({ id: product.id, category: product.category });
 
   const savingAmount = oldPrice ? oldPrice - price : undefined;
 
@@ -104,7 +96,7 @@ export function ProductPage({ product }: ProductPageProps) {
 
         {/* Info — w=440 в Pencil, на десктопе фиксированная ширина */}
         {/* Pencil: xotxW Info, w=440, layout=vertical, gap=24 */}
-        <div className="flex w-full flex-col gap-6 lg:w-[440px] lg:shrink-0">
+        <div className="flex w-full flex-col gap-6 lg:w-110 lg:shrink-0">
           {/* InStock badge */}
           {/* Pencil: InStock — Label/Success «В наличии · 240 шт» */}
           {inStock ? (
@@ -170,7 +162,7 @@ export function ProductPage({ product }: ProductPageProps) {
             {/* Pencil: b8jZw gap=12, Icon 36×36 bg=$--secondary rounded-md */}
             <div className="flex gap-3">
               <div className="flex size-9 shrink-0 items-center justify-center rounded-md bg-secondary">
-                <Truck className="size-[18px] text-foreground" />
+                <Truck className="size-4.5 text-foreground" />
               </div>
               <div className="flex flex-col gap-0.5">
                 {/* Pencil: T font-heading 13px 600 */}
@@ -187,7 +179,7 @@ export function ProductPage({ product }: ProductPageProps) {
             {/* Возврат 14 дней */}
             <div className="flex gap-3">
               <div className="flex size-9 shrink-0 items-center justify-center rounded-md bg-secondary">
-                <RefreshCcw className="size-[18px] text-foreground" />
+                <RefreshCcw className="size-4.5 text-foreground" />
               </div>
               <div className="flex flex-col gap-0.5">
                 <span className="font-heading text-[13px] font-semibold text-foreground">
@@ -200,7 +192,7 @@ export function ProductPage({ product }: ProductPageProps) {
             {/* Гарантия 2 года */}
             <div className="flex gap-3">
               <div className="flex size-9 shrink-0 items-center justify-center rounded-md bg-secondary">
-                <Shield className="size-[18px] text-foreground" />
+                <Shield className="size-4.5 text-foreground" />
               </div>
               <div className="flex flex-col gap-0.5">
                 <span className="font-heading text-[13px] font-semibold text-foreground">
@@ -317,26 +309,30 @@ export function ProductPage({ product }: ProductPageProps) {
 
       {/* ── 4. Similar ──────────────────────────────────────────────── */}
       {/* Pencil: F5wNdt Similar layout=vertical gap=20 */}
-      <section className="flex flex-col gap-5">
-        {/* Pencil: VbaVJ Head justifyContent=space_between alignItems=end */}
-        <div className="flex w-full items-end justify-between">
-          <div className="flex flex-col gap-1">
-            {/* Pencil: T font-heading 24px 600 */}
-            <h2 className="font-heading text-2xl font-semibold text-foreground">Похожие товары</h2>
-            {/* Pencil: S font-body 14px muted-foreground */}
-            <p className="text-sm text-muted-foreground">
-              Подобрали для вас на основе характеристик
-            </p>
+      {similar.length > 0 && (
+        <section className="flex flex-col gap-5">
+          {/* Pencil: VbaVJ Head justifyContent=space_between alignItems=end */}
+          <div className="flex w-full items-end justify-between">
+            <div className="flex flex-col gap-1">
+              {/* Pencil: T font-heading 24px 600 */}
+              <h2 className="font-heading text-2xl font-semibold text-foreground">
+                Похожие товары
+              </h2>
+              {/* Pencil: S font-body 14px muted-foreground */}
+              <p className="text-sm text-muted-foreground">
+                Подобрали для вас на основе характеристик
+              </p>
+            </div>
           </div>
-        </div>
 
-        {/* Pencil: KcKDz Grid gap=16, 4 колонки ProductCard */}
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-          {similar.map((p) => (
-            <ProductCard key={p.id} product={p} />
-          ))}
-        </div>
-      </section>
+          {/* Pencil: KcKDz Grid gap=16, 4 колонки ProductCard */}
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+            {similar.map((p) => (
+              <ProductCard key={p.id} product={p} />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

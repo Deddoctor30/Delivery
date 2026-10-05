@@ -11,6 +11,7 @@ import { Toaster } from "sonner";
 import { Funnel_Sans, Geist } from "next/font/google";
 import { Footer } from "@/widgets/footer";
 import { HeaderDesktop, HeaderMobile } from "@/widgets/header";
+import { CookieBanner } from "@/features/cookie-consent";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin", "cyrillic"], display: "swap" });
 const geist = Geist({ variable: "--font-geist", subsets: ["latin"], display: "swap" });
@@ -43,6 +44,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
           <main className="mx-auto w-full max-w-[1328px] flex-1 px-4">{children}</main>
           <Footer />
           <Toaster />
+          <CookieBanner />
         </Providers>
       </body>
     </html>

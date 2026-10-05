@@ -1,19 +1,10 @@
 import Link from "next/link";
 import { ArrowRight, Sparkles, Truck } from "lucide-react";
 
-import { ProductCard, MOCK_PRODUCTS } from "@/entities/product";
+import { ProductCard, getPopularProducts, getProducts } from "@/entities/product";
 import type { Product } from "@/entities/product";
 
 import { HomeCategories } from "./home-categories";
-
-// Витрины главной собираем из единого mock-источника (@/entities/product),
-// чтобы id совпадали и ссылки вели на реальные страницы товара.
-// TODO: заменить на реальный API.
-const MOCK_POPULAR: Product[] = MOCK_PRODUCTS.slice(0, 4);
-const MOCK_DISCOUNTED: Product[] = MOCK_PRODUCTS.filter((p) => (p.discountPercent ?? 0) > 0).slice(
-  0,
-  4,
-);
 
 /**
  * SectionHead — заголовок секции с подписью и навигационными стрелками.
@@ -54,9 +45,8 @@ function ProductGrid({ products }: { products: Product[] }) {
 /**
  * HomePage — главная страница маркетплейса.
  *
- * RSC: не содержит состояния/эффектов. Секция категорий вынесена в HomeCategories
- * (тоже RSC — Link-карточки с CSS-hover, без интерактива).
- * Данные: статические mock-константы (TODO: заменить на реальный API).
+ * RSC (async): загружает популярные товары и товары со скидкой из бэкенда.
+ * Данные: getPopularProducts() и getProducts({ discounted: true }).
  *
  * Структура (из Pencil-фрейма qfpwd / Body l5rVYR):
  *  gap: 40px, padding: 32 170 80 170 (горизонтальные паддинги — в layout)
@@ -65,7 +55,14 @@ function ProductGrid({ products }: { products: Product[] }) {
  *  3. Популярные (gap=20, 4-cols grid)
  *  4. Со скидкой (gap=20, 4-cols grid)
  */
-export function HomePage() {
+export async function HomePage() {
+  const [popularProducts, discountedResult] = await Promise.all([
+    getPopularProducts(4),
+    getProducts({ discounted: true, limit: 4, sort: "newest" }),
+  ]);
+
+  const discountedProducts = discountedResult.items;
+
   return (
     <div className="flex flex-col gap-10 py-8 pb-20">
       {/* ── 1. HeroBento ───────────────────────────────────────────── */}
@@ -148,7 +145,7 @@ export function HomePage() {
           subtitle="Чаще всего покупают на этой неделе"
           href="/catalog?sort=popular"
         />
-        <ProductGrid products={MOCK_POPULAR} />
+        <ProductGrid products={popularProducts} />
       </section>
 
       {/* ── 4. Со скидкой ──────────────────────────────────────────── */}
@@ -158,7 +155,7 @@ export function HomePage() {
           subtitle="Лучшие цены этой недели"
           href="/catalog?discount=1"
         />
-        <ProductGrid products={MOCK_DISCOUNTED} />
+        <ProductGrid products={discountedProducts} />
       </section>
     </div>
   );

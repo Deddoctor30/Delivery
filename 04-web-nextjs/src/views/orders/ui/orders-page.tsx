@@ -7,7 +7,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-  Button,
+  buttonVariants,
   EmptyState,
   Illustration,
 } from "@/shared/ui";
@@ -81,9 +81,9 @@ export function OrdersPage() {
           title="Заказов пока нет"
           description="Здесь появятся ваши заказы после оформления"
           action={
-            <Button asChild>
-              <Link href="/catalog">Начать покупки</Link>
-            </Button>
+            <Link href="/catalog" className={buttonVariants()}>
+              Начать покупки
+            </Link>
           }
         />
       ) : (

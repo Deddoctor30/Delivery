@@ -6,7 +6,9 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/shared/ui";
-import { getProductById } from "@/entities/product";
+// TODO: /make-api cart — translate to real cart API.
+// Mock ids (p1/p3/p13) do not exist in the real DB.
+import { getMockProductById } from "@/entities/product";
 
 import { CartContent } from "./cart-content";
 import type { CartLine } from "./cart-content";
@@ -37,9 +39,9 @@ export function CartPage() {
   //   p3 — Чайник Smart 1.7л × 2
   //   p13 — Куртка Winter Pro × 1
   const initialLines: CartLine[] = [
-    { product: getProductById("p1")!, quantity: 1 },
-    { product: getProductById("p3")!, quantity: 2 },
-    { product: getProductById("p13")!, quantity: 1 },
+    { product: getMockProductById("p1")!, quantity: 1 },
+    { product: getMockProductById("p3")!, quantity: 2 },
+    { product: getMockProductById("p13")!, quantity: 1 },
   ].filter((line) => Boolean(line.product));
 
   return (

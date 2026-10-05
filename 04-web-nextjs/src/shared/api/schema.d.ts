@@ -465,6 +465,38 @@ export interface components {
         | "avatar-7"
         | "avatar-8";
     };
+    ProductDto: {
+      id: string;
+      categoryId: string;
+      slug: string;
+      name: string;
+      description: string;
+      /** @description Цена в копейках */
+      price: number;
+      /** @description Скидочная цена в копейках */
+      discountPrice: number | null;
+      imageUrl: string;
+      stock: number;
+      isPopular: boolean;
+      isSeasonal: boolean;
+      season: string | null;
+      /** Format: date-time */
+      createdAt: string;
+    };
+    ProductListDto: {
+      items: components["schemas"]["ProductDto"][];
+      total: number;
+      page: number;
+      limit: number;
+      totalPages: number;
+    };
+    SuggestItemDto: {
+      id: string;
+      name: string;
+      slug: string;
+      /** @description Похожесть по триграммам (pg_trgm) */
+      sim: number;
+    };
     AddCartItemDto: {
       productId: string;
       quantity: number;
@@ -871,7 +903,9 @@ export interface operations {
         headers: {
           [name: string]: unknown;
         };
-        content?: never;
+        content: {
+          "application/json": components["schemas"]["ProductListDto"];
+        };
       };
     };
   };
@@ -889,7 +923,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          "application/json": Record<string, never>;
+          "application/json": components["schemas"]["ProductDto"][];
         };
       };
     };
@@ -909,7 +943,9 @@ export interface operations {
         headers: {
           [name: string]: unknown;
         };
-        content?: never;
+        content: {
+          "application/json": components["schemas"]["SuggestItemDto"][];
+        };
       };
     };
   };
@@ -928,7 +964,9 @@ export interface operations {
         headers: {
           [name: string]: unknown;
         };
-        content?: never;
+        content: {
+          "application/json": components["schemas"]["ProductDto"];
+        };
       };
     };
   };
