@@ -2,6 +2,9 @@ import { Suspense } from "react";
 import { PackageSearch } from "lucide-react";
 
 import { ProductCard, getProducts } from "@/entities/product";
+import { getTopCategories } from "@/entities/category";
+import { categoryIcon, ALL_CATEGORIES_ICON } from "@/shared/lib/category-icons";
+import type { Category as NavCategory } from "@/widgets/category-nav";
 
 import {
   Breadcrumb,
@@ -75,21 +78,32 @@ export async function CatalogPage({
   // Маппим sort из URL-значений на те, что принимает бэкенд
   const apiSort = mapSort(sort);
 
-  const {
-    items: pageProducts,
-    total,
-    totalPages,
-  } = await getProducts({
-    categoryId: category && category !== "all" ? category : undefined,
-    discounted: discount || undefined,
-    sort: apiSort,
-    page,
-    limit: PAGE_SIZE,
-  });
+  const activeSlug = category && category !== "all" ? category : undefined;
 
-  // Отображаемый заголовок категории
-  const categoryLabel =
-    category && category !== "all" ? (DEFAULT_CATEGORY_LABELS[category] ?? category) : "Каталог";
+  // Категории и товары тянем параллельно
+  const [topCategories, productsResult] = await Promise.all([
+    getTopCategories(),
+    getProducts({
+      categorySlug: activeSlug,
+      discounted: discount || undefined,
+      sort: apiSort,
+      page,
+      limit: PAGE_SIZE,
+    }),
+  ]);
+
+  const { items: pageProducts, total, totalPages } = productsResult;
+
+  // Чипы навигации: «Все» + верхнеуровневые категории (id = slug)
+  const navCategories: NavCategory[] = [
+    { id: "all", label: "Все", icon: ALL_CATEGORIES_ICON },
+    ...topCategories.map((c) => ({ id: c.slug, label: c.name, icon: categoryIcon(c.slug) })),
+  ];
+
+  // Отображаемый заголовок категории — по реальному имени из бэкенда
+  const categoryLabel = activeSlug
+    ? (topCategories.find((c) => c.slug === activeSlug)?.name ?? activeSlug)
+    : "Каталог";
 
   return (
     <div className="flex flex-col gap-6 py-7 pb-20">
@@ -116,7 +130,7 @@ export async function CatalogPage({
 
       {/* ── 2. CategoryNav ──────────────────────────────────────────── */}
       <Suspense fallback={<Skeleton className="h-10 w-full rounded-full" />}>
-        <CatalogCategoryFilter />
+        <CatalogCategoryFilter categories={navCategories} />
       </Suspense>
 
       {/* ── 3. TitleRow ─────────────────────────────────────────────── */}
@@ -180,16 +194,6 @@ export async function CatalogPage({
     </div>
   );
 }
-
-/** Метки для breadcrumbs и заголовка страницы. */
-const DEFAULT_CATEGORY_LABELS: Record<string, string> = {
-  electronics: "Электроника",
-  clothing: "Одежда",
-  home: "Дом и сад",
-  books: "Книги",
-  sport: "Спорт",
-  food: "Продукты",
-};
 
 /**
  * Маппит значения sort из URL (используемых CatalogSort-островом)

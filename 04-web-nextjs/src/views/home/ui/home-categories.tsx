@@ -1,87 +1,36 @@
 import Link from "next/link";
-import {
-  Smartphone,
-  Shirt,
-  Sofa,
-  Book,
-  Dumbbell,
-  Sparkles,
-  Apple,
-  Baby,
-  ArrowRight,
-} from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+
+import { getTopCategories } from "@/entities/category";
+import { getProducts } from "@/entities/product";
+import { categoryIcon } from "@/shared/lib/category-icons";
 import { cn } from "@/shared/lib/utils";
 
-interface CategoryItem {
-  id: string;
-  label: string;
-  count: string;
-  icon: LucideIcon;
-  href: string;
+/** Склонение «товар» по числу. */
+function pluralizeProducts(n: number): string {
+  const mod10 = n % 10;
+  const mod100 = n % 100;
+  if (mod10 === 1 && mod100 !== 11) return `${n} товар`;
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return `${n} товара`;
+  return `${n} товаров`;
 }
 
-// TODO: заменить на реальный API (категории с сервера)
-const MOCK_CATEGORIES: CategoryItem[] = [
-  {
-    id: "electronics",
-    label: "Электроника",
-    count: "12 480 товаров",
-    icon: Smartphone,
-    href: "/catalog?category=electronics",
-  },
-  {
-    id: "clothing",
-    label: "Одежда",
-    count: "8 320 товаров",
-    icon: Shirt,
-    href: "/catalog?category=clothing",
-  },
-  {
-    id: "home",
-    label: "Дом и сад",
-    count: "5 640 товаров",
-    icon: Sofa,
-    href: "/catalog?category=home",
-  },
-  {
-    id: "books",
-    label: "Книги",
-    count: "3 900 товаров",
-    icon: Book,
-    href: "/catalog?category=books",
-  },
-  {
-    id: "sport",
-    label: "Спорт",
-    count: "4 210 товаров",
-    icon: Dumbbell,
-    href: "/catalog?category=sport",
-  },
-  {
-    id: "beauty",
-    label: "Красота",
-    count: "2 750 товаров",
-    icon: Sparkles,
-    href: "/catalog?category=beauty",
-  },
-  {
-    id: "food",
-    label: "Продукты",
-    count: "1 980 товаров",
-    icon: Apple,
-    href: "/catalog?category=food",
-  },
-  {
-    id: "kids",
-    label: "Детям",
-    count: "3 120 товаров",
-    icon: Baby,
-    href: "/catalog?category=kids",
-  },
-];
+export async function HomeCategories() {
+  const categories = await getTopCategories();
 
-export function HomeCategories() {
+  // Счётчик товаров (с учётом потомков) по каждой верхнеуровневой категории
+  const counts = await Promise.all(
+    categories.map((c) => getProducts({ categorySlug: c.slug, limit: 1 }).then((r) => r.total)),
+  );
+
+  const items = categories.map((c, i) => ({
+    id: c.id,
+    label: c.name,
+    count: pluralizeProducts(counts[i] ?? 0),
+    icon: categoryIcon(c.slug),
+    href: `/catalog?category=${c.slug}`,
+  }));
+
   return (
     <section className="flex flex-col gap-5">
       {/* Head */}
@@ -89,7 +38,7 @@ export function HomeCategories() {
         <div className="flex flex-col gap-1">
           <h2 className="font-heading text-[28px] font-semibold text-foreground">Категории</h2>
           <p className="text-sm text-muted-foreground">
-            Найдите всё, что нужно — от электроники до продуктов
+            Найдите всё, что нужно — от горячего до десертов
           </p>
         </div>
         <Link
@@ -106,7 +55,7 @@ export function HomeCategories() {
 
       {/* Grid — 4 cols desktop, 2 cols mobile */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-        {MOCK_CATEGORIES.map(({ id, label, count, icon: Icon, href }) => (
+        {items.map(({ id, label, count, icon: Icon, href }) => (
           <Link
             key={id}
             href={href}
@@ -117,7 +66,7 @@ export function HomeCategories() {
           >
             {/* Icon box */}
             <div className="flex size-11 items-center justify-center rounded-md bg-accent">
-              <Icon className="size-[22px] text-accent-foreground" />
+              <Icon className="size-5.5 text-accent-foreground" />
             </div>
             {/* Text */}
             <div className="flex flex-col gap-0.5">

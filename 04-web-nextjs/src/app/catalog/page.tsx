@@ -7,7 +7,7 @@ import { CatalogPage } from "@/views/catalog";
  * Вся вёрстка и логика — в CatalogPage (views/catalog).
  *
  * URL-параметры:
- *   ?category=electronics  — выбранная категория
+ *   ?category=goryachee    — slug выбранной категории
  *   ?sort=popular          — сортировка
  *   ?page=2                — страница
  *   ?inStock=1             — только в наличии

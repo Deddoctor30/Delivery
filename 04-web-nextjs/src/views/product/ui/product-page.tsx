@@ -2,6 +2,7 @@ import { Shield, Truck, RefreshCcw, Star } from "lucide-react";
 
 import type { Product } from "@/entities/product";
 import { ProductCard, getSimilarProducts } from "@/entities/product";
+import { getCategoryById } from "@/entities/category";
 
 import {
   Breadcrumb,
@@ -32,7 +33,7 @@ export interface ProductPageProps {
  *   (горизонтальные отступы — в layout.tsx через max-w-[1328px] + px-4)
  *
  * Структура:
- *   1. Breadcrumbs — Главная / Каталог / Электроника / <название>
+ *   1. Breadcrumbs — Главная / Каталог / <категория товара> / <название>
  *   2. Cols — Gallery (fill_container) + Info (w=440)
  *   3. DetailsTabs — Описание / Характеристики / Отзывы / Вопросы
  *   4. Similar — сетка 4 колонки ProductCard (из бэкенда)
@@ -52,7 +53,10 @@ export async function ProductPage({ product }: ProductPageProps) {
     brand,
   } = product;
 
-  const similar = await getSimilarProducts({ id: product.id, category: product.category });
+  const [similar, category] = await Promise.all([
+    getSimilarProducts({ id: product.id, category: product.category }),
+    product.category ? getCategoryById(product.category) : Promise.resolve(null),
+  ]);
 
   const savingAmount = oldPrice ? oldPrice - price : undefined;
 
@@ -74,10 +78,16 @@ export async function ProductPage({ product }: ProductPageProps) {
           <BreadcrumbItem>
             <BreadcrumbLink href="/catalog">Каталог</BreadcrumbLink>
           </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/catalog?category=electronics">Электроника</BreadcrumbLink>
-          </BreadcrumbItem>
+          {category && (
+            <>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink href={`/catalog?category=${category.slug}`}>
+                  {category.name}
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+            </>
+          )}
           <BreadcrumbSeparator />
           <BreadcrumbItem>
             <BreadcrumbPage>{title}</BreadcrumbPage>

@@ -43,6 +43,8 @@ export function toProduct(dto: ProductDto): Product {
 
 export interface GetProductsParams {
   categoryId?: string;
+  /** Slug категории — фильтрует по ней И всем её потомкам (приоритетнее categoryId). */
+  categorySlug?: string;
   search?: string;
   popular?: boolean;
   seasonal?: boolean;
@@ -56,7 +58,7 @@ export interface GetProductsParams {
 
 /**
  * Список товаров с фильтрацией/сортировкой/пагинацией — делегируется бэкенду.
- * Поддерживаемые фильтры: categoryId, search, popular, seasonal, discounted, page, limit, sort.
+ * Поддерживаемые фильтры: categoryId, categorySlug, search, popular, seasonal, discounted, page, limit, sort.
  * НЕ поддержаны бэкендом: inStock, minPrice/maxPrice — TODO в backend-сервисе.
  */
 export async function getProducts(
