@@ -18,9 +18,18 @@
  *     - Map: MapPlaceholder (HT7ER), fill_container
  */
 
+import type { FieldErrors, UseFormRegister } from "react-hook-form";
+
 import { Input, Label, MapPlaceholder } from "@/shared/ui";
 
-export function CheckoutForm() {
+import type { CheckoutFormValues } from "./checkout-flow";
+
+interface CheckoutFormProps {
+  register: UseFormRegister<CheckoutFormValues>;
+  errors: FieldErrors<CheckoutFormValues>;
+}
+
+export function CheckoutForm({ register, errors }: CheckoutFormProps) {
   return (
     <div className="flex flex-col gap-5">
       {/* ── AddrCard ──────────────────────────────────────────────── */}
@@ -36,31 +45,53 @@ export function CheckoutForm() {
             id="checkout-street"
             placeholder="Например, ул. Ленина, д. 10"
             autoComplete="street-address"
+            {...register("street")}
           />
+          {errors.street && <p className="text-sm text-destructive">{errors.street.message}</p>}
         </div>
 
         {/* Pencil: Apt — Input/Default, fill_container */}
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="checkout-apt">Квартира / офис</Label>
-          <Input id="checkout-apt" placeholder="Кв. 42" autoComplete="address-line2" />
+          <Input
+            id="checkout-apt"
+            placeholder="Кв. 42"
+            autoComplete="address-line2"
+            {...register("apt")}
+          />
         </div>
 
         {/* Pencil: CityRow — gap=16, fill_container; City + Zip side by side */}
         <div className="flex gap-4">
           <div className="flex flex-1 flex-col gap-1.5">
             <Label htmlFor="checkout-city">Город</Label>
-            <Input id="checkout-city" placeholder="Москва" autoComplete="address-level2" />
+            <Input
+              id="checkout-city"
+              placeholder="Москва"
+              autoComplete="address-level2"
+              {...register("city")}
+            />
+            {errors.city && <p className="text-sm text-destructive">{errors.city.message}</p>}
           </div>
           <div className="flex flex-1 flex-col gap-1.5">
             <Label htmlFor="checkout-zip">Индекс</Label>
-            <Input id="checkout-zip" placeholder="101000" autoComplete="postal-code" />
+            <Input
+              id="checkout-zip"
+              placeholder="101000"
+              autoComplete="postal-code"
+              {...register("zip")}
+            />
           </div>
         </div>
 
         {/* Pencil: Comment — Input/Default, fill_container */}
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="checkout-comment">Комментарий курьеру</Label>
-          <Input id="checkout-comment" placeholder="Код домофона, этаж, пожелания" />
+          <Input
+            id="checkout-comment"
+            placeholder="Код домофона, этаж, пожелания"
+            {...register("comment")}
+          />
         </div>
       </div>
 

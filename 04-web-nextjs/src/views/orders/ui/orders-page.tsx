@@ -11,7 +11,7 @@ import {
   EmptyState,
   Illustration,
 } from "@/shared/ui";
-import { MOCK_ORDERS } from "@/entities/order";
+import { getOrders } from "@/entities/order/api";
 
 import { OrdersList } from "./orders-list";
 
@@ -31,17 +31,13 @@ import { OrdersList } from "./orders-list";
  * Фильтр по статусу: в дизайне Orders не показан — не добавляем.
  * StatusTimeline: используется только в деталях заказа (отдельная страница) — не в списке.
  *
- * OrdersPage остаётся RSC:
- *   – нет useState/useEffect/браузерных хуков
- *   – данные из единого mock-источника (MOCK_ORDERS)
+ * OrdersPage — async RSC:
+ *   – данные из реального API (getOrders, персональные → no-store)
  *   – страница приватная (guard на /orders в src/proxy.ts)
  *   – функции-обработчики не сериализуемы → вынесены в client-остров OrdersList
- *
- * TODO: заменить на реальный API (персональные данные — no-store).
  */
-export function OrdersPage() {
-  // TODO: заменить на реальный API (персональные данные — no-store)
-  const orders = MOCK_ORDERS;
+export async function OrdersPage() {
+  const { items: orders, total } = await getOrders({ limit: 50 });
 
   return (
     <div className="flex flex-col gap-6 py-7 pb-20">
@@ -65,9 +61,7 @@ export function OrdersPage() {
         <h1 className="font-heading text-[28px] font-semibold leading-[1.2] text-foreground">
           Мои заказы
         </h1>
-        {orders.length > 0 && (
-          <p className="text-sm text-muted-foreground">{orders.length} заказов</p>
-        )}
+        {total > 0 && <p className="text-sm text-muted-foreground">{total} заказов</p>}
       </div>
 
       {/* ── 3. Список заказов / 4. Пустое состояние ─────────────────── */}

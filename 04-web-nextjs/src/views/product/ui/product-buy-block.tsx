@@ -11,10 +11,14 @@
 
 import { useState } from "react";
 import { Heart, ShoppingBag } from "lucide-react";
+import { toast } from "sonner";
 
 import { Badge, Button, Counter } from "@/shared/ui";
+import type { Product } from "@/entities/product";
+import { useCart } from "@/features/cart";
 
 interface ProductBuyBlockProps {
+  product: Product;
   price: number;
   oldPrice?: number;
   discountPercent?: number;
@@ -23,6 +27,7 @@ interface ProductBuyBlockProps {
 }
 
 export function ProductBuyBlock({
+  product,
   price,
   oldPrice,
   discountPercent,
@@ -30,6 +35,12 @@ export function ProductBuyBlock({
   inStock = true,
 }: ProductBuyBlockProps) {
   const [qty, setQty] = useState(1);
+  const { addItem, isPending } = useCart();
+
+  function handleAddToCart() {
+    addItem(product, qty);
+    toast.success(`«${product.title}» добавлен в корзину`);
+  }
 
   const formattedPrice = price.toLocaleString("ru-RU");
   const formattedOld = oldPrice?.toLocaleString("ru-RU");
@@ -74,7 +85,8 @@ export function ProductBuyBlock({
         <Button
           variant="default"
           size="lg"
-          disabled={!inStock}
+          disabled={!inStock || isPending}
+          onClick={handleAddToCart}
           className="h-auto flex-1 gap-2 rounded-lg px-4 py-3 text-sm font-semibold"
           aria-label="Добавить в корзину"
         >

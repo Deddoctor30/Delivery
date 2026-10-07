@@ -24,40 +24,28 @@
  *   PayBtn (Z481H): Button/Primary-Large, fill_container, «Оплатить»
  *   Policy: Inter 11px center muted-foreground, fixed-width
  *
- * Кнопка «Оплатить» — ИМИТАЦИЯ:
- *   toast.success + router.push("/checkout/success")
- *
- * TODO: заменить на реальную корзину/заказ (API)
+ * Кнопка «Оплатить» — type="submit": сабмит формы оформления (CheckoutFlow),
+ * которая создаёт заказ (createOrderAction) и ведёт на /checkout/success.
  */
 
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
-
-import type { Product } from "@/entities/product";
+import type { CartItem } from "@/entities/cart";
 import { Button } from "@/shared/ui";
 
-export type CheckoutLine = {
-  product: Product;
-  quantity: number;
-};
-
 interface CheckoutSummaryProps {
-  lines: CheckoutLine[];
+  lines: CartItem[];
   deliveryCost: number;
   deliveryEta: string;
+  submitting?: boolean;
 }
 
-export function CheckoutSummary({ lines, deliveryCost, deliveryEta }: CheckoutSummaryProps) {
-  const router = useRouter();
-
+export function CheckoutSummary({
+  lines,
+  deliveryCost,
+  deliveryEta,
+  submitting,
+}: CheckoutSummaryProps) {
   const subtotal = lines.reduce((acc, l) => acc + l.product.price * l.quantity, 0);
   const total = subtotal + deliveryCost;
-
-  function handlePay() {
-    // ИМИТАЦИЯ оплаты — без реальной платёжной формы (§8 дизайн-доки)
-    toast.success("Заказ оформлен! Ожидайте доставку.", { duration: 4000 });
-    router.push("/checkout/success");
-  }
 
   return (
     /* Pencil: Wd9sV fill=$--card, cornerRadius=$--radius-lg, w=320, gap=16, p=24
@@ -129,9 +117,9 @@ export function CheckoutSummary({ lines, deliveryCost, deliveryEta }: CheckoutSu
       </div>
 
       {/* Pencil: PayBtn Z481H — Button/Primary-Large, fill_container, «Оплатить»
-          ИМИТАЦИЯ оплаты: toast + router.push("/checkout/success") */}
-      <Button onClick={handlePay} size="lg" className="w-full">
-        Оплатить
+          type="submit" → сабмит формы оформления (создание заказа) */}
+      <Button type="submit" size="lg" className="w-full" disabled={submitting || lines.length === 0}>
+        {submitting ? "Оформляем…" : "Оплатить"}
       </Button>
 
       {/* Pencil: Policy — Inter 11px center muted-foreground */}

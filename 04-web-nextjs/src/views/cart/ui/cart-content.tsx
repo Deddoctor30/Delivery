@@ -3,59 +3,43 @@
 /**
  * CartContent — client-остров корзины.
  *
- * Хранит список позиций (CartLine[]) в useState.
- * Позволяет менять количество (Counter) и удалять позицию (Trash2).
- * Пересчитывает подытог, доставку и итого при каждом изменении состояния.
+ * Берёт позиции из стора корзины (features/cart): гость — localStorage,
+ * авторизованный — бэкенд. Меняет количество (Counter) и удаляет позицию (Trash2).
+ * Пересчитывает подытог, доставку и итого.
  *
  * Раскладка (десктоп):
  *   [список строк (flex-1)] | [sticky-панель итого (w=340)]
  * Мобайл: стек (flex-col).
  *
  * Ссылки на товар: /product/{id} — с фото и названия строки.
- *
- * TODO: заменить на реальную корзину (стор/бэкенд)
  */
 
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Trash2, ShoppingBag, ArrowRight } from "lucide-react";
 
-import type { Product } from "@/entities/product";
+import type { CartItem } from "@/entities/cart";
+import { useCart } from "@/features/cart";
 
 import { Counter, Badge, EmptyState, Illustration, buttonVariants } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
-
-/* ── Тип строки корзины ──────────────────────────────────────────── */
-export type CartLine = {
-  product: Product;
-  quantity: number;
-};
-
-interface CartContentProps {
-  initialLines: CartLine[];
-}
 
 /* ── Константы ───────────────────────────────────────────────────── */
 const FREE_DELIVERY_THRESHOLD = 2_000;
 const DELIVERY_COST = 299;
 
 /* ── Компонент ───────────────────────────────────────────────────── */
-export function CartContent({ initialLines }: CartContentProps) {
-  const [lines, setLines] = useState<CartLine[]>(initialLines);
+export function CartContent() {
+  const { lines, setQuantity, removeItem } = useCart();
 
   /* Обновить количество позиции */
   function handleQtyChange(productId: string, qty: number) {
-    setLines((prev) =>
-      prev.map((line) =>
-        line.product.id === productId ? { ...line, quantity: Math.max(1, qty) } : line,
-      ),
-    );
+    setQuantity(productId, Math.max(1, qty));
   }
 
   /* Удалить позицию */
   function handleRemove(productId: string) {
-    setLines((prev) => prev.filter((line) => line.product.id !== productId));
+    removeItem(productId);
   }
 
   /* Пересчёт суммы */
@@ -103,7 +87,7 @@ export function CartContent({ initialLines }: CartContentProps) {
        * Pencil: Summary w=340, bg=$--card, rounded-xl, p=24, gap=20
        * sticky top-6 — прилипает при скролле списка
        */}
-      <aside className="flex w-full flex-col gap-5 rounded-xl bg-card p-6 lg:sticky lg:top-6 lg:w-[340px] lg:shrink-0">
+      <aside className="flex w-full flex-col gap-5 rounded-xl bg-card p-6 lg:sticky lg:top-6 lg:w-85 lg:shrink-0">
         {/* Заголовок */}
         <h2 className="font-heading text-base font-semibold text-foreground">Итого</h2>
 
@@ -172,7 +156,7 @@ export function CartContent({ initialLines }: CartContentProps) {
  * Старая цена: font-mono 12px muted-foreground line-through
  */
 interface CartLineRowProps {
-  line: CartLine;
+  line: CartItem;
   onQtyChange: (productId: string, qty: number) => void;
   onRemove: (productId: string) => void;
 }

@@ -16,17 +16,13 @@
  *   ≥ lg: Cols — flex-row (форма слева, sticky-sidebar справа 320px)
  *
  * Данные:
- *   Позиции — из @/entities/product (MOCK_PRODUCTS / getProductById, 3 позиции).
- *   TODO: заменить на реальную корзину/заказ (API).
+ *   Позиции и суммы — из стора корзины (features/cart) внутри CheckoutFlow.
  *
  * RSC держит:
  *   - Breadcrumbs, заголовок, steps-бар (статика, без состояния)
- *   - Раскладку колонок
- *   - Формирование начальных данных (lines, delivery)
  *
- * Client-острова:
- *   - CheckoutForm — поля адреса (Input/Label), RadioGroup доставки
- *   - CheckoutSummary — сводка + кнопка «Оплатить» (toast + push /checkout/success)
+ * Client-остров:
+ *   - CheckoutFlow — форма адреса (RHF) + сводка + создание заказа (createOrderAction)
  */
 
 import {
@@ -37,18 +33,9 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/shared/ui";
-// TODO: /make-api cart — translate to real cart/order API.
-// Mock ids (p1/p3/p4) do not exist in the real DB.
-import { getMockProductById } from "@/entities/product";
 import { cn } from "@/shared/lib/utils";
 
-import { CheckoutForm } from "./checkout-form";
-import { CheckoutSummary } from "./checkout-summary";
-import type { CheckoutLine } from "./checkout-summary";
-
-/* ── Константы ─────────────────────────────────────────────────── */
-const DELIVERY_COST = 149; // Pencil: C Доставка CV «149 ₽»
-const DELIVERY_ETA = "~35 мин"; // Pencil: C Срок доставки CV «~35 мин»
+import { CheckoutFlow } from "./checkout-flow";
 
 /* ── Steps ─────────────────────────────────────────────────────── */
 const STEPS = [
@@ -60,17 +47,6 @@ const STEPS = [
 
 /* ── Компонент ─────────────────────────────────────────────────── */
 export function CheckoutPage() {
-  // TODO: заменить на реальную корзину/заказ (API)
-  // Позиции из единого mock-источника (@/entities/product):
-  //   p1 — Наушники Sound X3 × 2 (Pencil: Лосось терияки × 2, 1 180 ₽)
-  //   p3 — Чайник Smart 1.7л × 1 (Pencil: Роллы Филадельфия × 1, 420 ₽)
-  //   p4 — Кофемашина CremaOne × 1 (Pencil: Мисо-суп × 1, 329 ₽)
-  const lines: CheckoutLine[] = [
-    { product: getMockProductById("p1")!, quantity: 2 },
-    { product: getMockProductById("p3")!, quantity: 1 },
-    { product: getMockProductById("p4")!, quantity: 1 },
-  ].filter((line) => Boolean(line.product));
-
   return (
     <div className="flex flex-col gap-7 py-7 pb-12">
       {/* ── 1. Breadcrumbs ─────────────────────────────────────────── */}
@@ -142,22 +118,9 @@ export function CheckoutPage() {
         Оформление заказа
       </h1>
 
-      {/* ── 4. Cols ────────────────────────────────────────────────── */}
-      {/* Pencil: KBpQH horizontal gap=32
-          Left (Zt9T0): fill_container, vertical, gap=20
-          Sidebar (Wd9sV): w=320
-          Адаптив: < lg → flex-col; ≥ lg → flex-row */}
-      <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-8">
-        {/* ── Левая колонка: форма + карта ─────────────────────── */}
-        {/* Pencil: Zt9T0 fill_container, vertical, gap=20 */}
-        <div className="flex-1">
-          <CheckoutForm />
-        </div>
-
-        {/* ── Правая колонка: сводка + оплата ──────────────────── */}
-        {/* Pencil: Wd9sV w=320, sticky на десктопе */}
-        <CheckoutSummary lines={lines} deliveryCost={DELIVERY_COST} deliveryEta={DELIVERY_ETA} />
-      </div>
+      {/* ── 4. Cols (client-остров: форма + сводка + создание заказа) ── */}
+      {/* Pencil: KBpQH horizontal gap=32; адаптив внутри CheckoutFlow */}
+      <CheckoutFlow />
     </div>
   );
 }

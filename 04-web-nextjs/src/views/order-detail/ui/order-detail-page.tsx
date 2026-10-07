@@ -214,7 +214,7 @@ export function OrderDetailPage({ order }: OrderDetailPageProps) {
           </Card>
 
           {/* 5. Действия (client-остров) */}
-          <OrderActions order={{ number: order.number, status: order.status }} />
+          <OrderActions order={{ id: order.id, number: order.number, status: order.status }} />
         </div>
 
         {/* ─── Сайдбар-сумма ───────────────────────────────────────── */}

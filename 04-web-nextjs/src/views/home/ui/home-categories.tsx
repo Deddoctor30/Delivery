@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { getTopCategories } from "@/entities/category";
-import { getProducts } from "@/entities/product";
+import { getProducts } from "@/entities/product/api";
 import { categoryIcon } from "@/shared/lib/category-icons";
 import { cn } from "@/shared/lib/utils";
 

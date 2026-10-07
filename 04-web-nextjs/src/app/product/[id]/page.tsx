@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 
-import { getProductById } from "@/entities/product";
+import { getProductById } from "@/entities/product/api";
 import { ProductPage } from "@/views/product";
 
 /**

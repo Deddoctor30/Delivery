@@ -512,6 +512,18 @@ export interface components {
             /** @description Похожесть по триграммам (pg_trgm) */
             sim: number;
         };
+        CartItemDto: {
+            id: string;
+            userId: string;
+            productId: string;
+            quantity: number;
+            product: components["schemas"]["ProductDto"];
+        };
+        CartDto: {
+            items: components["schemas"]["CartItemDto"][];
+            /** @description Сумма к оплате в копейках */
+            total: number;
+        };
         AddCartItemDto: {
             productId: string;
             quantity: number;
@@ -534,6 +546,77 @@ export interface components {
             deliveryAddress: string;
             deliveryLat: number;
             deliveryLng: number;
+        };
+        OrderItemDto: {
+            id: string;
+            orderId: string;
+            productId: string;
+            /** @description Цена позиции на момент заказа, в копейках */
+            priceSnapshot: number;
+            quantity: number;
+            product: components["schemas"]["ProductDto"];
+        };
+        OrderStatusHistoryDto: {
+            id: string;
+            orderId: string;
+            /** @enum {string} */
+            status: "created" | "processing" | "courier_picked_up" | "in_delivery" | "arrived" | "completed" | "cancelled";
+            /** @enum {string} */
+            source: "cron" | "client" | "admin";
+            /** Format: date-time */
+            changedAt: string;
+        };
+        OrderDto: {
+            id: string;
+            userId: string;
+            /** @enum {string} */
+            status: "created" | "processing" | "courier_picked_up" | "in_delivery" | "arrived" | "completed" | "cancelled";
+            /** @description Сумма товаров в копейках */
+            totalAmount: number;
+            /** @description Стоимость доставки в копейках */
+            deliveryAmount: number;
+            deliveryAddress: string;
+            deliveryLat: number;
+            deliveryLng: number;
+            estimatedDays: number;
+            refunded: boolean;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            cancelledAt: string | null;
+            /** Format: date-time */
+            completedAt: string | null;
+            items: components["schemas"]["OrderItemDto"][];
+            history: components["schemas"]["OrderStatusHistoryDto"][];
+        };
+        OrderSummaryDto: {
+            id: string;
+            userId: string;
+            /** @enum {string} */
+            status: "created" | "processing" | "courier_picked_up" | "in_delivery" | "arrived" | "completed" | "cancelled";
+            /** @description Сумма товаров в копейках */
+            totalAmount: number;
+            /** @description Стоимость доставки в копейках */
+            deliveryAmount: number;
+            deliveryAddress: string;
+            deliveryLat: number;
+            deliveryLng: number;
+            estimatedDays: number;
+            refunded: boolean;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            cancelledAt: string | null;
+            /** Format: date-time */
+            completedAt: string | null;
+            items: components["schemas"]["OrderItemDto"][];
+        };
+        OrderListDto: {
+            items: components["schemas"]["OrderSummaryDto"][];
+            total: number;
+            page: number;
+            limit: number;
+            totalPages: number;
         };
     };
     responses: never;
@@ -999,7 +1082,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CartDto"];
+                };
             };
         };
     };
@@ -1016,7 +1101,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CartDto"];
+                };
             };
         };
     };
@@ -1033,11 +1120,13 @@ export interface operations {
             };
         };
         responses: {
-            201: {
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CartDto"];
+                };
             };
         };
     };
@@ -1056,7 +1145,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CartDto"];
+                };
             };
         };
     };
@@ -1079,7 +1170,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CartDto"];
+                };
             };
         };
     };
@@ -1096,11 +1189,13 @@ export interface operations {
             };
         };
         responses: {
-            201: {
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CartDto"];
+                };
             };
         };
     };
@@ -1143,7 +1238,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["OrderListDto"];
+                };
             };
         };
     };
@@ -1160,12 +1257,12 @@ export interface operations {
             };
         };
         responses: {
-            201: {
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": Record<string, never>;
+                    "application/json": components["schemas"]["OrderDto"];
                 };
             };
         };
@@ -1186,7 +1283,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": Record<string, never>;
+                    "application/json": components["schemas"]["OrderDto"];
                 };
             };
         };
@@ -1202,11 +1299,13 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            201: {
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["OrderDto"];
+                };
             };
         };
     };
@@ -1268,7 +1367,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": Record<string, never>;
+                };
             };
         };
     };

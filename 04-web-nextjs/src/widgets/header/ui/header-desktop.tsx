@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { ShoppingBag } from "lucide-react";
 
-import { Badge, Logo } from "@/shared/ui";
+import { Logo } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
 import { SearchInput } from "@/features/product-search";
 import { AuthButton } from "@/features/auth";
 import { ThemeToggle } from "@/features/theme-toggle";
+import { CartBadge } from "@/features/cart";
 
 /**
  * Desktop site header.
@@ -33,13 +34,11 @@ const NAV_LINKS = [
 ] as const;
 
 export interface HeaderDesktopProps {
-  /** Number of items in cart; hides badge when 0 or undefined. */
-  cartCount?: number;
   /** Extra classes on the outer <header> element. */
   className?: string;
 }
 
-export function HeaderDesktop({ cartCount, className }: HeaderDesktopProps) {
+export function HeaderDesktop({ className }: HeaderDesktopProps) {
   return (
     <header
       className={cn(
@@ -99,15 +98,7 @@ export function HeaderDesktop({ cartCount, className }: HeaderDesktopProps) {
             >
               <ShoppingBag className="size-4.5" aria-hidden="true" />
             </Link>
-            {cartCount != null && cartCount > 0 && (
-              <Badge
-                variant="cartBadge"
-                className="pointer-events-none absolute right-0 top-1.5 -translate-y-1/2 translate-x-1/2"
-                aria-label={`${cartCount} товар(а) в корзине`}
-              >
-                {cartCount > 99 ? "99+" : cartCount}
-              </Badge>
-            )}
+            <CartBadge />
           </div>
         </div>
       </div>

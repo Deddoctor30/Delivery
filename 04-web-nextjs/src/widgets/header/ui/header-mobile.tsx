@@ -5,7 +5,6 @@ import { useState } from "react";
 import { Menu, Search, ShoppingBag, X } from "lucide-react";
 
 import {
-  Badge,
   Logo,
   Sheet,
   SheetContent,
@@ -16,6 +15,7 @@ import {
 import { cn } from "@/shared/lib/utils";
 import { AuthButton } from "@/features/auth";
 import { ThemeToggle } from "@/features/theme-toggle";
+import { CartBadge } from "@/features/cart";
 
 /**
  * Mobile site header.
@@ -46,13 +46,11 @@ const NAV_LINKS = [
 ] as const;
 
 export interface HeaderMobileProps {
-  /** Number of items in cart; hides badge when 0 or undefined. */
-  cartCount?: number;
   /** Extra classes on the outer <header> element. */
   className?: string;
 }
 
-export function HeaderMobile({ cartCount, className }: HeaderMobileProps) {
+export function HeaderMobile({ className }: HeaderMobileProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -100,15 +98,7 @@ export function HeaderMobile({ cartCount, className }: HeaderMobileProps) {
             >
               <ShoppingBag className="size-[18px]" aria-hidden="true" />
             </Link>
-            {cartCount != null && cartCount > 0 && (
-              <Badge
-                variant="cartBadge"
-                className="pointer-events-none absolute right-0 top-1.5 -translate-y-1/2 translate-x-1/2"
-                aria-label={`${cartCount} товар(а) в корзине`}
-              >
-                {cartCount > 99 ? "99+" : cartCount}
-              </Badge>
-            )}
+            <CartBadge />
           </div>
 
           {/* Burger menu — opens Sheet (right drawer) with nav links + actions */}

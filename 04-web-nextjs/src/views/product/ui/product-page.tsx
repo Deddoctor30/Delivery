@@ -1,7 +1,8 @@
 import { Shield, Truck, RefreshCcw, Star } from "lucide-react";
 
 import type { Product } from "@/entities/product";
-import { ProductCard, getSimilarProducts } from "@/entities/product";
+import { getSimilarProducts } from "@/entities/product/api";
+import { CartProductCard } from "@/features/cart";
 import { getCategoryById } from "@/entities/category";
 
 import {
@@ -158,6 +159,7 @@ export async function ProductPage({ product }: ProductPageProps) {
           {/* PriceCard — client-остров ProductBuyBlock */}
           {/* Pencil: rOtpz PriceCard bg=$--card rounded-xl p=24 gap=16 */}
           <ProductBuyBlock
+            product={product}
             price={price}
             oldPrice={oldPrice}
             discountPercent={discountPercent}
@@ -338,7 +340,7 @@ export async function ProductPage({ product }: ProductPageProps) {
           {/* Pencil: KcKDz Grid gap=16, 4 колонки ProductCard */}
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
             {similar.map((p) => (
-              <ProductCard key={p.id} product={p} />
+              <CartProductCard key={p.id} product={p} />
             ))}
           </div>
         </section>

@@ -1,10 +1,10 @@
 import { Suspense } from "react";
 import { PackageSearch } from "lucide-react";
 
-import { ProductCard, getProducts } from "@/entities/product";
+import { getProducts } from "@/entities/product/api";
+import { CartProductCard } from "@/features/cart";
 import { getTopCategories } from "@/entities/category";
-import { categoryIcon, ALL_CATEGORIES_ICON } from "@/shared/lib/category-icons";
-import type { Category as NavCategory } from "@/widgets/category-nav";
+import type { NavCategoryData } from "./catalog-category-filter";
 
 import {
   Breadcrumb,
@@ -94,10 +94,12 @@ export async function CatalogPage({
 
   const { items: pageProducts, total, totalPages } = productsResult;
 
-  // Чипы навигации: «Все» + верхнеуровневые категории (id = slug)
-  const navCategories: NavCategory[] = [
-    { id: "all", label: "Все", icon: ALL_CATEGORIES_ICON },
-    ...topCategories.map((c) => ({ id: c.slug, label: c.name, icon: categoryIcon(c.slug) })),
+  // Чипы навигации: «Все» + верхнеуровневые категории (id = slug).
+  // Передаём ТОЛЬКО сериализуемые данные (без иконок-компонентов) — иконки
+  // подставит клиентский CatalogCategoryFilter (нельзя слать компонент через RSC→client).
+  const navCategories: NavCategoryData[] = [
+    { id: "all", label: "Все" },
+    ...topCategories.map((c) => ({ id: c.slug, label: c.name })),
   ];
 
   // Отображаемый заголовок категории — по реальному имени из бэкенда
@@ -178,7 +180,7 @@ export async function CatalogPage({
               <Suspense fallback={<ProductGridSkeleton />}>
                 <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
                   {pageProducts.map((product) => (
-                    <ProductCard key={product.id} product={product} />
+                    <CartProductCard key={product.id} product={product} />
                   ))}
                 </div>
               </Suspense>
