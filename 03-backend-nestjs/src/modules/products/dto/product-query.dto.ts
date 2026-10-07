@@ -34,6 +34,23 @@ export class ProductQueryDto {
   discounted?: boolean;
 
   @IsOptional()
+  @Transform(toBool)
+  @IsBoolean()
+  inStock?: boolean;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(0)
+  minPrice?: number; // в копейках
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(0)
+  maxPrice?: number; // в копейках
+
+  @IsOptional()
   @Type(() => Number)
   @IsInt()
   @Min(1)

@@ -49,6 +49,11 @@ export interface GetProductsParams {
   popular?: boolean;
   seasonal?: boolean;
   discounted?: boolean;
+  /** Только товары в наличии (stock > 0). */
+  inStock?: boolean;
+  /** Диапазон цены в РУБЛЯХ (конвертируется в копейки при запросе). */
+  minPrice?: number;
+  maxPrice?: number;
   page?: number;
   limit?: number;
   sort?: "newest" | "price_asc" | "price_desc" | "name";
@@ -58,16 +63,26 @@ export interface GetProductsParams {
 
 /**
  * Список товаров с фильтрацией/сортировкой/пагинацией — делегируется бэкенду.
- * Поддерживаемые фильтры: categoryId, categorySlug, search, popular, seasonal, discounted, page, limit, sort.
- * НЕ поддержаны бэкендом: inStock, minPrice/maxPrice — TODO в backend-сервисе.
+ * Фильтры: categoryId, categorySlug, search, popular, seasonal, discounted,
+ * inStock, minPrice/maxPrice (в рублях → копейки), page, limit, sort.
  */
 export async function getProducts(
   params: GetProductsParams = {},
 ): Promise<{ items: Product[]; total: number; totalPages: number; page: number }> {
-  const { page = 1, limit = 20, sort = "newest", ...rest } = params;
+  const { page = 1, limit = 20, sort = "newest", minPrice, maxPrice, ...rest } = params;
   const data = await unwrap(
     apiServer.GET("/api/v1/products", {
-      params: { query: { page, limit, sort, ...rest } },
+      params: {
+        query: {
+          page,
+          limit,
+          sort,
+          ...rest,
+          // цена приходит в рублях → бэкенд хранит копейки
+          ...(minPrice != null ? { minPrice: Math.round(minPrice * 100) } : {}),
+          ...(maxPrice != null ? { maxPrice: Math.round(maxPrice * 100) } : {}),
+        },
+      },
       next: { revalidate: 60 },
     }),
   );

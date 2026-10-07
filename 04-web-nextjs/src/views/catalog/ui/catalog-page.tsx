@@ -53,12 +53,8 @@ export interface CatalogPageProps {
 /**
  * CatalogPage — экран каталога товаров (RSC).
  *
- * Фильтрация/сортировка/пагинация делегированы бэкенду через getProducts().
- * Поддерживаемые бэкендом фильтры: categoryId, discounted, sort, page, limit.
- *
- * Не поддерживаемые бэкендом (TODO: добавить в backend-сервис):
- *   - inStock (фильтр по stock > 0)
- *   - minPrice / maxPrice (диапазон цен)
+ * Фильтрация/сортировка/пагинация делегированы бэкенду через getProducts():
+ * categorySlug, discounted, inStock, minPrice/maxPrice (рубли), sort, page, limit.
  *
  * Пагинация серверная: строится по total из ответа бэкенда.
  *
@@ -69,11 +65,9 @@ export async function CatalogPage({
   sort = "newest",
   page = 1,
   discount = false,
-  // inStock, minPrice, maxPrice — TODO: не поддержаны бэкендом, параметры принимаем
-  // но в запрос не передаём (UI-элементы оставляем работающими)
-  inStock: _inStock,
-  minPrice: _minPrice,
-  maxPrice: _maxPrice,
+  inStock = false,
+  minPrice,
+  maxPrice,
 }: CatalogPageProps) {
   // Маппим sort из URL-значений на те, что принимает бэкенд
   const apiSort = mapSort(sort);
@@ -86,6 +80,9 @@ export async function CatalogPage({
     getProducts({
       categorySlug: activeSlug,
       discounted: discount || undefined,
+      inStock: inStock || undefined,
+      minPrice,
+      maxPrice,
       sort: apiSort,
       page,
       limit: PAGE_SIZE,
@@ -159,10 +156,10 @@ export async function CatalogPage({
         <div className="hidden lg:block">
           <Suspense fallback={<Skeleton className="h-96 w-70 rounded-xl" />}>
             <CatalogFilters
-              inStock={_inStock ?? false}
+              inStock={inStock}
               discount={discount}
-              minPrice={_minPrice}
-              maxPrice={_maxPrice}
+              minPrice={minPrice}
+              maxPrice={maxPrice}
             />
           </Suspense>
         </div>

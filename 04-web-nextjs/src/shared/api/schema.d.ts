@@ -988,6 +988,9 @@ export interface operations {
                 popular?: boolean;
                 seasonal?: boolean;
                 discounted?: boolean;
+                inStock?: boolean;
+                minPrice?: number;
+                maxPrice?: number;
                 page: number;
                 limit: number;
                 sort: "newest" | "price_asc" | "price_desc" | "name";

@@ -25,7 +25,19 @@ export class ProductsService {
     if (query.popular !== undefined) where.isPopular = query.popular;
     if (query.seasonal !== undefined) where.isSeasonal = query.seasonal;
     if (query.discounted) where.discountPrice = { not: null };
+    if (query.inStock) where.stock = { gt: 0 };
     if (query.search) where.name = { contains: query.search, mode: 'insensitive' };
+
+    // Диапазон цен — по ФАКТИЧЕСКОЙ цене (скидочная, если есть, иначе базовая)
+    if (query.minPrice != null || query.maxPrice != null) {
+      const range: { gte?: number; lte?: number } = {};
+      if (query.minPrice != null) range.gte = query.minPrice;
+      if (query.maxPrice != null) range.lte = query.maxPrice;
+      where.OR = [
+        { discountPrice: { not: null, ...range } },
+        { discountPrice: null, price: range },
+      ];
+    }
 
     const skip = (query.page - 1) * query.limit;
 
