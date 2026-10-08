@@ -1,5 +1,7 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
+
 import { apiServerAuth } from "@/shared/api/client-auth";
 import { unwrap, ApiError } from "@/shared/api/error";
 import { toCart } from "@/entities/cart";
@@ -72,6 +74,30 @@ export async function mergeCartAction(
 ): Promise<CartActionResult> {
   try {
     const dto = await unwrap(apiServerAuth.POST("/api/v1/cart/merge", { body: { items } }));
+    return { ok: true, cart: toCart(dto) };
+  } catch (e) {
+    return fail(e);
+  }
+}
+
+/**
+ * Повторить заказ: добавить его позиции в корзину (мёрж, с учётом остатков).
+ * Доступно только авторизованным (заказы приватны) → работаем через серверную корзину.
+ */
+export async function repeatOrderAction(orderId: string): Promise<CartActionResult> {
+  try {
+    const order = await unwrap(
+      apiServerAuth.GET("/api/v1/orders/{id}", {
+        params: { path: { id: orderId } },
+        cache: "no-store",
+      }),
+    );
+    const items = order.items.map((i) => ({ productId: i.productId, quantity: i.quantity }));
+    if (items.length === 0) {
+      return { ok: false, error: "В заказе нет позиций" };
+    }
+    const dto = await unwrap(apiServerAuth.POST("/api/v1/cart/merge", { body: { items } }));
+    revalidatePath("/cart");
     return { ok: true, cart: toCart(dto) };
   } catch (e) {
     return fail(e);

@@ -23,6 +23,7 @@ import {
   removeItemAction,
   clearCartAction,
   mergeCartAction,
+  repeatOrderAction,
   type CartActionResult,
 } from "../api/actions";
 
@@ -36,6 +37,8 @@ interface CartContextValue {
   setQuantity: (productId: string, quantity: number) => void;
   removeItem: (productId: string) => void;
   clear: () => void;
+  /** Повторить заказ: добавить его позиции в корзину (только для авторизованных). */
+  repeatOrder: (orderId: string) => Promise<CartActionResult>;
 }
 
 const CartContext = createContext<CartContextValue | null>(null);
@@ -158,11 +161,29 @@ export function CartProvider({
     clearGuestCart();
   }, [isAuthenticated, apply]);
 
+  // Повторить заказ — только авторизованные (заказы приватны). Применяем
+  // результат к стору и отдаём результат вызывающему (для toast/навигации).
+  const repeatOrder = useCallback(async (orderId: string): Promise<CartActionResult> => {
+    const res = await repeatOrderAction(orderId);
+    if (res.ok) setLines(res.cart.items);
+    return res;
+  }, []);
+
   const value = useMemo<CartContextValue>(() => {
     const count = lines.reduce((sum, l) => sum + l.quantity, 0);
     const subtotal = lines.reduce((sum, l) => sum + l.product.price * l.quantity, 0);
-    return { lines, count, subtotal, isPending, addItem, setQuantity, removeItem, clear };
-  }, [lines, isPending, addItem, setQuantity, removeItem, clear]);
+    return {
+      lines,
+      count,
+      subtotal,
+      isPending,
+      addItem,
+      setQuantity,
+      removeItem,
+      clear,
+      repeatOrder,
+    };
+  }, [lines, isPending, addItem, setQuantity, removeItem, clear, repeatOrder]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
