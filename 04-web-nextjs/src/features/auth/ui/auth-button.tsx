@@ -1,9 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { LogOut, User as UserIcon } from "lucide-react";
 import { useState } from "react";
 
-import { Button } from "@/shared/ui";
+import { Button, buttonVariants } from "@/shared/ui";
+import { cn } from "@/shared/lib/utils";
 
 import { useSession } from "../model/session";
 import { AuthModal } from "./auth-modal";
@@ -14,8 +16,15 @@ export function AuthButton() {
 
   if (user) {
     return (
-      <div className="flex items-center gap-2">
-        <span className="max-sm:hidden text-sm text-muted-foreground">{user.email}</span>
+      <div className="flex items-center gap-1">
+        <Link
+          href="/account"
+          aria-label="Личный кабинет"
+          className={cn(buttonVariants({ variant: "ghost" }), "gap-2")}
+        >
+          <UserIcon className="size-5" />
+          <span className="max-sm:hidden text-sm text-muted-foreground">{user.email}</span>
+        </Link>
         <Button variant="ghost" size="icon" aria-label="Выйти" onClick={() => logout()}>
           <LogOut className="size-5" />
         </Button>

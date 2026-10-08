@@ -450,6 +450,18 @@ export interface components {
             /** Format: uuid */
             sessionId: string;
         };
+        UserDto: {
+            id: string;
+            email: string;
+            firstName: string | null;
+            lastName: string | null;
+            phone: string | null;
+            avatarId: string | null;
+            /** @enum {string} */
+            role: "CLIENT" | "ADMIN";
+            /** Format: date-time */
+            createdAt: string;
+        };
         UpdateMeDto: {
             firstName?: string;
             lastName?: string;
@@ -894,7 +906,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": Record<string, never>;
+                    "application/json": components["schemas"]["UserDto"];
                 };
             };
         };
@@ -917,7 +929,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": Record<string, never>;
+                    "application/json": components["schemas"]["UserDto"];
                 };
             };
         };

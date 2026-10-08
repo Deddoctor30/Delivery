@@ -1,6 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
+import { toast } from "sonner";
 import {
   Bell,
   ChevronRight,
@@ -44,6 +47,8 @@ import { ProductCard } from "@/entities/product";
 import { OrderCard } from "@/entities/order";
 import type { Product } from "@/entities/product";
 import type { Order } from "@/entities/order";
+import { useSession } from "@/features/auth";
+import { updateProfileAction } from "@/features/profile";
 
 /* ── Mock data ──────────────────────────────────────────────────────────── */
 
@@ -92,47 +97,6 @@ const MOCK_FAVORITES: Product[] = [
   },
 ];
 
-const MOCK_ORDERS: Order[] = [
-  {
-    id: "ord-1",
-    number: "2418",
-    createdAt: "2026-05-12T10:30:00Z",
-    status: "in_delivery",
-    items: [
-      { id: "oi-1", title: "Наушники Sound X3", quantity: 1, price: 4990 },
-      { id: "oi-2", title: "Кофемашина CremaOne", quantity: 1, price: 32900 },
-    ],
-    subtotal: 37890,
-    deliveryPrice: 0,
-    total: 37890,
-    address: "Москва, ул. Ленина, 12, кв. 45",
-    paymentMethod: "Карта",
-  },
-  {
-    id: "ord-2",
-    number: "2402",
-    createdAt: "2026-04-28T08:15:00Z",
-    status: "completed",
-    items: [
-      { id: "oi-3", title: "Чайник Smart 1.7л", quantity: 1, price: 2490 },
-      { id: "oi-4", title: "Кабель USB-C", quantity: 2, price: 1190 },
-    ],
-    subtotal: 4870,
-    deliveryPrice: 0,
-    total: 4870,
-    address: "Москва, ул. Ленина, 12, кв. 45",
-    paymentMethod: "Карта",
-  },
-];
-
-/* ── Stats ──────────────────────────────────────────────────────────────── */
-
-const STATS = [
-  { icon: Package, value: "12", label: "заказов за всё время" },
-  { icon: Heart, value: "6", label: "товаров в избранном" },
-  { icon: Gift, value: "1 240", label: "бонусов на счёте" },
-] as const;
-
 /* ── Sidebar menu items ─────────────────────────────────────────────────── */
 
 type MenuItem = {
@@ -167,10 +131,80 @@ const MENU_ITEMS: MenuItem[] = [
  *     — Main: Stats (3 карточки) + Избранное (табы + 6 ProductCard) +
  *       Последние заказы (2 OrderCard) + Личные данные (форма)
  *
- * «use client» — из-за Tabs (base-ui/tabs требует клиентскую среду).
- * Все данные — mock/placeholder; интерактив декоративный.
+ * «use client» — из-за Tabs и сессии (профиль/выход).
+ * Профиль/выход — из useSession; заказы — пропсами с сервера.
+ * Избранное/бонусы пока mock (подключим отдельным этапом).
  */
-export function AccountPage() {
+interface AccountPageProps {
+  recentOrders: Order[];
+  ordersCount: number;
+}
+
+export function AccountPage({ recentOrders, ordersCount }: AccountPageProps) {
+  const router = useRouter();
+  const { user, setUser, logout } = useSession();
+
+  const fullName = [user?.firstName, user?.lastName].filter(Boolean).join(" ");
+  const displayName = fullName || user?.email || "Профиль";
+  const initials = (
+    [user?.firstName?.[0], user?.lastName?.[0]].filter(Boolean).join("") ||
+    user?.email?.[0] ||
+    "?"
+  ).toUpperCase();
+  const memberSince = user
+    ? new Date(user.createdAt).toLocaleDateString("ru-RU", { month: "long", year: "numeric" })
+    : "";
+
+  /* ── Форма «Личные данные» ── */
+  const [editing, setEditing] = useState(false);
+  const [nameValue, setNameValue] = useState(fullName);
+  const [phoneValue, setPhoneValue] = useState(user?.phone ?? "");
+  const [saving, startSaving] = useTransition();
+
+  function startEditing() {
+    setNameValue(fullName);
+    setPhoneValue(user?.phone ?? "");
+    setEditing(true);
+  }
+
+  function cancelEditing() {
+    setEditing(false);
+  }
+
+  function handleSave() {
+    const trimmed = nameValue.trim();
+    const parts = trimmed ? trimmed.split(/\s+/) : [];
+    const firstName = parts[0] ?? "";
+    const lastName = parts.slice(1).join(" ");
+    const phone = phoneValue.trim();
+
+    startSaving(() => {
+      void updateProfileAction({
+        firstName: firstName || undefined,
+        lastName: lastName || undefined,
+        phone: phone || undefined,
+      }).then((res) => {
+        if (res.ok) {
+          setUser(res.user);
+          setEditing(false);
+          toast.success("Данные сохранены");
+        } else {
+          toast.error(res.error);
+        }
+      });
+    });
+  }
+
+  const stats = [
+    { icon: Package, value: ordersCount.toLocaleString("ru-RU"), label: "заказов за всё время" },
+    { icon: Heart, value: "6", label: "товаров в избранном" },
+    { icon: Gift, value: "1 240", label: "бонусов на счёте" },
+  ];
+
+  function handleLogout() {
+    void logout().then(() => router.push("/"));
+  }
+
   return (
     <div className="flex flex-col gap-6 py-7 pb-20">
       {/* ── 1. Breadcrumbs ─────────────────────────────────────────── */}
@@ -197,7 +231,8 @@ export function AccountPage() {
           </h1>
           {/* font-mono 13px muted-foreground */}
           <p className="font-mono text-[13px] text-muted-foreground">
-            Алексей Петров · с нами с марта 2024
+            {displayName}
+            {memberSince && ` · с нами с ${memberSince}`}
           </p>
         </div>
         {/* R — horizontal, gap 8, alignItems center */}
@@ -210,15 +245,11 @@ export function AccountPage() {
             <LifeBuoy className="size-4" aria-hidden="true" />
             Поддержка
           </Link>
-          {/* LogoutBtn — outline (декоративный) */}
-          <button
-            type="button"
-            className={cn(buttonVariants({ variant: "outline" }))}
-            aria-label="Выйти"
-          >
+          {/* LogoutBtn — реальный выход из сессии */}
+          <Button variant="outline" onClick={handleLogout} aria-label="Выйти">
             <LogOut className="size-4" aria-hidden="true" />
             Выйти
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -227,36 +258,31 @@ export function AccountPage() {
       <div className="flex w-full items-start gap-6">
         {/* ── Sidebar ── */}
         {/* Pencil: Sidebar — width 280, vertical, gap 16 */}
-        <aside className="flex w-[280px] shrink-0 flex-col gap-4">
+        <aside className="flex w-70 shrink-0 flex-col gap-4">
           {/* ProfileCard — bg-card, rounded-xl, shadow-sm, p 20, vertical, gap 14, alignItems center */}
           <div className="flex flex-col items-center gap-3.5 rounded-xl bg-card p-5 shadow-sm">
             {/* Avatar 64×64 */}
             <Avatar className="size-16">
               <AvatarFallback variant="primary" className="text-[22px]">
-                АП
+                {initials}
               </AvatarFallback>
             </Avatar>
             {/* Info — vertical, gap 3, alignItems center */}
             <div className="flex w-full flex-col items-center gap-0.5">
               {/* Name — font-heading 17px 600 */}
               <span className="font-heading text-[17px] font-semibold text-foreground">
-                Алексей Петров
+                {displayName}
               </span>
               {/* Email — font-body 13px muted */}
-              <span className="font-sans text-[13px] text-muted-foreground">
-                alex@example.com
-              </span>
+              <span className="font-sans text-[13px] text-muted-foreground">{user?.email}</span>
             </div>
             {/* Tier badge — Label/Primary */}
             <Badge variant="primary">Постоянный покупатель</Badge>
             {/* EditBtn — outline, fill_container */}
-            <button
-              type="button"
-              className={cn(buttonVariants({ variant: "outline" }), "w-full")}
-            >
+            <Button variant="outline" className="w-full" onClick={startEditing}>
               <Pencil className="size-4" aria-hidden="true" />
               Редактировать профиль
-            </button>
+            </Button>
           </div>
 
           {/* Menu — bg-card, rounded-xl, shadow-sm, vertical, clip */}
@@ -267,7 +293,7 @@ export function AccountPage() {
                 <Link
                   href={item.href}
                   className={cn(
-                    "flex w-full items-center gap-3 px-4 py-[13px] transition-colors hover:bg-secondary",
+                    "flex w-full items-center gap-3 px-4 py-3.25 transition-colors hover:bg-secondary",
                     item.active && "bg-secondary",
                   )}
                 >
@@ -306,14 +332,14 @@ export function AccountPage() {
           {/* ── Stats ── */}
           {/* Pencil: Stats — fill_container, horizontal, gap 16 */}
           <div className="flex w-full gap-4">
-            {STATS.map((stat) => (
+            {stats.map((stat) => (
               <div
                 key={stat.label}
-                className="flex flex-1 items-center gap-3.5 rounded-xl bg-card p-[18px] shadow-sm"
+                className="flex flex-1 items-center gap-3.5 rounded-xl bg-card p-4.5 shadow-sm"
               >
                 {/* IconWrap — 40×40, bg-secondary, rounded-md */}
                 <div className="flex size-10 shrink-0 items-center justify-center rounded-md bg-secondary">
-                  <stat.icon className="size-[18px] text-primary" aria-hidden="true" />
+                  <stat.icon className="size-4.5 text-primary" aria-hidden="true" />
                 </div>
                 {/* Txt — vertical, gap 2 */}
                 <div className="flex min-w-0 flex-1 flex-col gap-0.5">
@@ -389,16 +415,26 @@ export function AccountPage() {
               </Link>
             </div>
             {/* OrdRow — horizontal, gap 16 */}
-            <div className="grid grid-cols-2 gap-4">
-              {MOCK_ORDERS.map((order) => (
-                <OrderCard key={order.id} order={order} />
-              ))}
-            </div>
+            {recentOrders.length === 0 ? (
+              <p className="rounded-xl bg-card p-6 font-caption text-[13px] text-muted-foreground shadow-sm">
+                У вас пока нет заказов.
+              </p>
+            ) : (
+              <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                {recentOrders.map((order) => (
+                  <OrderCard
+                    key={order.id}
+                    order={order}
+                    onDetails={(id) => router.push(`/orders/${id}`)}
+                  />
+                ))}
+              </div>
+            )}
           </section>
 
           {/* ── Personal Data ── */}
           {/* Pencil: PersonalData — bg-card, rounded-xl, shadow-sm, p 24, vertical, gap 18 */}
-          <section className="flex flex-col gap-[18px] rounded-xl bg-card p-6 shadow-sm">
+          <section className="flex flex-col gap-4.5 rounded-xl bg-card p-6 shadow-sm">
             {/* PDHead — vertical, gap 4 */}
             <div className="flex flex-col gap-1">
               {/* font-heading 17px 600 */}
@@ -423,9 +459,11 @@ export function AccountPage() {
                   />
                   <Input
                     id="pd-name"
-                    defaultValue="Алексей Петров"
+                    value={nameValue}
+                    onChange={(e) => setNameValue(e.target.value)}
+                    placeholder="Не указано"
                     className="pl-8"
-                    readOnly
+                    readOnly={!editing}
                   />
                 </div>
               </div>
@@ -439,9 +477,12 @@ export function AccountPage() {
                   />
                   <Input
                     id="pd-phone"
-                    defaultValue="+7 999 123-45-67"
+                    type="tel"
+                    value={phoneValue}
+                    onChange={(e) => setPhoneValue(e.target.value)}
+                    placeholder="Не указан"
                     className="pl-8"
-                    readOnly
+                    readOnly={!editing}
                   />
                 </div>
               </div>
@@ -459,7 +500,7 @@ export function AccountPage() {
                   />
                   <Input
                     id="pd-email"
-                    defaultValue="alex@example.com"
+                    defaultValue={user?.email ?? ""}
                     className="pl-8"
                     readOnly
                   />
@@ -475,7 +516,8 @@ export function AccountPage() {
                   />
                   <Input
                     id="pd-city"
-                    defaultValue="Москва"
+                    defaultValue=""
+                    placeholder="Не указан"
                     className="pl-8"
                     readOnly
                   />
@@ -485,19 +527,32 @@ export function AccountPage() {
 
             {/* PDActions — horizontal, gap 10, alignItems center */}
             <div className="flex items-center gap-2.5">
-              {/* SaveBtn — primary */}
-              <Button variant="default">
-                <Check className="size-4" aria-hidden="true" />
-                Сохранить изменения
-              </Button>
-              {/* PwdBtn — ghost */}
-              <button
-                type="button"
-                className={cn(buttonVariants({ variant: "ghost" }))}
+              {editing ? (
+                <>
+                  {/* SaveBtn — primary */}
+                  <Button variant="default" onClick={handleSave} disabled={saving}>
+                    <Check className="size-4" aria-hidden="true" />
+                    {saving ? "Сохранение…" : "Сохранить изменения"}
+                  </Button>
+                  {/* CancelBtn — ghost */}
+                  <Button variant="ghost" onClick={cancelEditing} disabled={saving}>
+                    Отмена
+                  </Button>
+                </>
+              ) : (
+                <Button variant="default" onClick={startEditing}>
+                  <Pencil className="size-4" aria-hidden="true" />
+                  Редактировать
+                </Button>
+              )}
+              {/* PwdBtn — ghost (смена пароля пока не реализована на бэке) */}
+              <Button
+                variant="ghost"
+                onClick={() => toast("Смена пароля скоро будет доступна")}
               >
                 <Lock className="size-4" aria-hidden="true" />
                 Сменить пароль
-              </button>
+              </Button>
             </div>
           </section>
         </main>

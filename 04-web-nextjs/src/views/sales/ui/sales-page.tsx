@@ -5,6 +5,7 @@ import {
   Flame,
   Gift,
   House,
+  PackageSearch,
   Percent,
   Shirt,
   Smartphone,
@@ -12,8 +13,8 @@ import {
   Truck,
 } from "lucide-react";
 
-import { ProductCard } from "@/entities/product";
-import type { Product } from "@/entities/product";
+import { getProducts } from "@/entities/product/api";
+import { CartProductCard } from "@/features/cart";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -21,6 +22,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
+  EmptyState,
   Pagination,
   PaginationContent,
   PaginationEllipsis,
@@ -31,18 +33,7 @@ import {
 } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
 
-// ─── Mock данные (placeholder до подключения API) ────────────────────────────
-
-const MOCK_PRODUCTS: Product[] = [
-  { id: "sale-1", title: "Наушники Sound X3", price: 4990, oldPrice: 6100, discountPercent: 18, inStock: true },
-  { id: "sale-2", title: "Чайник Smart 1.7л", price: 2490, oldPrice: 2990, discountPercent: 17, inStock: true },
-  { id: "sale-3", title: "Часы Move 2", price: 11400, oldPrice: 13900, discountPercent: 18, inStock: true },
-  { id: "sale-4", title: "Колонка Boom 5", price: 6490, oldPrice: 7200, discountPercent: 10, inStock: true },
-  { id: "sale-5", title: "Робот-пылесос Vac Pro", price: 19800, oldPrice: 24900, discountPercent: 20, inStock: true },
-  { id: "sale-6", title: "Фен Air Style", price: 5490, oldPrice: 7990, discountPercent: 31, inStock: true },
-  { id: "sale-7", title: "Блендер Mix Pro", price: 3990, oldPrice: 4990, discountPercent: 20, inStock: true },
-  { id: "sale-8", title: "Рюкзак Urban 20л", price: 2890, oldPrice: 3900, discountPercent: 26, inStock: true },
-];
+const PAGE_SIZE = 8;
 
 // ─── Категории-чипы (из Pencil: Chips row) ──────────────────────────────────
 
@@ -111,11 +102,17 @@ export function ProductGridSkeleton() {
  *   3. PromoRow (3 промо-карточки: −20% техника / 1+1 химия / бесплатная доставка)
  *   4. SaleGrid (заголовок + сортировка + чипы категорий + сетка 4×2 + пагинация)
  *
- * Данные: mock-заглушки внутри view — подключение реального API отдельным шагом.
+ * Данные: getProducts({ discounted: true }) — серверная пагинация по total.
  * Интерактивные части (чипы-фильтры, сортировка, обратный отсчёт) оставлены
  * декоративными для будущего wire.
  */
-export function SalesPage() {
+export async function SalesPage({ page = 1 }: { page?: number }) {
+  const { items, total, totalPages } = await getProducts({
+    discounted: true,
+    page,
+    limit: PAGE_SIZE,
+  });
+
   return (
     <div className="flex flex-col gap-10 py-7 pb-20">
       {/* ── 1. Breadcrumbs ──────────────────────────────────────────────── */}
@@ -242,7 +239,7 @@ export function SalesPage() {
               Товары со скидкой
             </h2>
             <p className="font-caption text-[13px] text-muted-foreground">
-              1&nbsp;248 товаров · цены действуют до 14 июня
+              {total.toLocaleString("ru-RU")} товаров со скидкой
             </p>
           </div>
           {/* Sort — декоративный вид сортировки (future: Select компонент) */}
@@ -277,35 +274,60 @@ export function SalesPage() {
         </div>
 
         {/* Product grid */}
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-          {MOCK_PRODUCTS.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        {items.length === 0 ? (
+          <EmptyState
+            icon={<PackageSearch className="size-20 text-muted-foreground/40" />}
+            title="Акций пока нет"
+            description="Загляните позже — скидки появляются регулярно."
+          />
+        ) : (
+          <>
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+              {items.map((product) => (
+                <CartProductCard key={product.id} product={product} />
+              ))}
+            </div>
 
-        {/* Pagination */}
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationLink href="/sales?page=1" isActive>
-                1
-              </PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="/sales?page=2">2</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="/sales?page=3">3</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="/sales?page=12">12</PaginationLink>
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
+            {totalPages > 1 && (
+              <Pagination>
+                <PaginationContent>
+                  {buildPageList(page, totalPages).map((item, idx) =>
+                    item === "ellipsis" ? (
+                      <PaginationItem key={`ell-${idx}`}>
+                        <PaginationEllipsis />
+                      </PaginationItem>
+                    ) : (
+                      <PaginationItem key={item}>
+                        <PaginationLink href={pageHref(item)} isActive={item === page}>
+                          {item}
+                        </PaginationLink>
+                      </PaginationItem>
+                    ),
+                  )}
+                </PaginationContent>
+              </Pagination>
+            )}
+          </>
+        )}
       </section>
     </div>
   );
+}
+
+/** Ссылка на страницу (на page=1 убираем параметр). */
+function pageHref(page: number): string {
+  return page === 1 ? "/sales" : `/sales?page=${page}`;
+}
+
+/** Список номеров страниц с эллипсисами. */
+function buildPageList(current: number, total: number): (number | "ellipsis")[] {
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+  const pages: (number | "ellipsis")[] = [1];
+  if (current > 3) pages.push("ellipsis");
+  const start = Math.max(2, current - 1);
+  const end = Math.min(total - 1, current + 1);
+  for (let i = start; i <= end; i++) pages.push(i);
+  if (current < total - 2) pages.push("ellipsis");
+  pages.push(total);
+  return pages;
 }

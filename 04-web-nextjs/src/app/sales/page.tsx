@@ -8,9 +8,11 @@ export const metadata: Metadata = {
 };
 
 /**
- * Тонкий роут /sales.
- * Вся вёрстка — в SalesPage (views/sales).
+ * Тонкий роут /sales. Next.js 16: searchParams — Promise.
+ * Вся вёрстка и загрузка — в SalesPage (views/sales).
  */
-export default function SalesRoute() {
-  return <SalesPage />;
+export default async function SalesRoute(props: PageProps<"/sales">) {
+  const sp = await props.searchParams;
+  const page = typeof sp.page === "string" ? Math.max(1, parseInt(sp.page, 10) || 1) : 1;
+  return <SalesPage page={page} />;
 }
