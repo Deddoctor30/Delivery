@@ -1,7 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { Role, User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../../core/prisma/prisma.service';
+import { ChangePasswordDto } from './dto/change-password.dto';
 import { LoginOrRegisterDto } from './dto/login-or-register.dto';
 import { RefreshDto } from './dto/refresh.dto';
 import { SessionService, TokenPair } from './session.service';
@@ -62,6 +63,32 @@ export class AuthService {
   // выйти со всех устройств
   async logoutAll(userId: string): Promise<void> {
     await this.sessions.revokeAll(userId);
+  }
+
+  // смена пароля: сверяем текущий, хешируем новый, выкидываем остальные сессии
+  async changePassword(userId: string, dto: ChangePasswordDto): Promise<void> {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!user) {
+      throw new UnauthorizedException({ code: 'USER_NOT_FOUND', message: 'User not found' });
+    }
+
+    const ok = await bcrypt.compare(dto.currentPassword, user.passwordHash);
+    if (!ok) {
+      throw new BadRequestException({
+        code: 'WRONG_PASSWORD',
+        message: 'Текущий пароль неверный',
+      });
+    }
+    if (dto.newPassword === dto.currentPassword) {
+      throw new BadRequestException({
+        code: 'SAME_PASSWORD',
+        message: 'Новый пароль совпадает с текущим',
+      });
+    }
+
+    const passwordHash = await bcrypt.hash(dto.newPassword, BCRYPT_ROUNDS);
+    await this.prisma.user.update({ where: { id: userId }, data: { passwordHash } });
+    // Текущие сессии намеренно не трогаем — пользователь остаётся залогинен в этом окне.
   }
 
   // профиль для GET /auth/me

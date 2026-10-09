@@ -11,7 +11,6 @@ import {
   Gift,
   Heart,
   LifeBuoy,
-  Lock,
   LogOut,
   MapPin,
   Package,
@@ -46,7 +45,7 @@ import { OrderCard } from "@/entities/order";
 import type { Product } from "@/entities/product";
 import type { Order } from "@/entities/order";
 import { useSession } from "@/features/auth";
-import { updateProfileAction } from "@/features/profile";
+import { updateProfileAction, ChangePasswordDialog } from "@/features/profile";
 import { ConnectedProductCard } from "@/widgets/product-card";
 
 /* ── Sidebar menu items ─────────────────────────────────────────────────── */
@@ -540,14 +539,8 @@ export function AccountPage({ recentOrders, ordersCount, favorites }: AccountPag
                   Редактировать
                 </Button>
               )}
-              {/* PwdBtn — ghost (смена пароля пока не реализована на бэке) */}
-              <Button
-                variant="ghost"
-                onClick={() => toast("Смена пароля скоро будет доступна")}
-              >
-                <Lock className="size-4" aria-hidden="true" />
-                Сменить пароль
-              </Button>
+              {/* PwdBtn — модалка смены пароля (features/profile) */}
+              <ChangePasswordDialog />
             </div>
           </section>
         </main>

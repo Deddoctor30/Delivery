@@ -27,6 +27,22 @@ export async function updateProfileAction(
   }
 }
 
+export type ChangePasswordInput = { currentPassword: string; newPassword: string };
+export type ChangePasswordResult = { ok: true } | { ok: false; error: string };
+
+/** Сменить пароль текущего пользователя (PATCH /auth/password). */
+export async function changePasswordAction(
+  input: ChangePasswordInput,
+): Promise<ChangePasswordResult> {
+  try {
+    await unwrap(apiServerAuth.PATCH("/api/v1/auth/password", { body: input }));
+    return { ok: true };
+  } catch (e) {
+    const error = e instanceof ApiError ? e.message : "Не удалось сменить пароль";
+    return { ok: false, error };
+  }
+}
+
 /** Понятный текст ошибки: для VALIDATION_ERROR достаём детали валидации. */
 function toErrorMessage(e: unknown): string {
   if (!(e instanceof ApiError)) return "Не удалось сохранить профиль";
