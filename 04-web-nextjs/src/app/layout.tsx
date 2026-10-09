@@ -4,6 +4,7 @@ import { Geist_Mono, Inter } from "next/font/google";
 import { getCurrentUser } from "@/features/auth/api/bridge";
 import { getCart } from "@/entities/cart";
 import { getFavoriteIds } from "@/entities/favorite/api";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/shared/config/site";
 
 import "./globals.css";
 import { Providers } from "./providers";
@@ -25,8 +26,18 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Delivery",
-  description: "Маркетплейс с доставкой по России",
+  metadataBase: new URL(SITE_URL),
+  title: "Delivery — маркетплейс с доставкой по России",
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    locale: "ru_RU",
+    title: "Delivery — маркетплейс с доставкой по России",
+    description: SITE_DESCRIPTION,
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {

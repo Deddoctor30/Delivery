@@ -1,4 +1,12 @@
+import type { Metadata } from "next";
+
 import { CatalogPage } from "@/views/catalog";
+
+export const metadata: Metadata = {
+  title: "Каталог — Delivery",
+  description: "Каталог товаров с доставкой: фильтры по цене, наличию и скидкам.",
+  alternates: { canonical: "/catalog" },
+};
 
 /**
  * Тонкий роут /catalog.

@@ -1,7 +1,29 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { getProductById } from "@/entities/product/api";
 import { ProductPage } from "@/views/product";
+
+/** SEO: title/description/OG из данных товара (fetch дедуплицируется с роутом). */
+export async function generateMetadata(props: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await props.params;
+  const product = await getProductById(id);
+  if (!product) return { title: "Товар не найден — Delivery" };
+
+  const title = `${product.title} — Delivery`;
+  const description =
+    product.description?.slice(0, 160) || `${product.title} — купить с доставкой по России.`;
+  const images = product.imageUrl?.startsWith("http") ? [product.imageUrl] : [];
+
+  return {
+    title,
+    description,
+    alternates: { canonical: `/product/${id}` },
+    openGraph: { type: "website", title, description, images },
+  };
+}
 
 /**
  * Тонкий динамический роут /product/[id].
