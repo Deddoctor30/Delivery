@@ -34,6 +34,7 @@ import {
   BreadcrumbSeparator,
 } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
+import { getAddresses } from "@/entities/address/api";
 
 import { CheckoutFlow } from "./checkout-flow";
 
@@ -46,7 +47,10 @@ const STEPS = [
 ] as const;
 
 /* ── Компонент ─────────────────────────────────────────────────── */
-export function CheckoutPage() {
+export async function CheckoutPage() {
+  // Сохранённые адреса — только для авторизованных; гость/ошибка → пусто.
+  const savedAddresses = await getAddresses().catch(() => []);
+
   return (
     <div className="flex flex-col gap-7 py-7 pb-12">
       {/* ── 1. Breadcrumbs ─────────────────────────────────────────── */}
@@ -120,7 +124,7 @@ export function CheckoutPage() {
 
       {/* ── 4. Cols (client-остров: форма + сводка + создание заказа) ── */}
       {/* Pencil: KBpQH horizontal gap=32; адаптив внутри CheckoutFlow */}
-      <CheckoutFlow />
+      <CheckoutFlow savedAddresses={savedAddresses} />
     </div>
   );
 }

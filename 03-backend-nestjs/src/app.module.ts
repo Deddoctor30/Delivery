@@ -6,6 +6,7 @@ import { AppConfigModule } from './core/config/config.module';
 import { PrismaModule } from './core/prisma/prisma.module';
 import { RedisModule } from './core/redis/redis.module';
 import { HealthModule } from './health/health.module';
+import { AddressesModule } from './modules/addresses/addresses.module';
 import { AdminModule } from './modules/admin/admin.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { CartModule } from './modules/cart/cart.module';
@@ -24,6 +25,7 @@ import { UsersModule } from './modules/users/users.module';
     RedisModule,
     HealthModule,
     AuthModule,
+    AddressesModule,
     UsersModule,
     CategoriesModule,
     ProductsModule,
