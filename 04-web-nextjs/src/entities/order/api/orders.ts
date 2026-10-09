@@ -89,6 +89,26 @@ export async function getOrders(
   };
 }
 
+/** Заказы пользователя (админ): пагинация. Приватно, только ADMIN. */
+export async function getAdminUserOrders(
+  userId: string,
+  params: { page?: number; limit?: number } = {},
+): Promise<{ items: Order[]; total: number; totalPages: number; page: number }> {
+  const { page = 1, limit = 20 } = params;
+  const data = await unwrap(
+    apiServerAuth.GET("/api/v1/admin/users/{id}/orders", {
+      params: { path: { id: userId }, query: { page, limit } },
+      cache: "no-store",
+    }),
+  );
+  return {
+    items: data.items.map(toOrderSummary),
+    total: data.total,
+    totalPages: data.totalPages,
+    page: data.page,
+  };
+}
+
 /** Один заказ по id. null при 404/403 (не найден или не владелец). */
 export async function getOrderById(id: string): Promise<Order | null> {
   try {

@@ -21,3 +21,16 @@ export async function cancelOrderAction(id: string): Promise<ActionResult> {
     return { ok: false, error };
   }
 }
+
+/** Отменить любой заказ админом (POST /admin/orders/:id/cancel). Только для ADMIN. */
+export async function cancelOrderAsAdminAction(id: string): Promise<ActionResult> {
+  try {
+    await unwrap(
+      apiServerAuth.POST("/api/v1/admin/orders/{id}/cancel", { params: { path: { id } } }),
+    );
+    return { ok: true };
+  } catch (e) {
+    const error = e instanceof ApiError ? e.message : "Не удалось отменить заказ";
+    return { ok: false, error };
+  }
+}

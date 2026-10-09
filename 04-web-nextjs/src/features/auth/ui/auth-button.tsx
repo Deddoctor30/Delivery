@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { LogOut, User as UserIcon } from "lucide-react";
+import { LogOut, Shield, User as UserIcon } from "lucide-react";
 import { useState } from "react";
 
 import { Button, buttonVariants } from "@/shared/ui";
@@ -17,6 +17,15 @@ export function AuthButton() {
   if (user) {
     return (
       <div className="flex items-center gap-1">
+        {user.role === "ADMIN" && (
+          <Link
+            href="/admin/users"
+            aria-label="Админка"
+            className={cn(buttonVariants({ variant: "ghost", size: "icon" }))}
+          >
+            <Shield className="size-5" />
+          </Link>
+        )}
         <Link
           href="/account"
           aria-label="Личный кабинет"
