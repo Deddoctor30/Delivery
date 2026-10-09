@@ -19,6 +19,7 @@ import {
 
 import { CatalogCategoryFilter } from "./catalog-category-filter";
 import { CatalogFilters } from "./catalog-filters";
+import { CatalogFiltersMobile } from "./catalog-filters-mobile";
 import { CatalogPagination } from "./catalog-pagination";
 import { CatalogSort } from "./catalog-sort";
 
@@ -143,7 +144,18 @@ export async function CatalogPage({
           </span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="font-caption text-[13px] text-muted-foreground">Сортировка:</span>
+          {/* Мобильная кнопка фильтров (десктоп — сайдбар слева) */}
+          <div className="lg:hidden">
+            <CatalogFiltersMobile
+              inStock={inStock}
+              discount={discount}
+              minPrice={minPrice}
+              maxPrice={maxPrice}
+            />
+          </div>
+          <span className="hidden font-caption text-[13px] text-muted-foreground sm:inline">
+            Сортировка:
+          </span>
           <Suspense fallback={<Skeleton className="h-10 w-50 rounded-md" />}>
             <CatalogSort />
           </Suspense>

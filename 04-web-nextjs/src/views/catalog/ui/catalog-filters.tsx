@@ -4,12 +4,15 @@ import { useState } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 import { Button, Checkbox, Input } from "@/shared/ui";
+import { cn } from "@/shared/lib/utils";
 
 interface CatalogFiltersProps {
   inStock: boolean;
   discount: boolean;
   minPrice?: number;
   maxPrice?: number;
+  /** Переопределение классов обёртки (для мобильного drawer). */
+  className?: string;
 }
 
 /**
@@ -24,7 +27,13 @@ interface CatalogFiltersProps {
  *
  * Pencil: Filters frame — w=280, bg=card, rounded-xl, padding=24, gap=16.
  */
-export function CatalogFilters({ inStock, discount, minPrice, maxPrice }: CatalogFiltersProps) {
+export function CatalogFilters({
+  inStock,
+  discount,
+  minPrice,
+  maxPrice,
+  className,
+}: CatalogFiltersProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -72,7 +81,7 @@ export function CatalogFilters({ inStock, discount, minPrice, maxPrice }: Catalo
   }
 
   return (
-    <aside className="flex w-[280px] shrink-0 flex-col gap-4 rounded-xl bg-card p-6">
+    <aside className={cn("flex w-70 shrink-0 flex-col gap-4 rounded-xl bg-card p-6", className)}>
       {/* Заголовок + сброс */}
       <div className="flex items-center justify-between">
         <span className="font-heading text-base font-semibold text-foreground">Фильтры</span>
