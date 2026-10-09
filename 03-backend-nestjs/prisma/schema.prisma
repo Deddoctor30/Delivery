@@ -19,6 +19,7 @@ model User {
 
   orders    Order[]
   cartItems CartItem[]
+  favorites Favorite[]
 }
 
 model Category {
@@ -51,8 +52,22 @@ model Product {
   category   Category    @relation(fields: [categoryId], references: [id])
   cartItems  CartItem[]
   orderItems OrderItem[]
+  favorites  Favorite[]
 
   @@index([categoryId])
+}
+
+model Favorite {
+  id        String   @id @default(cuid())
+  userId    String
+  productId String
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId]) // один товар — одно избранное на юзера
+  @@index([userId])
 }
 
 model CartItem {

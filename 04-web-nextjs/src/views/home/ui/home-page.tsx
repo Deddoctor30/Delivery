@@ -3,7 +3,7 @@ import { ArrowRight, Sparkles, Truck } from "lucide-react";
 
 import { getPopularProducts, getProducts } from "@/entities/product/api";
 import type { Product } from "@/entities/product";
-import { CartProductCard } from "@/features/cart";
+import { ConnectedProductCard } from "@/widgets/product-card";
 
 import { HomeCategories } from "./home-categories";
 
@@ -37,7 +37,7 @@ function ProductGrid({ products }: { products: Product[] }) {
   return (
     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
       {products.map((product) => (
-        <CartProductCard key={product.id} product={product} />
+        <ConnectedProductCard key={product.id} product={product} />
       ))}
     </div>
   );

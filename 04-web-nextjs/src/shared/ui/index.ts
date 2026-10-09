@@ -14,6 +14,7 @@ export * from "./illustration";
 export * from "./input";
 export * from "./label";
 export * from "./logo";
+export * from "./map-picker";
 export * from "./map-placeholder";
 export * from "./pagination";
 export * from "./progress";

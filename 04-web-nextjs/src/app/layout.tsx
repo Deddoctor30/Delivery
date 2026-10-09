@@ -3,6 +3,7 @@ import { Geist_Mono, Inter } from "next/font/google";
 
 import { getCurrentUser } from "@/features/auth/api/bridge";
 import { getCart } from "@/entities/cart";
+import { getFavoriteIds } from "@/entities/favorite/api";
 
 import "./globals.css";
 import { Providers } from "./providers";
@@ -30,8 +31,9 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
   const user = await getCurrentUser();
-  // Серверная корзина — только для авторизованных; при ошибке (протух токен) — пусто.
+  // Серверная корзина и избранное — только для авторизованных; при ошибке (протух токен) — пусто.
   const initialCart = user ? await getCart().catch(() => null) : null;
+  const initialFavoriteIds = user ? await getFavoriteIds().catch(() => []) : [];
 
   return (
     <html
@@ -40,7 +42,11 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
-        <Providers initialUser={user} initialCartLines={initialCart?.items ?? []}>
+        <Providers
+          initialUser={user}
+          initialCartLines={initialCart?.items ?? []}
+          initialFavoriteIds={initialFavoriteIds}
+        >
           {/* Responsive header: desktop bar ≥ md, mobile bar < md */}
           <HeaderDesktop className="hidden md:block" />
           <HeaderMobile className="block md:hidden" />

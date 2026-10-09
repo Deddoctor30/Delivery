@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 
 import { getProducts } from "@/entities/product/api";
-import { CartProductCard } from "@/features/cart";
+import { ConnectedProductCard } from "@/widgets/product-card";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -284,7 +284,7 @@ export async function SalesPage({ page = 1 }: { page?: number }) {
           <>
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
               {items.map((product) => (
-                <CartProductCard key={product.id} product={product} />
+                <ConnectedProductCard key={product.id} product={product} />
               ))}
             </div>
 

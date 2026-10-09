@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { PackageSearch } from "lucide-react";
 
 import { getProducts } from "@/entities/product/api";
-import { CartProductCard } from "@/features/cart";
+import { ConnectedProductCard } from "@/widgets/product-card";
 import { getTopCategories } from "@/entities/category";
 import type { NavCategoryData } from "./catalog-category-filter";
 
@@ -177,7 +177,7 @@ export async function CatalogPage({
               <Suspense fallback={<ProductGridSkeleton />}>
                 <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
                   {pageProducts.map((product) => (
-                    <CartProductCard key={product.id} product={product} />
+                    <ConnectedProductCard key={product.id} product={product} />
                   ))}
                 </div>
               </Suspense>

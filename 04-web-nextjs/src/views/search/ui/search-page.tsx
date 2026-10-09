@@ -1,7 +1,7 @@
 import { PackageSearch, Search } from "lucide-react";
 
 import { searchProducts } from "@/entities/product/api";
-import { CartProductCard } from "@/features/cart";
+import { ConnectedProductCard } from "@/widgets/product-card";
 import { EmptyState } from "@/shared/ui";
 
 import { SearchBox } from "./search-box";
@@ -56,7 +56,7 @@ export async function SearchPage({ query }: SearchPageProps) {
       ) : (
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
           {results.map((product) => (
-            <CartProductCard key={product.id} product={product} />
+            <ConnectedProductCard key={product.id} product={product} />
           ))}
         </div>
       )}

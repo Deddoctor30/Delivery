@@ -2,7 +2,7 @@ import { Shield, Truck, RefreshCcw, Star } from "lucide-react";
 
 import type { Product } from "@/entities/product";
 import { getSimilarProducts } from "@/entities/product/api";
-import { CartProductCard } from "@/features/cart";
+import { ConnectedProductCard } from "@/widgets/product-card";
 import { getCategoryById } from "@/entities/category";
 
 import {
@@ -340,7 +340,7 @@ export async function ProductPage({ product }: ProductPageProps) {
           {/* Pencil: KcKDz Grid gap=16, 4 колонки ProductCard */}
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
             {similar.map((p) => (
-              <CartProductCard key={p.id} product={p} />
+              <ConnectedProductCard key={p.id} product={p} />
             ))}
           </div>
         </section>

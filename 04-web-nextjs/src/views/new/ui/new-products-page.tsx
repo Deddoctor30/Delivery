@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Bell, PackageSearch, Sparkles } from "lucide-react";
 
 import { getProducts } from "@/entities/product/api";
-import { CartProductCard } from "@/features/cart";
+import { ConnectedProductCard } from "@/widgets/product-card";
 import {
   Badge,
   Breadcrumb,
@@ -168,7 +168,7 @@ export async function NewProductsPage({ page = 1 }: { page?: number }) {
           <>
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
               {items.map((product) => (
-                <CartProductCard key={product.id} product={product} />
+                <ConnectedProductCard key={product.id} product={product} />
               ))}
             </div>
 

@@ -10,12 +10,13 @@
  */
 
 import { useState } from "react";
-import { Heart, ShoppingBag } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
 import { toast } from "sonner";
 
 import { Badge, Button, Counter } from "@/shared/ui";
 import type { Product } from "@/entities/product";
 import { useCart } from "@/features/cart";
+import { FavoriteButton } from "@/features/favorite";
 
 interface ProductBuyBlockProps {
   product: Product;
@@ -95,15 +96,8 @@ export function ProductBuyBlock({
       </div>
 
       {/* ── В избранное ──────────────────────────────────────────────── */}
-      {/* Pencil: Fav Button/Outline fill_container icon=heart */}
-      <Button
-        variant="outline"
-        size="lg"
-        className="h-auto w-full gap-2 rounded-lg px-4 py-3 text-sm font-medium"
-        aria-label="Добавить в избранное"
-      >
-        <Heart className="size-4" />В избранное
-      </Button>
+      {/* Pencil: Fav Button/Outline fill_container icon=heart — подключено к favorites */}
+      <FavoriteButton productId={product.id} variant="full" />
     </div>
   );
 }

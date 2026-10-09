@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Heart, ShoppingBag } from "lucide-react";
+import type { ReactNode } from "react";
 
 import { cn } from "@/shared/lib/utils";
 import { Badge, Button, Counter } from "@/shared/ui";
@@ -14,6 +15,12 @@ export interface ProductCardProps {
   quantity?: number;
   onAddToCart?: () => void;
   onQuantityChange?: (value: number) => void;
+  /**
+   * Слот кнопки «в избранное». Избранное — это фича (features/favorite), а карточка —
+   * сущность, поэтому саму кнопку прокидывают сверху (widget). Если не задан —
+   * рендерится статичная (неинтерактивная) иконка-заглушка.
+   */
+  favoriteSlot?: ReactNode;
   className?: string;
 }
 
@@ -22,6 +29,7 @@ export function ProductCard({
   quantity = 0,
   onAddToCart,
   onQuantityChange,
+  favoriteSlot,
   className,
 }: ProductCardProps) {
   const { id, title, price, oldPrice, imageUrl, discountPercent, inStock = true } = product;
@@ -61,14 +69,15 @@ export function ProductCard({
           </Badge>
         )}
 
-        {/* Favourite button */}
-        <button
-          type="button"
-          aria-label="Добавить в избранное"
-          className="relative z-10 ml-auto flex size-8 items-center justify-center rounded-full bg-card"
-        >
-          <Heart className="size-3.5 text-muted-foreground" />
-        </button>
+        {/* Favourite button — слот от widget; иначе статичная заглушка */}
+        {favoriteSlot ?? (
+          <span
+            aria-hidden="true"
+            className="relative z-10 ml-auto flex size-8 items-center justify-center rounded-full bg-card"
+          >
+            <Heart className="size-3.5 text-muted-foreground" />
+          </span>
+        )}
       </div>
 
       {/* Body */}

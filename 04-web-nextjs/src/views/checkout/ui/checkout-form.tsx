@@ -20,16 +20,18 @@
 
 import type { FieldErrors, UseFormRegister } from "react-hook-form";
 
-import { Input, Label, MapPlaceholder } from "@/shared/ui";
+import { Input, Label, MapPicker, MapPickerCoords } from "@/shared/ui";
 
 import type { CheckoutFormValues } from "./checkout-flow";
 
 interface CheckoutFormProps {
   register: UseFormRegister<CheckoutFormValues>;
   errors: FieldErrors<CheckoutFormValues>;
+  coords: MapPickerCoords;
+  onCoordsChange: (coords: MapPickerCoords) => void;
 }
 
-export function CheckoutForm({ register, errors }: CheckoutFormProps) {
+export function CheckoutForm({ register, errors, coords, onCoordsChange }: CheckoutFormProps) {
   return (
     <div className="flex flex-col gap-5">
       {/* ── AddrCard ──────────────────────────────────────────────── */}
@@ -95,11 +97,9 @@ export function CheckoutForm({ register, errors }: CheckoutFormProps) {
         </div>
       </div>
 
-      {/* ── MapCard ───────────────────────────────────────────────── */}
-      {/* Pencil: c2Ft2 fill=$--card, cornerRadius=$--radius-lg, h=320, clip
-          Вложен Map (HT7ER) = MapPlaceholder, fill_container x fill_container */}
+      {/* ── MapCard ─── выбор точки доставки на карте */}
       <div className="overflow-hidden rounded-xl bg-card">
-        <MapPlaceholder height={320} className="rounded-none" />
+        <MapPicker value={coords} onChange={onCoordsChange} height={320} className="rounded-none" />
       </div>
     </div>
   );

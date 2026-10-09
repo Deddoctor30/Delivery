@@ -37,65 +37,17 @@ import {
   Input,
   Label,
   Tabs,
-  TabsContent,
   TabsList,
   TabsTrigger,
   buttonVariants,
 } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
-import { ProductCard } from "@/entities/product";
 import { OrderCard } from "@/entities/order";
 import type { Product } from "@/entities/product";
 import type { Order } from "@/entities/order";
 import { useSession } from "@/features/auth";
 import { updateProfileAction } from "@/features/profile";
-
-/* ── Mock data ──────────────────────────────────────────────────────────── */
-
-const MOCK_FAVORITES: Product[] = [
-  {
-    id: "fav-1",
-    title: "Наушники Sound X3",
-    price: 4990,
-    oldPrice: 6100,
-    discountPercent: 18,
-    inStock: true,
-  },
-  {
-    id: "fav-2",
-    title: "Кофемашина CremaOne",
-    price: 32900,
-    inStock: true,
-  },
-  {
-    id: "fav-3",
-    title: "Часы Move 2",
-    price: 11400,
-    oldPrice: 13900,
-    discountPercent: 18,
-    inStock: true,
-  },
-  {
-    id: "fav-4",
-    title: "Смартфон Pixel 9",
-    price: 58900,
-    inStock: true,
-  },
-  {
-    id: "fav-5",
-    title: "Колонка Boom 5",
-    price: 6490,
-    oldPrice: 7200,
-    discountPercent: 10,
-    inStock: true,
-  },
-  {
-    id: "fav-6",
-    title: "Чайник Smart 1.7л",
-    price: 2490,
-    inStock: true,
-  },
-];
+import { ConnectedProductCard } from "@/widgets/product-card";
 
 /* ── Sidebar menu items ─────────────────────────────────────────────────── */
 
@@ -107,14 +59,14 @@ type MenuItem = {
   badge?: string;
 };
 
-const MENU_ITEMS: MenuItem[] = [
-  { icon: User, label: "Профиль", href: "/account" },
-  { icon: Package, label: "Мои заказы", href: "/orders" },
-  { icon: Heart, label: "Избранное", href: "/account/favorites", active: true, badge: "6" },
-  { icon: MapPin, label: "Адреса доставки", href: "/account/addresses" },
-  { icon: CreditCard, label: "Способы оплаты", href: "/account/payments" },
-  { icon: Bell, label: "Уведомления", href: "/account/notifications" },
-];
+/** Русское склонение слова «товар» по числу. */
+function pluralItems(n: number): string {
+  const mod10 = n % 10;
+  const mod100 = n % 100;
+  if (mod10 === 1 && mod100 !== 11) return "товар";
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return "товара";
+  return "товаров";
+}
 
 /* ── Component ──────────────────────────────────────────────────────────── */
 
@@ -132,17 +84,44 @@ const MENU_ITEMS: MenuItem[] = [
  *       Последние заказы (2 OrderCard) + Личные данные (форма)
  *
  * «use client» — из-за Tabs и сессии (профиль/выход).
- * Профиль/выход — из useSession; заказы — пропсами с сервера.
- * Избранное/бонусы пока mock (подключим отдельным этапом).
+ * Профиль/выход — из useSession; заказы и избранное — пропсами с сервера.
+ * Бонусы пока mock (на бэке концепции нет).
  */
 interface AccountPageProps {
   recentOrders: Order[];
   ordersCount: number;
+  favorites: Product[];
 }
 
-export function AccountPage({ recentOrders, ordersCount }: AccountPageProps) {
+export function AccountPage({ recentOrders, ordersCount, favorites }: AccountPageProps) {
   const router = useRouter();
   const { user, setUser, logout } = useSession();
+
+  const favoritesCount = favorites.length;
+  const discountedCount = favorites.filter((p) => p.discountPercent).length;
+
+  const menuItems: MenuItem[] = [
+    { icon: User, label: "Профиль", href: "/account", active: true },
+    { icon: Package, label: "Мои заказы", href: "/orders" },
+    {
+      icon: Heart,
+      label: "Избранное",
+      href: "/account/favorites",
+      badge: favoritesCount ? String(favoritesCount) : undefined,
+    },
+    { icon: MapPin, label: "Адреса доставки", href: "/account/addresses" },
+    { icon: CreditCard, label: "Способы оплаты", href: "/account/payments" },
+    { icon: Bell, label: "Уведомления", href: "/account/notifications" },
+  ];
+
+  /* ── Избранное: фильтр по табам (Все / В наличии / Со скидкой) ── */
+  const [favTab, setFavTab] = useState<"all" | "instock" | "discount">("all");
+  const visibleFavorites =
+    favTab === "instock"
+      ? favorites.filter((p) => p.inStock)
+      : favTab === "discount"
+        ? favorites.filter((p) => p.discountPercent)
+        : favorites;
 
   const fullName = [user?.firstName, user?.lastName].filter(Boolean).join(" ");
   const displayName = fullName || user?.email || "Профиль";
@@ -197,7 +176,11 @@ export function AccountPage({ recentOrders, ordersCount }: AccountPageProps) {
 
   const stats = [
     { icon: Package, value: ordersCount.toLocaleString("ru-RU"), label: "заказов за всё время" },
-    { icon: Heart, value: "6", label: "товаров в избранном" },
+    {
+      icon: Heart,
+      value: favoritesCount.toLocaleString("ru-RU"),
+      label: "товаров в избранном",
+    },
     { icon: Gift, value: "1 240", label: "бонусов на счёте" },
   ];
 
@@ -287,7 +270,7 @@ export function AccountPage({ recentOrders, ordersCount }: AccountPageProps) {
 
           {/* Menu — bg-card, rounded-xl, shadow-sm, vertical, clip */}
           <nav className="overflow-hidden rounded-xl bg-card shadow-sm">
-            {MENU_ITEMS.map((item, idx) => (
+            {menuItems.map((item, idx) => (
               <div key={item.href}>
                 {idx > 0 && <div className="h-px w-full bg-border" />}
                 <Link
@@ -369,28 +352,40 @@ export function AccountPage({ recentOrders, ordersCount }: AccountPageProps) {
                 </h2>
                 {/* font-caption 13px muted */}
                 <p className="font-caption text-[13px] text-muted-foreground">
-                  6 товаров · 2 подешевели за неделю
+                  {favoritesCount === 0
+                    ? "Пока пусто"
+                    : `${favoritesCount} ${pluralItems(favoritesCount)}${
+                        discountedCount ? ` · ${discountedCount} со скидкой` : ""
+                      }`}
                 </p>
               </div>
               {/* FavTabs — bg-muted, rounded-md, gap 1, p 1 */}
-              <Tabs defaultValue="all">
-                <TabsList variant="default">
-                  <TabsTrigger value="all">Все</TabsTrigger>
-                  <TabsTrigger value="instock">В наличии</TabsTrigger>
-                  <TabsTrigger value="discount">Со скидкой</TabsTrigger>
-                </TabsList>
-                {/* TabsContent is decorative — all products shown regardless */}
-                <TabsContent value="all" />
-                <TabsContent value="instock" />
-                <TabsContent value="discount" />
-              </Tabs>
+              {favoritesCount > 0 && (
+                <Tabs
+                  value={favTab}
+                  onValueChange={(value) => setFavTab(value as typeof favTab)}
+                >
+                  <TabsList variant="default">
+                    <TabsTrigger value="all">Все</TabsTrigger>
+                    <TabsTrigger value="instock">В наличии</TabsTrigger>
+                    <TabsTrigger value="discount">Со скидкой</TabsTrigger>
+                  </TabsList>
+                </Tabs>
+              )}
             </div>
             {/* FavRow0 — horizontal, gap 16 */}
-            <div className="grid grid-cols-3 gap-4">
-              {MOCK_FAVORITES.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
+            {favoritesCount === 0 ? (
+              <p className="rounded-xl bg-card p-6 font-caption text-[13px] text-muted-foreground shadow-sm">
+                В избранном пока ничего нет. Нажимайте на сердечко у товаров, чтобы сохранить их
+                здесь.
+              </p>
+            ) : (
+              <div className="grid grid-cols-3 gap-4">
+                {visibleFavorites.map((product) => (
+                  <ConnectedProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            )}
           </section>
 
           {/* ── Recent Orders ── */}

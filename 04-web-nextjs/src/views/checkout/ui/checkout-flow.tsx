@@ -1,23 +1,21 @@
 "use client";
 
-import { useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
+import type { MapPickerCoords } from "@/shared/ui";
 import { useCart } from "@/features/cart";
-import { createOrderAction } from "@/features/checkout";
+import { createOrderAction, estimateDeliveryAction } from "@/features/checkout";
 
 import { CheckoutForm } from "./checkout-form";
 import { CheckoutSummary } from "./checkout-summary";
 
-/* ── Константы ─────────────────────────────────────────────────── */
-const DELIVERY_COST = 149; // отображение; бэк считает фактическую доставку сам
-const DELIVERY_ETA = "~35 мин";
-// Координаты пока фиксированные (карта — placeholder). TODO: выбор точки на карте.
-const DEFAULT_COORDS = { lat: 55.7558, lng: 37.6173 };
+const DEFAULT_COORDS: MapPickerCoords = { lat: 55.7558, lng: 37.6173 }; // Москва по умолчанию
+const FALLBACK_COST = 149;
 
 const schema = z.object({
   street: z.string().min(5, "Укажите улицу и дом"),
@@ -28,14 +26,32 @@ const schema = z.object({
 });
 export type CheckoutFormValues = z.infer<typeof schema>;
 
-/**
- * CheckoutFlow — client-остров оформления: форма адреса (RHF) + сводка + создание заказа.
- * Позиции и суммы берутся из стора корзины. «Оплатить» → createOrderAction → /checkout/success.
- */
+function pluralDays(n: number): string {
+  const d10 = n % 10, d100 = n % 100;
+  if (d10 === 1 && d100 !== 11) return "день";
+  if (d10 >= 2 && d10 <= 4 && (d100 < 10 || d100 >= 20)) return "дня";
+  return "дней";
+}
+
 export function CheckoutFlow() {
   const router = useRouter();
   const { lines, clear } = useCart();
   const [isPending, startTransition] = useTransition();
+
+  const [coords, setCoords] = useState<MapPickerCoords>(DEFAULT_COORDS);
+  const [delivery, setDelivery] = useState<{ cost: number; days: number } | null>(null);
+  const [, startEstimate] = useTransition();
+
+  // Живой расчёт доставки при смене точки (с дебаунсом).
+  useEffect(() => {
+    const t = setTimeout(() => {
+      startEstimate(async () => {
+        const res = await estimateDeliveryAction(coords.lat, coords.lng);
+        if (res.ok) setDelivery({ cost: res.estimate.cost, days: res.estimate.days });
+      });
+    }, 400);
+    return () => clearTimeout(t);
+  }, [coords.lat, coords.lng]);
 
   const {
     register,
@@ -61,11 +77,11 @@ export function CheckoutFlow() {
     startTransition(async () => {
       const res = await createOrderAction({
         deliveryAddress,
-        deliveryLat: DEFAULT_COORDS.lat,
-        deliveryLng: DEFAULT_COORDS.lng,
+        deliveryLat: coords.lat,
+        deliveryLng: coords.lng,
       });
       if (res.ok) {
-        clear(); // бэк уже очистил серверную корзину; синхронизируем стор
+        clear();
         toast.success("Заказ оформлен! Ожидайте доставку.", { duration: 4000 });
         router.push("/checkout/success");
       } else {
@@ -75,21 +91,15 @@ export function CheckoutFlow() {
   });
 
   return (
-    <form
-      onSubmit={onSubmit}
-      className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-8"
-      noValidate
-    >
-      {/* Левая колонка: форма адреса + карта */}
+    <form onSubmit={onSubmit} className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-8" noValidate>
       <div className="flex-1">
-        <CheckoutForm register={register} errors={errors} />
+        <CheckoutForm register={register} errors={errors} coords={coords} onCoordsChange={setCoords} />
       </div>
 
-      {/* Правая колонка: сводка + оплата */}
       <CheckoutSummary
         lines={lines}
-        deliveryCost={DELIVERY_COST}
-        deliveryEta={DELIVERY_ETA}
+        deliveryCost={delivery?.cost ?? FALLBACK_COST}
+        deliveryEta={delivery ? `${delivery.days} ${pluralDays(delivery.days)}` : "—"}
         submitting={isPending}
       />
     </form>
