@@ -12,6 +12,8 @@ import {
 } from "react";
 import { toast } from "sonner";
 
+import { openAuthModal } from "@/shared/lib/auth-modal";
+
 import { addFavoriteAction, removeFavoriteAction } from "../api/actions";
 
 interface FavoritesContextValue {
@@ -54,7 +56,8 @@ export function FavoritesProvider({
   const toggle = useCallback(
     (productId: string) => {
       if (!isAuthenticated) {
-        toast.error("Войдите, чтобы добавить в избранное");
+        // гость → предлагаем войти/зарегистрироваться вместо тоста
+        openAuthModal();
         return;
       }
       const wasFav = ids.has(productId);

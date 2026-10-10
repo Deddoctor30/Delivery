@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -11,11 +12,13 @@ import {
   Button,
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   Input,
   Label,
+  Tabs,
+  TabsList,
+  TabsTrigger,
 } from "@/shared/ui";
 
 import { useSession } from "../model/session";
@@ -26,6 +29,8 @@ const schema = z.object({
 });
 type FormValues = z.infer<typeof schema>;
 
+type Mode = "login" | "register";
+
 export function AuthModal({
   open,
   onOpenChange,
@@ -34,6 +39,7 @@ export function AuthModal({
   onOpenChange: (value: boolean) => void;
 }) {
   const { setUser } = useSession();
+  const [mode, setMode] = useState<Mode>("login");
   const [showPassword, setShowPassword] = useState(false);
   const {
     register,
@@ -42,6 +48,8 @@ export function AuthModal({
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({ resolver: zodResolver(schema) });
 
+  // Бэк — единый login-or-register: обе вкладки шлют на один эндпоинт,
+  // аккаунт создаётся автоматически, если его нет.
   const onSubmit = handleSubmit(async (values) => {
     const res = await fetch("/api/auth/login", {
       method: "POST",
@@ -54,40 +62,69 @@ export function AuthModal({
       return;
     }
     setUser(data.user);
-    toast.success("Добро пожаловать!");
+    toast.success(mode === "register" ? "Аккаунт создан!" : "Добро пожаловать!");
     reset();
     onOpenChange(false);
   });
 
+  const isRegister = mode === "register";
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle>Вход или регистрация</DialogTitle>
-          <DialogDescription>
-            Введите email и пароль. Если аккаунта нет — он создастся автоматически.
-          </DialogDescription>
+      <DialogContent className="w-105 max-w-[calc(100%-2rem)] gap-5 rounded-xl bg-card p-10">
+        <DialogHeader className="gap-1.5">
+          <DialogTitle className="font-heading text-2xl font-bold text-foreground">
+            {isRegister ? "Создать аккаунт" : "Войти в аккаунт"}
+          </DialogTitle>
+          <p className="text-sm text-muted-foreground">
+            {isRegister
+              ? "Укажите email и пароль — мы создадим аккаунт"
+              : "Введите email и пароль для входа"}
+          </p>
         </DialogHeader>
-        <form onSubmit={onSubmit} className="flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
+
+        <Tabs value={mode} onValueChange={(value) => setMode(value as Mode)}>
+          <TabsList className="w-full rounded-md bg-muted p-1">
+            <TabsTrigger value="login" className="flex-1">
+              Войти
+            </TabsTrigger>
+            <TabsTrigger value="register" className="flex-1">
+              Регистрация
+            </TabsTrigger>
+          </TabsList>
+        </Tabs>
+
+        <form onSubmit={onSubmit} className="flex flex-col gap-5">
+          <div className="flex flex-col gap-1.5">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" autoComplete="email" {...register("email")} />
+            <Input
+              id="email"
+              type="email"
+              autoComplete="email"
+              placeholder="Введите email"
+              aria-invalid={!!errors.email}
+              {...register("email")}
+            />
             {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
           </div>
-          <div className="flex flex-col gap-2">
+
+          <div className="flex flex-col gap-1.5">
             <Label htmlFor="password">Пароль</Label>
             <div className="relative">
               <Input
                 id="password"
                 type={showPassword ? "text" : "password"}
-                autoComplete="current-password"
+                autoComplete={isRegister ? "new-password" : "current-password"}
+                placeholder="Введите пароль"
+                aria-invalid={!!errors.password}
+                className="pr-10"
                 {...register("password")}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword((v) => !v)}
                 aria-label={showPassword ? "Скрыть пароль" : "Показать пароль"}
-                className="absolute top-1/2 right-2 -translate-y-1/2 text-muted-foreground"
+                className="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground"
               >
                 {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
               </button>
@@ -96,9 +133,39 @@ export function AuthModal({
               <p className="text-sm text-destructive">{errors.password.message}</p>
             )}
           </div>
-          <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Входим…" : "Войти"}
+
+          {!isRegister && (
+            <div className="flex justify-end">
+              <button type="button" className="text-[13px] text-primary hover:underline">
+                Забыли пароль?
+              </button>
+            </div>
+          )}
+
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            className="h-auto w-full py-3.5 text-base font-medium"
+          >
+            {isSubmitting
+              ? isRegister
+                ? "Создаём…"
+                : "Входим…"
+              : isRegister
+                ? "Зарегистрироваться"
+                : "Войти"}
           </Button>
+
+          <p className="text-center text-xs text-muted-foreground">
+            Продолжая, вы принимаете{" "}
+            <Link
+              href="/legal/privacy"
+              onClick={() => onOpenChange(false)}
+              className="text-primary hover:underline"
+            >
+              условия обработки данных
+            </Link>
+          </p>
         </form>
       </DialogContent>
     </Dialog>

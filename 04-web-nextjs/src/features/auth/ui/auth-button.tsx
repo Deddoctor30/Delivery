@@ -2,17 +2,17 @@
 
 import Link from "next/link";
 import { LogOut, Shield, User as UserIcon } from "lucide-react";
-import { useState } from "react";
 
 import { Button, buttonVariants } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
+import { openAuthModal, setAuthModalOpen, useAuthModalOpen } from "@/shared/lib/auth-modal";
 
 import { useSession } from "../model/session";
 import { AuthModal } from "./auth-modal";
 
 export function AuthButton() {
   const { user, logout } = useSession();
-  const [open, setOpen] = useState(false);
+  const open = useAuthModalOpen();
 
   if (user) {
     return (
@@ -43,10 +43,10 @@ export function AuthButton() {
 
   return (
     <>
-      <Button variant="ghost" size="icon" aria-label="Войти" onClick={() => setOpen(true)}>
+      <Button variant="ghost" size="icon" aria-label="Войти" onClick={() => openAuthModal()}>
         <UserIcon className="size-5" />
       </Button>
-      <AuthModal open={open} onOpenChange={setOpen} />
+      <AuthModal open={open} onOpenChange={setAuthModalOpen} />
     </>
   );
 }

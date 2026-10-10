@@ -1,7 +1,7 @@
 "use client";
 
-import { Minus, Plus } from "lucide-react";
 import { cn } from "@/shared/lib/utils";
+import { Minus, Plus } from "lucide-react";
 
 interface CounterProps {
   value: number;
@@ -50,7 +50,7 @@ function Counter({
   return (
     <div
       className={cn(
-        "inline-flex items-center rounded-md border border-border bg-card",
+        "inline-flex justify-center rounded-md border border-border bg-card",
         disabled && "opacity-50",
         className,
       )}
@@ -60,7 +60,7 @@ function Counter({
         aria-label="Уменьшить"
         onClick={handleDecrement}
         disabled={decrementDisabled}
-        className="flex size-9 items-center justify-center transition-colors hover:bg-muted disabled:pointer-events-none disabled:opacity-50"
+        className="flex h-9 w-20 items-center justify-center transition-colors hover:bg-muted disabled:pointer-events-none disabled:opacity-50"
       >
         <Minus className="size-3.5 text-foreground" />
       </button>
@@ -74,7 +74,7 @@ function Counter({
         aria-label="Увеличить"
         onClick={handleIncrement}
         disabled={incrementDisabled}
-        className="flex size-9 items-center justify-center transition-colors hover:bg-muted disabled:pointer-events-none disabled:opacity-50"
+        className="flex h-9 w-20 items-center justify-center transition-colors hover:bg-muted disabled:pointer-events-none disabled:opacity-50"
       >
         <Plus className="size-3.5 text-foreground" />
       </button>

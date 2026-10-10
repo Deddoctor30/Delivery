@@ -9,8 +9,10 @@ import { z } from "zod";
 
 import type { MapPickerCoords } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
+import { openAuthModal } from "@/shared/lib/auth-modal";
 import { formatAddress, type Address } from "@/entities/address";
 import { useCart } from "@/features/cart";
+import { useSession } from "@/features/auth";
 import { createOrderAction, estimateDeliveryAction } from "@/features/checkout";
 
 import { CheckoutForm } from "./checkout-form";
@@ -38,6 +40,7 @@ function pluralDays(n: number): string {
 
 export function CheckoutFlow({ savedAddresses }: { savedAddresses: Address[] }) {
   const router = useRouter();
+  const { user } = useSession();
   const { lines, clear } = useCart();
   const [isPending, startTransition] = useTransition();
 
@@ -92,6 +95,11 @@ export function CheckoutFlow({ savedAddresses }: { savedAddresses: Address[] }) 
   }
 
   const onSubmit = handleSubmit((values) => {
+    // гость → предлагаем войти/зарегистрироваться (заказ создаётся из серверной корзины)
+    if (!user) {
+      openAuthModal();
+      return;
+    }
     if (lines.length === 0) {
       toast.error("Корзина пуста");
       return;

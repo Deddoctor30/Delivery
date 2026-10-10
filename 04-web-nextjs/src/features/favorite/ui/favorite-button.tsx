@@ -16,7 +16,7 @@ interface FavoriteButtonProps {
 
 /**
  * Кнопка «в избранное», подключённая к стору favorites.
- * Гость → приглашение войти (toast внутри стора). Оптимистичный toggle.
+ * Гость → открывается модалка входа/регистрации (внутри стора). Оптимистичный toggle.
  */
 export function FavoriteButton({ productId, variant = "icon", className }: FavoriteButtonProps) {
   const { isFavorite, toggle, isPending } = useFavorites();

@@ -7,6 +7,9 @@ import shadowUrl from "leaflet/dist/images/marker-shadow.png";
 import "leaflet/dist/leaflet.css";
 import { useRef } from "react";
 import { MapContainer, Marker, TileLayer, useMapEvents } from "react-leaflet";
+
+import { cn } from "@/shared/lib/utils";
+
 import { MapPickerCoords, MapPickerProps } from "./map-picker";
 
 // import png может вернуть строку-URL (Turbopack) или StaticImageData ({src}) —
@@ -30,14 +33,22 @@ function ClickHandler({ onChange }: { onChange: (c: MapPickerCoords) => void }) 
   return null;
 }
 
-export default function MapPickerImpl({ value, onChange, height = 320 }: MapPickerProps) {
+export default function MapPickerImpl({
+  value,
+  onChange,
+  height = 320,
+  className,
+}: MapPickerProps) {
   const markerRef = useRef<L.Marker>(null);
   return (
+    // isolate — собственный stacking context: внутренние z-index Leaflet (панели/
+    // контролы до 1000) не всплывают наружу и не перекрывают модалки (портал, z-50).
     <MapContainer
       center={[value.lat, value.lng]}
       zoom={12}
       scrollWheelZoom
       attributionControl={false}
+      className={cn("isolate", className)}
       style={{ height, width: "100%" }}
     >
       <TileLayer
