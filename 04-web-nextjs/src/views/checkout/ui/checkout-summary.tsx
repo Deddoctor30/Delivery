@@ -118,7 +118,12 @@ export function CheckoutSummary({
 
       {/* Pencil: PayBtn Z481H — Button/Primary-Large, fill_container, «Оплатить»
           type="submit" → сабмит формы оформления (создание заказа) */}
-      <Button type="submit" size="lg" className="w-full" disabled={submitting || lines.length === 0}>
+      <Button
+        type="submit"
+        size="lg"
+        className="w-full"
+        disabled={submitting || lines.length === 0}
+      >
         {submitting ? "Оформляем…" : "Оплатить"}
       </Button>
 

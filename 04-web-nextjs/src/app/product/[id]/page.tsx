@@ -15,7 +15,8 @@ export async function generateMetadata(props: {
   const title = `${product.title} — Delivery`;
   const description =
     product.description?.slice(0, 160) || `${product.title} — купить с доставкой по России.`;
-  const images = product.imageUrl?.startsWith("http") ? [product.imageUrl] : [];
+  // imageUrl относительный (/static/...) — metadataBase превратит его в абсолютный для OG.
+  const images = product.imageUrl ? [product.imageUrl] : [];
 
   return {
     title,

@@ -3,14 +3,7 @@
 import { useState } from "react";
 import { SlidersHorizontal } from "lucide-react";
 
-import {
-  Button,
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/shared/ui";
+import { Button, Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/shared/ui";
 
 import { CatalogFilters } from "./catalog-filters";
 

@@ -4,14 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Menu, Search, ShoppingBag, X } from "lucide-react";
 
-import {
-  Logo,
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-  SheetClose,
-  SheetTitle,
-} from "@/shared/ui";
+import { Logo, Sheet, SheetContent, SheetTrigger, SheetClose, SheetTitle } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
 import { AuthButton } from "@/features/auth";
 import { ThemeToggle } from "@/features/theme-toggle";

@@ -4,20 +4,19 @@ import { revalidatePath } from "next/cache";
 
 import { apiServerAuth } from "@/shared/api/client-auth";
 import { unwrap, ApiError } from "@/shared/api/error";
-import type { User } from "@/entities/user";
+import type { User, AvatarId } from "@/entities/user";
 
 export type UpdateProfileInput = {
   firstName?: string;
   lastName?: string;
   phone?: string;
+  avatarId?: AvatarId;
 };
 
 export type ProfileActionResult = { ok: true; user: User } | { ok: false; error: string };
 
 /** Обновить профиль текущего пользователя (PATCH /users/me). */
-export async function updateProfileAction(
-  input: UpdateProfileInput,
-): Promise<ProfileActionResult> {
+export async function updateProfileAction(input: UpdateProfileInput): Promise<ProfileActionResult> {
   try {
     const user = await unwrap(apiServerAuth.PATCH("/api/v1/users/me", { body: input }));
     revalidatePath("/account");

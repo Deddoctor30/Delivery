@@ -1,10 +1,7 @@
 import { IsIn, IsOptional, IsString, Length, Matches } from 'class-validator';
 
-// набор преднастроенных аватаров (файлы в static/avatars/)
-export const AVATAR_IDS = [
-  'avatar-1', 'avatar-2', 'avatar-3', 'avatar-4',
-  'avatar-5', 'avatar-6', 'avatar-7', 'avatar-8',
-];
+// набор преднастроенных аватаров (файлы в static/avatars/{id}.webp)
+export const AVATAR_IDS = ['avatar-male', 'avatar-female'];
 
 export class UpdateMeDto {
   @IsOptional()

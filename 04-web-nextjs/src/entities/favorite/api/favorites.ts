@@ -9,9 +9,7 @@ import { toProduct, type Product } from "@/entities/product/@x/favorite";
  * Персональные данные → cache: "no-store". Для грида в ЛК.
  */
 export async function getFavorites(): Promise<Product[]> {
-  const { items } = await unwrap(
-    apiServerAuth.GET("/api/v1/favorites", { cache: "no-store" }),
-  );
+  const { items } = await unwrap(apiServerAuth.GET("/api/v1/favorites", { cache: "no-store" }));
   return items.map(toProduct);
 }
 
@@ -20,8 +18,6 @@ export async function getFavorites(): Promise<Product[]> {
  * (какие сердечки «залиты» по всему каталогу).
  */
 export async function getFavoriteIds(): Promise<string[]> {
-  const { ids } = await unwrap(
-    apiServerAuth.GET("/api/v1/favorites/ids", { cache: "no-store" }),
-  );
+  const { ids } = await unwrap(apiServerAuth.GET("/api/v1/favorites/ids", { cache: "no-store" }));
   return ids;
 }

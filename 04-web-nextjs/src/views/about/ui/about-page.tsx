@@ -1,12 +1,5 @@
 import Link from "next/link";
-import {
-  Package,
-  Zap,
-  ShieldCheck,
-  HeartHandshake,
-  Briefcase,
-  Warehouse,
-} from "lucide-react";
+import { Package, Zap, ShieldCheck, HeartHandshake, Briefcase, Warehouse } from "lucide-react";
 
 import {
   Avatar,
@@ -61,8 +54,7 @@ export function AboutPage() {
         <div className="flex flex-1 flex-col gap-4">
           {/* Pill — bg-secondary, rounded-full, gap 6, padding [4,10] */}
           <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-secondary px-2.5 py-1 font-caption text-xs font-medium text-foreground">
-            <Package className="size-3.5 text-primary" aria-hidden="true" />
-            О компании
+            <Package className="size-3.5 text-primary" aria-hidden="true" />О компании
           </span>
           {/* H1 — font-heading 44px 600, lineHeight 1.1 */}
           <h1 className="font-heading text-[44px] font-semibold leading-[1.1] text-foreground">
@@ -70,8 +62,8 @@ export function AboutPage() {
           </h1>
           {/* Lead — font-body 16px, muted-foreground, lineHeight 1.5 */}
           <p className="text-base leading-[1.5] text-muted-foreground">
-            Delivery — сервис доставки товаров для дома, техники и повседневных мелочей. С 2018
-            года мы помогаем экономить время: собираем заказ за час и привозим его в тот же день.
+            Delivery — сервис доставки товаров для дома, техники и повседневных мелочей. С 2018 года
+            мы помогаем экономить время: собираем заказ за час и привозим его в тот же день.
           </p>
         </div>
 
@@ -99,7 +91,10 @@ export function AboutPage() {
       {/* ── 4. Values ──────────────────────────────────────────────── */}
       {/* Pencil: Values — vertical, gap 20 */}
       <section className="flex flex-col gap-5">
-        <SectionHead title="Что для нас важно" subtitle="Три принципа, по которым мы строим сервис" />
+        <SectionHead
+          title="Что для нас важно"
+          subtitle="Три принципа, по которым мы строим сервис"
+        />
         {/* Row — horizontal, gap 16 */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           {VALUES.map((v) => (
@@ -227,20 +222,17 @@ const VALUES = [
   {
     Icon: Zap,
     title: "Скорость",
-    description:
-      "Собираем заказ за час и доставляем в день оформления — в 120 городах.",
+    description: "Собираем заказ за час и доставляем в день оформления — в 120 городах.",
   },
   {
     Icon: ShieldCheck,
     title: "Честность",
-    description:
-      "Показываем реальные цены и наличие. Без скрытых комиссий и навязанных услуг.",
+    description: "Показываем реальные цены и наличие. Без скрытых комиссий и навязанных услуг.",
   },
   {
     Icon: HeartHandshake,
     title: "Забота",
-    description:
-      "Поддержка отвечает за 2 минуты, а возврат оформляется в пару кликов.",
+    description: "Поддержка отвечает за 2 минуты, а возврат оформляется в пару кликов.",
   },
 ] as const;
 

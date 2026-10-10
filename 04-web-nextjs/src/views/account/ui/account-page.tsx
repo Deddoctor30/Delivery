@@ -25,6 +25,7 @@ import {
 import {
   Avatar,
   AvatarFallback,
+  AvatarImage,
   Badge,
   Breadcrumb,
   BreadcrumbItem,
@@ -45,7 +46,8 @@ import { OrderCard } from "@/entities/order";
 import type { Product } from "@/entities/product";
 import type { Order } from "@/entities/order";
 import { useSession } from "@/features/auth";
-import { updateProfileAction, ChangePasswordDialog } from "@/features/profile";
+import { updateProfileAction, ChangePasswordDialog, AvatarPickerDialog } from "@/features/profile";
+import { avatarSrc } from "@/entities/user";
 import { ConnectedProductCard } from "@/widgets/product-card";
 
 /* ── Sidebar menu items ─────────────────────────────────────────────────── */
@@ -220,10 +222,7 @@ export function AccountPage({ recentOrders, ordersCount, favorites }: AccountPag
         {/* R — horizontal, gap 8, alignItems center */}
         <div className="flex items-center gap-2">
           {/* SupportBtn — outline */}
-          <Link
-            href="/support"
-            className={cn(buttonVariants({ variant: "outline" }))}
-          >
+          <Link href="/support" className={cn(buttonVariants({ variant: "outline" }))}>
             <LifeBuoy className="size-4" aria-hidden="true" />
             Поддержка
           </Link>
@@ -243,8 +242,9 @@ export function AccountPage({ recentOrders, ordersCount, favorites }: AccountPag
         <aside className="flex w-70 shrink-0 flex-col gap-4">
           {/* ProfileCard — bg-card, rounded-xl, shadow-sm, p 20, vertical, gap 14, alignItems center */}
           <div className="flex flex-col items-center gap-3.5 rounded-xl bg-card p-5 shadow-sm">
-            {/* Avatar 64×64 */}
+            {/* Avatar 64×64 — картинка из /static/avatars, иначе инициалы */}
             <Avatar className="size-16">
+              <AvatarImage src={avatarSrc(user?.avatarId) ?? undefined} alt={displayName} />
               <AvatarFallback variant="primary" className="text-[22px]">
                 {initials}
               </AvatarFallback>
@@ -265,6 +265,8 @@ export function AccountPage({ recentOrders, ordersCount, favorites }: AccountPag
               <Pencil className="size-4" aria-hidden="true" />
               Редактировать профиль
             </Button>
+            {/* Смена аватара — модалка выбора преднастроенного (features/profile) */}
+            <AvatarPickerDialog currentAvatarId={user?.avatarId ?? null} onUpdated={setUser} />
           </div>
 
           {/* Menu — bg-card, rounded-xl, shadow-sm, vertical, clip */}
@@ -360,10 +362,7 @@ export function AccountPage({ recentOrders, ordersCount, favorites }: AccountPag
               </div>
               {/* FavTabs — bg-muted, rounded-md, gap 1, p 1 */}
               {favoritesCount > 0 && (
-                <Tabs
-                  value={favTab}
-                  onValueChange={(value) => setFavTab(value as typeof favTab)}
-                >
+                <Tabs value={favTab} onValueChange={(value) => setFavTab(value as typeof favTab)}>
                   <TabsList variant="default">
                     <TabsTrigger value="all">Все</TabsTrigger>
                     <TabsTrigger value="instock">В наличии</TabsTrigger>
@@ -492,12 +491,7 @@ export function AccountPage({ recentOrders, ordersCount, favorites }: AccountPag
                     className="absolute left-2.5 size-4 text-muted-foreground"
                     aria-hidden="true"
                   />
-                  <Input
-                    id="pd-email"
-                    defaultValue={user?.email ?? ""}
-                    className="pl-8"
-                    readOnly
-                  />
+                  <Input id="pd-email" defaultValue={user?.email ?? ""} className="pl-8" readOnly />
                 </div>
               </div>
               {/* F Город */}

@@ -2,6 +2,7 @@ import "server-only";
 
 import { apiServer } from "@/shared/api/server";
 import { unwrap, ApiError } from "@/shared/api/error";
+import { mediaUrl } from "@/shared/lib/media";
 import type { components } from "@/shared/api/schema";
 
 import type { Product } from "../model/types";
@@ -32,7 +33,7 @@ export function toProduct(dto: ProductDto): Product {
     discountPercent: hasDiscount
       ? Math.round((1 - dto.discountPrice! / dto.price) * 100)
       : undefined,
-    imageUrl: dto.imageUrl || undefined,
+    imageUrl: mediaUrl(dto.imageUrl) ?? undefined,
     inStock: dto.stock > 0,
     category: dto.categoryId,
     description: dto.description || undefined,

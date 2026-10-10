@@ -19,9 +19,7 @@ export type AddressInput = {
   isDefault?: boolean;
 };
 
-export type AddressActionResult =
-  | { ok: true; addresses: Address[] }
-  | { ok: false; error: string };
+export type AddressActionResult = { ok: true; addresses: Address[] } | { ok: false; error: string };
 
 function fail(e: unknown): AddressActionResult {
   const error = e instanceof ApiError ? e.message : "Не удалось сохранить адрес";

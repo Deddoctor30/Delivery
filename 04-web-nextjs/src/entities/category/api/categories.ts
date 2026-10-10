@@ -30,9 +30,7 @@ export function toCategory(dto: CategoryTreeDto): Category {
  * Категории меняются редко → кэшируем на час.
  */
 export async function getCategoryTree(): Promise<Category[]> {
-  const data = await unwrap(
-    apiServer.GET("/api/v1/categories", { next: { revalidate: 3600 } }),
-  );
+  const data = await unwrap(apiServer.GET("/api/v1/categories", { next: { revalidate: 3600 } }));
   return data.map(toCategory);
 }
 

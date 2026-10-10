@@ -171,10 +171,7 @@ function TableFooter({ total, page, limit, onPageChange, onLimitChange }: TableF
 
       <div className="flex items-center gap-3">
         {/* Limit selector */}
-        <Select
-          value={String(limit)}
-          onValueChange={(v) => onLimitChange(Number(v))}
-        >
+        <Select value={String(limit)} onValueChange={(v) => onLimitChange(Number(v))}>
           <SelectTrigger className="h-9 w-40 text-sm">
             <SelectValue />
           </SelectTrigger>
@@ -268,7 +265,14 @@ export interface UsersTableProps {
   onLimitChange: (limit: number) => void;
 }
 
-export function UsersTable({ users, total, page, limit, onPageChange, onLimitChange }: UsersTableProps) {
+export function UsersTable({
+  users,
+  total,
+  page,
+  limit,
+  onPageChange,
+  onLimitChange,
+}: UsersTableProps) {
   return (
     <div className="w-full overflow-hidden rounded-xl border border-border bg-card">
       <TableHeader />

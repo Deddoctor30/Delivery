@@ -112,25 +112,25 @@ async function seedProducts(categories: Map<string, string>) {
 async function seedUsers() {
   await prisma.user.upsert({
     where: { email: ADMIN_EMAIL },
-    update: {},
+    update: { avatarId: 'avatar-male' },
     create: {
       email: ADMIN_EMAIL,
       passwordHash: await bcrypt.hash(ADMIN_PASSWORD, BCRYPT_ROUNDS),
       firstName: 'Admin',
       lastName: 'Delivery',
       role: 'ADMIN',
-      avatarId: 'avatar-1',
+      avatarId: 'avatar-male',
     },
   });
 
   const clients = [
-    { email: 'ivan@mail.ru', firstName: 'Иван', lastName: 'Иванов', avatarId: 'avatar-2' },
-    { email: 'maria@mail.ru', firstName: 'Мария', lastName: 'Петрова', avatarId: 'avatar-3' },
+    { email: 'ivan@mail.ru', firstName: 'Иван', lastName: 'Иванов', avatarId: 'avatar-male' },
+    { email: 'maria@mail.ru', firstName: 'Мария', lastName: 'Петрова', avatarId: 'avatar-female' },
   ];
   for (const c of clients) {
     await prisma.user.upsert({
       where: { email: c.email },
-      update: {},
+      update: { avatarId: c.avatarId },
       create: {
         ...c,
         passwordHash: await bcrypt.hash(CLIENT_PASSWORD, BCRYPT_ROUNDS),

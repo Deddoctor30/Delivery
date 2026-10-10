@@ -35,9 +35,7 @@ export function AdminUserNotFound({ userId }: AdminUserNotFoundProps) {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink render={<Link href="/admin/users" />}>
-                Пользователи
-              </BreadcrumbLink>
+              <BreadcrumbLink render={<Link href="/admin/users" />}>Пользователи</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>

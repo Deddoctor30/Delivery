@@ -203,20 +203,9 @@ export async function SalesPage({ page = 1 }: { page?: number }) {
       {/* Pencil: HuAmw — gap=16, fill_container */}
       <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
         {PROMO_CARDS.map(({ id, bg, iconBg, icon: Icon, iconColor, title, sub }) => (
-          <div
-            key={id}
-            className={cn(
-              "flex h-37.5 flex-col justify-between rounded-xl p-6",
-              bg,
-            )}
-          >
+          <div key={id} className={cn("flex h-37.5 flex-col justify-between rounded-xl p-6", bg)}>
             {/* IconWrap */}
-            <div
-              className={cn(
-                "flex size-10 items-center justify-center rounded-md",
-                iconBg,
-              )}
-            >
+            <div className={cn("flex size-10 items-center justify-center rounded-md", iconBg)}>
               <Icon className={cn("size-4.5", iconColor)} />
             </div>
             {/* Txt */}

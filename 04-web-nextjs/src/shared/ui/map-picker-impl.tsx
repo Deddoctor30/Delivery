@@ -9,7 +9,6 @@ import { useRef } from "react";
 import { MapContainer, Marker, TileLayer, useMapEvents } from "react-leaflet";
 import { MapPickerCoords, MapPickerProps } from "./map-picker";
 
-
 // import png может вернуть строку-URL (Turbopack) или StaticImageData ({src}) —
 // приводим к строке в любом случае.
 const toUrl = (img: unknown): string =>

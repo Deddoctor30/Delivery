@@ -9,7 +9,10 @@ ARG NEXT_PUBLIC_API_BASE_URL=http://localhost:3001
 ARG NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ENV NEXT_PUBLIC_API_BASE_URL=$NEXT_PUBLIC_API_BASE_URL
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
-ENV API_INTERNAL_URL=http://localhost:3001
+# Внутренний адрес бэка запекается в rewrite /static/* (next.config, output:standalone
+# сериализует rewrites на build). В Docker нужен backend:3001; дефолт — для локальной сборки.
+ARG API_INTERNAL_URL=http://localhost:3001
+ENV API_INTERNAL_URL=$API_INTERNAL_URL
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 

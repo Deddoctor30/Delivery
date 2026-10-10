@@ -54,12 +54,7 @@ export function AdminTopbar({
   className,
 }: AdminTopbarProps) {
   return (
-    <header
-      className={cn(
-        "w-full bg-card border-b border-border",
-        className,
-      )}
-    >
+    <header className={cn("w-full bg-card border-b border-border", className)}>
       <div className="mx-auto flex h-16 max-w-[1296px] flex-row items-center gap-4 px-7">
         {/* Left: brand */}
         <div className="flex shrink-0 items-center gap-3">
@@ -98,9 +93,7 @@ export function AdminTopbar({
             <AvatarFallback variant="primary">{adminInitials}</AvatarFallback>
           </Avatar>
 
-          <span className="font-sans text-[13px] font-medium text-foreground">
-            {adminName}
-          </span>
+          <span className="font-sans text-[13px] font-medium text-foreground">{adminName}</span>
 
           <Button
             variant="ghost"

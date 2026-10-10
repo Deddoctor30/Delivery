@@ -2,6 +2,7 @@ import "server-only";
 
 import { apiServerAuth } from "@/shared/api/client-auth";
 import { unwrap, ApiError } from "@/shared/api/error";
+import { mediaUrl } from "@/shared/lib/media";
 import type { components } from "@/shared/api/schema";
 
 import type { Order, OrderItem, OrderStatus } from "../model/types";
@@ -24,7 +25,7 @@ function toOrderItem(dto: OrderItemDto): OrderItem {
     title: dto.product.name,
     quantity: dto.quantity,
     price: Math.round(dto.priceSnapshot / 100),
-    imageUrl: dto.product.imageUrl || undefined,
+    imageUrl: mediaUrl(dto.product.imageUrl) ?? undefined,
   };
 }
 

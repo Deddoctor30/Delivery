@@ -4,13 +4,7 @@ import { useState, useMemo, useTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import {
-  ArrowLeft,
-  Mail,
-  Phone,
-  Calendar,
-  Info,
-} from "lucide-react";
+import { ArrowLeft, Mail, Phone, Calendar, Info } from "lucide-react";
 
 import { OrderCard } from "@/entities/order";
 import type { Order, OrderStatus } from "@/entities/order";
@@ -147,11 +141,9 @@ export function AdminUserDetailPage({
     setPage(1);
   }
 
-  const displayName =
-    [user.firstName, user.lastName].filter(Boolean).join(" ") || user.email;
+  const displayName = [user.firstName, user.lastName].filter(Boolean).join(" ") || user.email;
 
-  const roleBadgeVariant =
-    user.role === "ADMIN" ? ("primary" as const) : ("default" as const);
+  const roleBadgeVariant = user.role === "ADMIN" ? ("primary" as const) : ("default" as const);
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-background">
@@ -164,7 +156,6 @@ export function AdminUserDetailPage({
 
       {/* Body */}
       <main className="flex w-full flex-1 flex-col gap-6 px-20 pb-16 pt-7">
-
         {/* Breadcrumbs */}
         <Breadcrumb>
           <BreadcrumbList>
@@ -173,9 +164,7 @@ export function AdminUserDetailPage({
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink render={<Link href="/admin/users" />}>
-                Пользователи
-              </BreadcrumbLink>
+              <BreadcrumbLink render={<Link href="/admin/users" />}>Пользователи</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
@@ -187,12 +176,9 @@ export function AdminUserDetailPage({
         {/* Back row */}
         <div className="flex w-full items-center gap-3">
           <Button variant="ghost" size="sm" render={<Link href="/admin/users" />}>
-            <ArrowLeft className="size-4" aria-hidden="true" />
-            К списку пользователей
+            <ArrowLeft className="size-4" aria-hidden="true" />К списку пользователей
           </Button>
-          <span className="font-mono text-xs text-muted-foreground">
-            /admin/users/{user.id}
-          </span>
+          <span className="font-mono text-xs text-muted-foreground">/admin/users/{user.id}</span>
         </div>
 
         {/* Profile card */}
@@ -212,13 +198,9 @@ export function AdminUserDetailPage({
           <div className="flex flex-1 flex-col gap-3">
             {/* Name row */}
             <div className="flex flex-wrap items-center gap-2.5">
-              <h1 className="font-heading text-2xl font-semibold text-foreground">
-                {displayName}
-              </h1>
+              <h1 className="font-heading text-2xl font-semibold text-foreground">{displayName}</h1>
               <Badge variant={roleBadgeVariant}>{user.role}</Badge>
-              <span className="font-mono text-xs text-muted-foreground">
-                ID {user.id}
-              </span>
+              <span className="font-mono text-xs text-muted-foreground">ID {user.id}</span>
             </div>
 
             {/* Meta: email / phone / joined */}
@@ -234,8 +216,8 @@ export function AdminUserDetailPage({
                 </span>
               )}
               <span className="inline-flex items-center gap-1.5 text-sm text-foreground">
-                <Calendar className="size-3.75 text-muted-foreground" aria-hidden="true" />
-                с нами с {formatDate(user.createdAt)}
+                <Calendar className="size-3.75 text-muted-foreground" aria-hidden="true" />с нами с{" "}
+                {formatDate(user.createdAt)}
               </span>
             </div>
           </div>
@@ -277,8 +259,8 @@ export function AdminUserDetailPage({
           <AlertBody>
             <AlertTitle>Отмена заказов</AlertTitle>
             <AlertDescription>
-              Отменить можно только активные заказы со статусом: Создан,
-              В обработке, Курьер забрал, В доставке, Прибыл.
+              Отменить можно только активные заказы со статусом: Создан, В обработке, Курьер забрал,
+              В доставке, Прибыл.
             </AlertDescription>
           </AlertBody>
         </Alert>

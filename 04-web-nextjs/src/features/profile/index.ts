@@ -6,3 +6,4 @@ export type {
   ChangePasswordResult,
 } from "./api/actions";
 export { ChangePasswordDialog } from "./ui/change-password-dialog";
+export { AvatarPickerDialog } from "./ui/avatar-picker-dialog";

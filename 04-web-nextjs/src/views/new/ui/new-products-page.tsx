@@ -104,7 +104,10 @@ export async function NewProductsPage({ page = 1 }: { page?: number }) {
               </div>
               <Link
                 href={`/product/${featured.id}`}
-                className={cn(buttonVariants({ variant: "default", size: "lg" }), "gap-2 rounded-lg")}
+                className={cn(
+                  buttonVariants({ variant: "default", size: "lg" }),
+                  "gap-2 rounded-lg",
+                )}
               >
                 Подробнее
                 <ArrowRight className="size-4" />
