@@ -39,6 +39,7 @@
   "devDependencies": {
     "@feature-sliced/steiger-plugin": "^0.7.0",
     "@next/bundle-analyzer": "^16.4.0",
+    "@playwright/test": "^1.64.0",
     "@tailwindcss/postcss": "^4",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "^7.0.1",
