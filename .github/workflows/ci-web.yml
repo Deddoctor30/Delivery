@@ -1,0 +1,40 @@
+name: CI Web
+
+on:
+  pull_request:
+    branches: [develop]
+    paths:
+      - '04-web-nextjs/**'
+      - '.github/workflows/ci-web.yml'
+
+jobs:
+  frontend:
+    name: Frontend checks
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 04-web-nextjs
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: 04-web-nextjs/package-lock.json
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Lint (ESLint + FSD boundaries)
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Arch (FSD / Steiger)
+        run: npm run arch
+
+      - name: Format check
+        run: npm run format:check
