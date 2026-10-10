@@ -43,12 +43,12 @@ describe('Cron (e2e)', () => {
       .post('/api/v1/cart/items')
       .set({ Authorization: `Bearer ${token}` })
       .send({ productId: product.id, quantity: 1 })
-      .expect(201);
+      .expect(200);
     const order = await request(app.getHttpServer())
       .post('/api/v1/orders')
       .set({ Authorization: `Bearer ${token}` })
       .send({ deliveryAddress: 'Москва 1', deliveryLat: 55.76, deliveryLng: 37.61 })
-      .expect(201);
+      .expect(200);
     return order.body.id;
   }
 

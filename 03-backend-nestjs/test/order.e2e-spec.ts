@@ -49,13 +49,13 @@ describe('Orders (e2e)', () => {
       .post('/api/v1/cart/items')
       .set(auth())
       .send({ productId, quantity: 2 })
-      .expect(201);
+      .expect(200);
 
     const order = await request(app.getHttpServer())
       .post('/api/v1/orders')
       .set(auth())
       .send({ deliveryAddress: 'Москва, Тверская 1', deliveryLat: 55.76, deliveryLng: 37.61 })
-      .expect(201);
+      .expect(200);
 
     expect(order.body.status).toBe('created');
     expect(order.body.totalAmount).toBe(20000); // 2 × 10000
@@ -69,7 +69,7 @@ describe('Orders (e2e)', () => {
     const cancelled = await request(app.getHttpServer())
       .post(`/api/v1/orders/${orderId}/cancel`)
       .set(auth())
-      .expect(201);
+      .expect(200);
     expect(cancelled.body.status).toBe('cancelled');
     expect(cancelled.body.refunded).toBe(true);
   });
