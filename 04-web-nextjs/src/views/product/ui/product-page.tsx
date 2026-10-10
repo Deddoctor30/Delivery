@@ -47,6 +47,7 @@ export async function ProductPage({ product }: ProductPageProps) {
     discountPercent,
     inStock = true,
     images = [],
+    imageUrl,
     description,
     specs = [],
     rating,
@@ -102,7 +103,11 @@ export async function ProductPage({ product }: ProductPageProps) {
         {/* Gallery — client-остров, fill_container */}
         {/* Pencil: tpXgO Gallery, layout=vertical, gap=12 */}
         <div className="w-full lg:flex-1">
-          <ProductGallery images={images} title={title} discountLabel={discountLabel} />
+          <ProductGallery
+            image={images[0] ?? imageUrl ?? null}
+            title={title}
+            discountLabel={discountLabel}
+          />
         </div>
 
         {/* Info — w=440 в Pencil, на десктопе фиксированная ширина */}
