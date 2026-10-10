@@ -9,8 +9,6 @@ import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/shared/config/site";
 import "./globals.css";
 import { Providers } from "./providers";
 
-import { Toaster } from "sonner";
-
 import { Funnel_Sans, Geist } from "next/font/google";
 import { Footer } from "@/widgets/footer";
 import { HeaderDesktop, HeaderMobile } from "@/widgets/header";
@@ -61,9 +59,8 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
           {/* Responsive header: desktop bar ≥ md, mobile bar < md */}
           <HeaderDesktop className="hidden md:block" />
           <HeaderMobile className="block md:hidden" />
-          <main className="mx-auto w-full max-w-[1328px] flex-1 px-4">{children}</main>
+          <main className="mx-auto w-full max-w-332 flex-1 px-4">{children}</main>
           <Footer />
-          <Toaster />
           <CookieBanner />
         </Providers>
       </body>

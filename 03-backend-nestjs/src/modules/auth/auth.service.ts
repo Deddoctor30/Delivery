@@ -1,4 +1,9 @@
-import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Role, User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../../core/prisma/prisma.service';
@@ -19,30 +24,56 @@ export class AuthService {
     private readonly sessions: SessionService,
   ) {}
 
-  // единая ручка: есть юзер → логин, нет → регистрация
+  // mode='login' — только существующий аккаунт; mode='register' — только новый;
+  // без mode — старое поведение (есть юзер → логин, нет → регистрация).
   async loginOrRegister(dto: LoginOrRegisterDto): Promise<TokenPair & { user: PublicUser }> {
     const email = dto.email.toLowerCase().trim();
     let user = await this.prisma.user.findUnique({ where: { email } });
 
-    if (user) {
-      // логин: сверяем пароль
-      const ok = await bcrypt.compare(dto.password, user.passwordHash);
-      if (!ok) {
-        throw new UnauthorizedException({
-          code: 'INVALID_CREDENTIALS',
-          message: 'Invalid email or password',
+    if (dto.mode === 'register') {
+      if (user) {
+        throw new ConflictException({
+          code: 'EMAIL_TAKEN',
+          message: 'Email already registered',
         });
       }
+      user = await this.createUser(email, dto.password);
+    } else if (dto.mode === 'login') {
+      if (!user) {
+        throw new UnauthorizedException({
+          code: 'USER_NOT_FOUND',
+          message: 'Account not found',
+        });
+      }
+      await this.assertPassword(dto.password, user.passwordHash);
     } else {
-      // регистрация: хешируем пароль, роль по умолчанию client
-      const passwordHash = await bcrypt.hash(dto.password, BCRYPT_ROUNDS);
-      user = await this.prisma.user.create({
-        data: { email, passwordHash, role: Role.CLIENT },
-      });
+      // legacy: есть юзер → логин (сверяем пароль), нет → регистрация
+      if (user) {
+        await this.assertPassword(dto.password, user.passwordHash);
+      } else {
+        user = await this.createUser(email, dto.password);
+      }
     }
 
     const pair = await this.sessions.createSession(user.id, user.role);
     return { ...pair, user: this.toPublic(user) };
+  }
+
+  private async createUser(email: string, password: string): Promise<User> {
+    const passwordHash = await bcrypt.hash(password, BCRYPT_ROUNDS);
+    return this.prisma.user.create({
+      data: { email, passwordHash, role: Role.CLIENT },
+    });
+  }
+
+  private async assertPassword(password: string, passwordHash: string): Promise<void> {
+    const ok = await bcrypt.compare(password, passwordHash);
+    if (!ok) {
+      throw new UnauthorizedException({
+        code: 'INVALID_CREDENTIALS',
+        message: 'Invalid email or password',
+      });
+    }
   }
 
   // ротация пары по refresh + sessionId (reuse-detection живёт в SessionService)

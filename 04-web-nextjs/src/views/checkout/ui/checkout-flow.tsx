@@ -13,7 +13,11 @@ import { openAuthModal } from "@/shared/lib/auth-modal";
 import { formatAddress, type Address } from "@/entities/address";
 import { useCart } from "@/features/cart";
 import { useSession } from "@/features/auth";
-import { createOrderAction, estimateDeliveryAction } from "@/features/checkout";
+import {
+  createOrderAction,
+  estimateDeliveryAction,
+  reverseGeocodeAction,
+} from "@/features/checkout";
 
 import { CheckoutForm } from "./checkout-form";
 import { CheckoutSummary } from "./checkout-summary";
@@ -83,6 +87,8 @@ export function CheckoutFlow({ savedAddresses }: { savedAddresses: Address[] }) 
       : undefined,
   });
 
+  const [geocoding, startGeocode] = useTransition();
+
   // Подставить сохранённый адрес в форму + на карту.
   function applyAddress(a: Address) {
     setValue("street", a.street, { shouldValidate: true });
@@ -92,6 +98,21 @@ export function CheckoutFlow({ savedAddresses }: { savedAddresses: Address[] }) 
     setValue("comment", a.comment ?? "");
     setCoords({ lat: a.lat, lng: a.lng });
     setSelectedId(a.id);
+  }
+
+  // Клик/перетаскивание точки на карте → обратное геокодирование → автозаполнение формы.
+  // Делаем только при ручном выборе (не через applyAddress), поэтому — в обработчике карты.
+  function handleMapChange(c: MapPickerCoords) {
+    setCoords(c);
+    setSelectedId(null);
+    startGeocode(async () => {
+      const res = await reverseGeocodeAction(c.lat, c.lng);
+      if (!res.ok) return;
+      const { city, street, zip } = res.address;
+      if (city) setValue("city", city, { shouldValidate: true });
+      if (street) setValue("street", street, { shouldValidate: true });
+      if (zip) setValue("zip", zip, { shouldValidate: true });
+    });
   }
 
   const onSubmit = handleSubmit((values) => {
@@ -173,7 +194,8 @@ export function CheckoutFlow({ savedAddresses }: { savedAddresses: Address[] }) 
           register={register}
           errors={errors}
           coords={coords}
-          onCoordsChange={setCoords}
+          onCoordsChange={handleMapChange}
+          geocoding={geocoding}
         />
       </div>
 

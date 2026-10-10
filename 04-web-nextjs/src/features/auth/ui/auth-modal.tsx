@@ -21,6 +21,8 @@ import {
   TabsTrigger,
 } from "@/shared/ui";
 
+import type { User } from "@/entities/user";
+
 import { useSession } from "../model/session";
 
 const schema = z.object({
@@ -30,6 +32,24 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>;
 
 type Mode = "login" | "register";
+
+/** Человекочитаемый текст ошибки входа/регистрации по коду бэкенда. */
+function authErrorMessage(status: number, code: string | undefined, mode: Mode): string {
+  if (status === 429) return "Слишком много попыток. Попробуйте через минуту";
+  switch (code) {
+    case "USER_NOT_FOUND":
+      return "Аккаунт с таким email не найден — зарегистрируйтесь";
+    case "INVALID_CREDENTIALS":
+      return "Неверный email или пароль";
+    case "EMAIL_TAKEN":
+      return "Этот email уже зарегистрирован — войдите";
+    case "VALIDATION_ERROR":
+    case "BAD_REQUEST":
+      return "Проверьте email и пароль (минимум 8 символов)";
+    default:
+      return mode === "register" ? "Не удалось зарегистрироваться" : "Не удалось войти";
+  }
+}
 
 export function AuthModal({
   open,
@@ -48,17 +68,16 @@ export function AuthModal({
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({ resolver: zodResolver(schema) });
 
-  // Бэк — единый login-or-register: обе вкладки шлют на один эндпоинт,
-  // аккаунт создаётся автоматически, если его нет.
+  // mode передаём на бэк: 'login' — только существующий аккаунт, 'register' — только новый.
   const onSubmit = handleSubmit(async (values) => {
     const res = await fetch("/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
+      body: JSON.stringify({ ...values, mode }),
     });
-    const data = await res.json().catch(() => ({}));
-    if (!res.ok) {
-      toast.error(data.message ?? "Не удалось войти");
+    const data = (await res.json().catch(() => ({}))) as { user?: User; code?: string };
+    if (!res.ok || !data.user) {
+      toast.error(authErrorMessage(res.status, data.code, mode));
       return;
     }
     setUser(data.user);

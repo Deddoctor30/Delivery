@@ -22,7 +22,11 @@ export type TokenPair = {
 
 export type AuthResult = TokenPair & { user: User };
 
-export async function backendLogin(body: { email: string; password: string }): Promise<AuthResult> {
+export async function backendLogin(body: {
+  email: string;
+  password: string;
+  mode?: "login" | "register";
+}): Promise<AuthResult> {
   const res = await fetch(`${serverEnv.API_INTERNAL_URL}/api/v1/auth/login-or-register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

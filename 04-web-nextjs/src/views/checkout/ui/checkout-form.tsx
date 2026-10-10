@@ -18,6 +18,7 @@
  *     - Map: MapPlaceholder (HT7ER), fill_container
  */
 
+import { MapPin } from "lucide-react";
 import type { FieldErrors, UseFormRegister } from "react-hook-form";
 
 import { Input, Label, MapPicker, MapPickerCoords } from "@/shared/ui";
@@ -29,9 +30,17 @@ interface CheckoutFormProps {
   errors: FieldErrors<CheckoutFormValues>;
   coords: MapPickerCoords;
   onCoordsChange: (coords: MapPickerCoords) => void;
+  /** Идёт обратное геокодирование выбранной на карте точки. */
+  geocoding?: boolean;
 }
 
-export function CheckoutForm({ register, errors, coords, onCoordsChange }: CheckoutFormProps) {
+export function CheckoutForm({
+  register,
+  errors,
+  coords,
+  onCoordsChange,
+  geocoding,
+}: CheckoutFormProps) {
   return (
     <div className="flex flex-col gap-5">
       {/* ── AddrCard ──────────────────────────────────────────────── */}
@@ -98,8 +107,19 @@ export function CheckoutForm({ register, errors, coords, onCoordsChange }: Check
       </div>
 
       {/* ── MapCard ─── выбор точки доставки на карте */}
-      <div className="overflow-hidden rounded-xl bg-card">
-        <MapPicker value={coords} onChange={onCoordsChange} height={320} className="rounded-none" />
+      <div className="flex flex-col gap-2 overflow-hidden rounded-xl bg-card p-2">
+        <p className="flex items-center gap-1.5 px-1 text-xs text-muted-foreground">
+          <MapPin className="size-3.5" aria-hidden="true" />
+          {geocoding ? "Определяем адрес по точке…" : "Кликните по карте — адрес заполнится сам"}
+        </p>
+        <div className="overflow-hidden rounded-lg">
+          <MapPicker
+            value={coords}
+            onChange={onCoordsChange}
+            height={320}
+            className="rounded-none"
+          />
+        </div>
       </div>
     </div>
   );
