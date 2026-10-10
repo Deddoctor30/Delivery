@@ -2,6 +2,9 @@ import fsd from "@feature-sliced/steiger-plugin";
 import { defineConfig } from "steiger";
 
 export default defineConfig([
+  // Тест-файлы живут рядом с кодом, но не являются частью FSD-структуры.
+  { ignores: ["**/*.test.{ts,tsx}", "**/*.spec.{ts,tsx}"] },
+
   ...fsd.configs.recommended,
 
   // insignificant-slice считает только межслойные ссылки между срезами и не учитывает

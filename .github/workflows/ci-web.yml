@@ -36,5 +36,8 @@ jobs:
       - name: Arch (FSD / Steiger)
         run: npm run arch
 
+      - name: Unit tests
+        run: npm test
+
       - name: Format check
         run: npm run format:check
