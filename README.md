@@ -4,12 +4,12 @@ Full-Stack проект приложения доставки: отдельны�
 
 ## Стек
 
-| Слой | Технология |
-|------|------------|
-| Дизайн / прототипы | Pencil (pencil.dev) |
-| Бэкенд | NestJS + PostgreSQL |
-| Веб-фронт | Next.js |
-| Мобильное приложение | React Native |
+| Слой                 | Технология          |
+| -------------------- | ------------------- |
+| Дизайн / прототипы   | Pencil (pencil.dev) |
+| Бэкенд               | NestJS + PostgreSQL |
+| Веб-фронт            | Next.js             |
+| Мобильное приложение | React Native        |
 
 ## Структура репозитория
 
@@ -24,16 +24,21 @@ delivery/
 ```
 
 ### 01-requirements
+
 Моки бизнес-требований: проблема, целевые пользователи, юзер-стори, пользовательские сценарии, нефункциональные требования, метрики успеха.
 
 ### 02-design
+
 Дизайн будет делаться в [Pencil](https://pencil.dev) — это веб-инструмент дизайна (как Figma, но с AI). Сами проекты хранятся в облаке Pencil, в локальной папке имеет смысл держать:
+
 - ссылку (`PENCIL_LINK.md`) на проект в облаке Pencil;
 - экспорты экранов в PNG/SVG (`exports/`);
 - спецификации компонентов / design tokens, если будем выгружать.
 
 ### 03-backend-nestjs
+
 NestJS-приложение:
+
 - PostgreSQL как основная БД;
 - Prisma;
 - модульная структура по бизнес-доменам;
@@ -41,19 +46,34 @@ NestJS-приложение:
 - авторизация, валидация, миграции, тесты.
 
 ### 04-web-nextjs
-Next.js приложение (App Router): SSR/SSG, общий API-клиент с бэком, дизайн-система из 02-design.
+
+Next.js приложение (App Router): SSR/SSG, общий API-клиент с бэком, дизайн-система из 02-design. Архитектура — Feature-Sliced Design. Превращение дизайна Pencil в код автоматизировано **конвейером из субагентов и слэш-команд** (`/pencil-pull`, `/update-ds`, `/make-component`, `/make-page`) — подробности в [`04-web-nextjs/README.md`](04-web-nextjs/README.md) и контракте [`04-web-nextjs/docs/pencil-pipeline.md`](04-web-nextjs/docs/pencil-pipeline.md).
 
 ### 05-mobile-rn
+
 React Native приложение (Expo). Переиспользует тот же бэк и доменные типы.
 
 ## Принципы
+
 - Каждая папка — самостоятельный проект со своим `package.json` / README.
 - Общие типы и контракты выносим в shared-пакет, когда появится необходимость (пока — рано).
 - Архитектура и решения фиксируются в `01-requirements` и в README соответствующего слоя.
 
+## Запуск всего стека (Docker)
+
+Из корня репозитория:
+
+```bash
+docker compose up --build       # postgres + redis + backend (:3001) + web (:3000)
+```
+
+- Веб — `http://localhost:3000`, API/Swagger — `http://localhost:3001/api/docs`.
+- Детали по вебу (env, auth-мост, карты) — [`04-web-nextjs/README.md`](04-web-nextjs/README.md); по бэку — [`03-backend-nestjs/README.md`](03-backend-nestjs/README.md).
+
 ## Что дальше
+
 1. [x] Заполнить `01-requirements` бизнес-требованиями.
 2. [x] Завести проект в Pencil и положить ссылку в `02-design/PENCIL_LINK.md`.
 3. [x] Поднять NestJS + Postgres скелет.
-4. [ ] Поднять Next.js скелет.
+4. [x] Поднять Next.js веб-приложение (все экраны, подключены к бэку, в Docker).
 5. [ ] Поднять React Native скелет.

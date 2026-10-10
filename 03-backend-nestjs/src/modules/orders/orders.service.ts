@@ -58,7 +58,7 @@ export class OrdersService {
             create: { status: 'created', source: 'client' },
           },
         },
-        include: { items: true, history: true },
+        include: { items: { include: { product: true } }, history: true },
       });
 
       // корзину опустошаем
@@ -93,7 +93,7 @@ export class OrdersService {
         orderBy: { createdAt: 'desc' },
         skip,
         take: limit,
-        include: { items: true },
+        include: { items: { include: { product: true } } },
       }),
       this.prisma.order.count({ where: { userId } }),
     ]);
@@ -110,15 +110,17 @@ export class OrdersService {
       });
     }
 
-    return this.prisma.$transaction(async (tx) => {
-      const updated = await tx.order.update({
+    await this.prisma.$transaction(async (tx) => {
+      await tx.order.update({
         where: { id },
         data: { status: 'cancelled', refunded: true, cancelledAt: new Date() },
       });
       await tx.orderStatusHistory.create({
         data: { orderId: id, status: 'cancelled', source },
       });
-      return updated;
     });
+
+    // возвращаем полный заказ (items+product+history) — единый контракт OrderDto
+    return this.findOne(id, user);
   }
 }

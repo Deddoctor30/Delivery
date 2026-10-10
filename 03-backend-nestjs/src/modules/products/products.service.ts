@@ -16,11 +16,28 @@ export class ProductsService {
 
   async findMany(query: ProductQueryDto) {
     const where: Prisma.ProductWhereInput = {};
-    if (query.categoryId) where.categoryId = query.categoryId;
+    // categorySlug имеет приоритет: включает товары категории И всех её потомков
+    if (query.categorySlug) {
+      where.categoryId = { in: await this.resolveCategoryIds(query.categorySlug) };
+    } else if (query.categoryId) {
+      where.categoryId = query.categoryId;
+    }
     if (query.popular !== undefined) where.isPopular = query.popular;
     if (query.seasonal !== undefined) where.isSeasonal = query.seasonal;
     if (query.discounted) where.discountPrice = { not: null };
+    if (query.inStock) where.stock = { gt: 0 };
     if (query.search) where.name = { contains: query.search, mode: 'insensitive' };
+
+    // Диапазон цен — по ФАКТИЧЕСКОЙ цене (скидочная, если есть, иначе базовая)
+    if (query.minPrice != null || query.maxPrice != null) {
+      const range: { gte?: number; lte?: number } = {};
+      if (query.minPrice != null) range.gte = query.minPrice;
+      if (query.maxPrice != null) range.lte = query.maxPrice;
+      where.OR = [
+        { discountPrice: { not: null, ...range } },
+        { discountPrice: null, price: range },
+      ];
+    }
 
     const skip = (query.page - 1) * query.limit;
 
@@ -42,6 +59,32 @@ export class ProductsService {
       limit: query.limit,
       totalPages: Math.ceil(total / query.limit),
     };
+  }
+
+  /**
+   * Разворачивает slug категории в список id: сама категория + все её потомки.
+   * Нужно, т.к. товары привязаны к листовым категориям, а фильтр в каталоге —
+   * по верхнеуровневой. Неизвестный slug → [] (пустая выборка).
+   */
+  private async resolveCategoryIds(slug: string): Promise<string[]> {
+    const all = await this.prisma.category.findMany({
+      select: { id: true, slug: true, parentId: true },
+    });
+    const root = all.find((c) => c.slug === slug);
+    if (!root) return [];
+
+    const ids = [root.id];
+    const stack = [root.id];
+    while (stack.length) {
+      const parentId = stack.pop();
+      for (const c of all) {
+        if (c.parentId === parentId) {
+          ids.push(c.id);
+          stack.push(c.id);
+        }
+      }
+    }
+    return ids;
   }
 
   async findOne(id: string) {

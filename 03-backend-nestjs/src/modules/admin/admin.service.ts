@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from '../../core/prisma/prisma.service';
 import { AuthUser } from '../auth/types';
@@ -34,6 +34,20 @@ export class AdminService {
       this.prisma.user.count({ where }),
     ]);
     return { items, total, page, limit, totalPages: Math.ceil(total / limit) };
+  }
+
+  async getUser(id: string) {
+    try {
+      return await this.prisma.user.findUniqueOrThrow({
+        where: { id },
+        omit: { passwordHash: true },
+      });
+    } catch (e) {
+      if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2025') {
+        throw new NotFoundException({ code: 'USER_NOT_FOUND', message: 'User not found' });
+      }
+      throw e;
+    }
   }
 
   userOrders(userId: string, page: number, limit: number) {

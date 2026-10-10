@@ -1,12 +1,11 @@
 services:
-  postgres: 
+  postgres:
     image: postgres:16-alpine
     environment:
       POSTGRES_USER: delivery
       POSTGRES_PASSWORD: delivery
       POSTGRES_DB: delivery
-    ports:
-      ["5432:5432"]
+    ports: ["5432:5432"]
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U delivery"]
       interval: 5s
@@ -14,7 +13,7 @@ services:
       retries: 5
   redis:
     image: redis:7-alpine
-    command: ["redis-server", "--appendonly", "yes"]  # refresh сессии
+    command: ["redis-server", "--appendonly", "yes"] # refresh сессии
     ports: ["6379:6379"]
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
@@ -36,3 +35,16 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+  web:
+    build:
+      context: ./04-web-nextjs
+      args:
+        NEXT_PUBLIC_API_BASE_URL: http://localhost:3001
+        NEXT_PUBLIC_SITE_URL: http://localhost:3000
+        # запекается в rewrite /static/* → бэк (next.config, см. Dockerfile)
+        API_INTERNAL_URL: http://backend:3001
+    environment:
+      API_INTERNAL_URL: http://backend:3001
+    ports: ["3000:3000"]
+    depends_on:
+      - backend

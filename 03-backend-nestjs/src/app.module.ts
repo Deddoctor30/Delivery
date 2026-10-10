@@ -6,12 +6,14 @@ import { AppConfigModule } from './core/config/config.module';
 import { PrismaModule } from './core/prisma/prisma.module';
 import { RedisModule } from './core/redis/redis.module';
 import { HealthModule } from './health/health.module';
+import { AddressesModule } from './modules/addresses/addresses.module';
 import { AdminModule } from './modules/admin/admin.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { CartModule } from './modules/cart/cart.module';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { CronModule } from './modules/cron/cron.module';
 import { DeliveryModule } from './modules/delivery/delivery.module';
+import { FavoritesModule } from './modules/favorites/favorites.module';
 import { OrdersModule } from './modules/orders/orders.module';
 import { ProductsModule } from './modules/products/products.module';
 import { UsersModule } from './modules/users/users.module';
@@ -23,11 +25,13 @@ import { UsersModule } from './modules/users/users.module';
     RedisModule,
     HealthModule,
     AuthModule,
+    AddressesModule,
     UsersModule,
     CategoriesModule,
     ProductsModule,
     CartModule,
     DeliveryModule,
+    FavoritesModule,
     OrdersModule,
     ScheduleModule.forRoot(),
     CronModule,
