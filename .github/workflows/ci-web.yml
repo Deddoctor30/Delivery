@@ -2,7 +2,12 @@ name: CI Web
 
 on:
   pull_request:
-    branches: [develop]
+    branches: [develop, master]
+    paths:
+      - '04-web-nextjs/**'
+      - '.github/workflows/ci-web.yml'
+  push:
+    branches: [develop, master]
     paths:
       - '04-web-nextjs/**'
       - '.github/workflows/ci-web.yml'

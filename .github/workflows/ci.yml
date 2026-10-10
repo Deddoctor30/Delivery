@@ -2,7 +2,12 @@ name: CI
 
 on:
   pull_request:
-    branches: [develop]
+    branches: [develop, master]
+    paths:
+      - '03-backend-nestjs/**'
+      - '.github/workflows/ci.yml'
+  push:
+    branches: [develop, master]
     paths:
       - '03-backend-nestjs/**'
       - '.github/workflows/ci.yml'
