@@ -23,6 +23,7 @@ import {
 
 import type { User } from "@/entities/user";
 
+import { authErrorMessage, type AuthMode } from "../lib/auth-error";
 import { useSession } from "../model/session";
 
 const schema = z.object({
@@ -31,25 +32,7 @@ const schema = z.object({
 });
 type FormValues = z.infer<typeof schema>;
 
-type Mode = "login" | "register";
-
-/** Человекочитаемый текст ошибки входа/регистрации по коду бэкенда. */
-function authErrorMessage(status: number, code: string | undefined, mode: Mode): string {
-  if (status === 429) return "Слишком много попыток. Попробуйте через минуту";
-  switch (code) {
-    case "USER_NOT_FOUND":
-      return "Аккаунт с таким email не найден — зарегистрируйтесь";
-    case "INVALID_CREDENTIALS":
-      return "Неверный email или пароль";
-    case "EMAIL_TAKEN":
-      return "Этот email уже зарегистрирован — войдите";
-    case "VALIDATION_ERROR":
-    case "BAD_REQUEST":
-      return "Проверьте email и пароль (минимум 8 символов)";
-    default:
-      return mode === "register" ? "Не удалось зарегистрироваться" : "Не удалось войти";
-  }
-}
+type Mode = AuthMode;
 
 export function AuthModal({
   open,

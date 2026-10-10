@@ -10,6 +10,7 @@ import { z } from "zod";
 import type { MapPickerCoords } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
 import { openAuthModal } from "@/shared/lib/auth-modal";
+import { plural } from "@/shared/lib/plural";
 import { formatAddress, type Address } from "@/entities/address";
 import { useCart } from "@/features/cart";
 import { useSession } from "@/features/auth";
@@ -33,14 +34,6 @@ const schema = z.object({
   comment: z.string().optional(),
 });
 export type CheckoutFormValues = z.infer<typeof schema>;
-
-function pluralDays(n: number): string {
-  const d10 = n % 10,
-    d100 = n % 100;
-  if (d10 === 1 && d100 !== 11) return "день";
-  if (d10 >= 2 && d10 <= 4 && (d100 < 10 || d100 >= 20)) return "дня";
-  return "дней";
-}
 
 export function CheckoutFlow({ savedAddresses }: { savedAddresses: Address[] }) {
   const router = useRouter();
@@ -202,7 +195,9 @@ export function CheckoutFlow({ savedAddresses }: { savedAddresses: Address[] }) 
       <CheckoutSummary
         lines={lines}
         deliveryCost={delivery?.cost ?? FALLBACK_COST}
-        deliveryEta={delivery ? `${delivery.days} ${pluralDays(delivery.days)}` : "—"}
+        deliveryEta={
+          delivery ? `${delivery.days} ${plural(delivery.days, ["день", "дня", "дней"])}` : "—"
+        }
         submitting={isPending}
       />
     </form>

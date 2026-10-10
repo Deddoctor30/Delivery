@@ -42,6 +42,7 @@ import {
   buttonVariants,
 } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
+import { plural } from "@/shared/lib/plural";
 import { OrderCard } from "@/entities/order";
 import type { Product } from "@/entities/product";
 import type { Order } from "@/entities/order";
@@ -59,15 +60,6 @@ type MenuItem = {
   active?: boolean;
   badge?: string;
 };
-
-/** Русское склонение слова «товар» по числу. */
-function pluralItems(n: number): string {
-  const mod10 = n % 10;
-  const mod100 = n % 100;
-  if (mod10 === 1 && mod100 !== 11) return "товар";
-  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return "товара";
-  return "товаров";
-}
 
 /* ── Component ──────────────────────────────────────────────────────────── */
 
@@ -355,7 +347,7 @@ export function AccountPage({ recentOrders, ordersCount, favorites }: AccountPag
                 <p className="font-caption text-[13px] text-muted-foreground">
                   {favoritesCount === 0
                     ? "Пока пусто"
-                    : `${favoritesCount} ${pluralItems(favoritesCount)}${
+                    : `${favoritesCount} ${plural(favoritesCount, ["товар", "товара", "товаров"])}${
                         discountedCount ? ` · ${discountedCount} со скидкой` : ""
                       }`}
                 </p>
