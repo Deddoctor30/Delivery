@@ -7,12 +7,12 @@ module.exports = defineConfig([
   expoConfig,
   eslintConfigPrettier,
   {
-    files: ["src/**/*.{ts,tsx}", "app/**/*.{ts,tsx}"],
+    files: ["src/**/*.{ts,tsx}"],
     plugins: { boundaries },
     settings: {
-      "boundaries/include": ["src/**/*", "app/**/*"],
+      "boundaries/include": ["src/**/*"],
       "boundaries/elements": [
-        { type: "app", pattern: "app" },
+        { type: "app", pattern: "src/app" },
         { type: "views", pattern: "src/views/*" },
         { type: "widgets", pattern: "src/widgets/*" },
         { type: "features", pattern: "src/features/*" },

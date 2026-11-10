@@ -1,17 +1,13 @@
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View } from "react-native";
 
 export default function Index() {
   return (
-    <View style={styles.container}>
-      <Text>Edit src/app/index.tsx to edit this screen.</Text>
+    <View className="flex-1 items-center justify-center gap-4 bg-background">
+      <Text className="text-2xl font-bold text-foreground">Токены работают</Text>
+      <View className="rounded-lg bg-primary px-6 py-3">
+        <Text className="font-semibold text-primary-foreground">Кнопка-primary</Text>
+      </View>
+      <Text className="text-muted-foreground">второстепенный текст</Text>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
