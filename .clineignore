@@ -1,0 +1,10 @@
+  **/node_modules/
+  **/dist/
+  **/build/
+  **/.next/
+  **/coverage/
+  **/android/app/build/
+  **/ios/Pods/
+  **/*.lock
+  **/package-lock.json
+  **/generated/
