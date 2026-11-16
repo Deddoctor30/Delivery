@@ -14,6 +14,7 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
+import { SessionProvider } from "@/features/auth";
 import { queryClient } from "@/shared/api/query-client";
 import { ThemeProvider } from "@/shared/lib/theme";
 
@@ -39,8 +40,10 @@ export default function RootLayout() {
     <SafeAreaProvider>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>
-          <Stack screenOptions={{ headerShown: false }} />
-          <StatusBar style="auto" />
+          <SessionProvider>
+            <Stack screenOptions={{ headerShown: false }} />
+            <StatusBar style="auto" />
+          </SessionProvider>
         </ThemeProvider>
       </QueryClientProvider>
     </SafeAreaProvider>
