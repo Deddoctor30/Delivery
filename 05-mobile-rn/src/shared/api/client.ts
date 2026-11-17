@@ -13,12 +13,12 @@ const authMiddleware: Middleware = {
     return request;
   },
   async onResponse({ request, response }) {
-    if (response.status !== 401 || request.url.includes("/auth/refresh")) return response;
+    if (response.status !== 401 || request.url.includes("/auth/refresh")) return undefined;
     const newAccess = await refreshTokens();
     if (!newAccess) {
       await clearTokens();
       notifySessionExpired();
-      return response;
+      return undefined;
     }
     try {
       const retried = request.clone();
@@ -26,7 +26,7 @@ const authMiddleware: Middleware = {
       return await fetch(retried);
     } catch {
       // тело уже израсходовано (мутация с body) — вернём 401, но токены уже обновлены
-      return response;
+      return undefined;
     }
   },
 };
