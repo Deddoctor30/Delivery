@@ -8,6 +8,7 @@ export {
 } from "./api/products";
 export {
   useDiscountedProducts,
+  useInfiniteProducts,
   usePopularProducts,
   useProducts,
   useSeasonalProducts,
