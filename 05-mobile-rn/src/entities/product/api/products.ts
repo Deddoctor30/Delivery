@@ -1,7 +1,7 @@
 import { api } from "@/shared/api/client";
-import { unwrap, ApiError } from "@/shared/api/error";
-import { mediaUrl } from "@/shared/lib/media";
+import { ApiError, unwrap } from "@/shared/api/error";
 import type { components } from "@/shared/api/schema";
+import { mediaUrl } from "@/shared/lib/media";
 
 import type { Product } from "../model/types";
 
@@ -85,4 +85,14 @@ export async function getProductById(id: string): Promise<Product | null> {
 export async function getPopularProducts(limit = 8): Promise<Product[]> {
   const data = await unwrap(api.GET("/api/v1/products/popular"));
   return data.slice(0, limit).map(toProduct);
+}
+
+export async function getSeasonalProducts(limit = 8): Promise<Product[]> {
+  const { items } = await getProducts({ seasonal: true, limit });
+  return items;
+}
+
+export async function getDiscountedProducts(limit = 8): Promise<Product[]> {
+  const { items } = await getProducts({ discounted: true, limit });
+  return items;
 }
