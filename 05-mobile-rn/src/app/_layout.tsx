@@ -41,7 +41,11 @@ export default function RootLayout() {
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>
           <SessionProvider>
-            <Stack screenOptions={{ headerShown: false }} />
+            <Stack screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="(tabs)" />
+              <Stack.Screen name="product/[id]" options={{ headerShown: true, title: "Товар" }} />
+              <Stack.Screen name="ui-kit" options={{ headerShown: true, title: "UI Kit" }} />
+            </Stack>
             <StatusBar style="auto" />
           </SessionProvider>
         </ThemeProvider>
