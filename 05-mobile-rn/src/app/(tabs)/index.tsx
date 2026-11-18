@@ -1,3 +1,4 @@
+import { Link } from "expo-router";
 import { ActivityIndicator, FlatList, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -9,10 +10,13 @@ export default function HomeScreen() {
   // временный диагностический лог
   console.log("popular:", { isLoading, error: error && String(error), count: data?.length });
 
-return (
+  return (
     <SafeAreaView edges={["top"]} className="flex-1 bg-background">
       <View className="flex-1 px-4 pt-4">
         <Text className="mb-4 font-inter-bold text-2xl text-foreground">Популярные</Text>
+        <Link href={"/ui-kit"}>
+          <Text className="mb-2 font-sans text-primary">→ Открыть UI Kit</Text>
+        </Link>
         {isLoading ? (
           <ActivityIndicator />
         ) : error ? (
@@ -33,5 +37,4 @@ return (
       </View>
     </SafeAreaView>
   );
-
 }
