@@ -3,10 +3,13 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import {
   getDiscountedProducts,
   getPopularProducts,
+  getProductById,
   getProducts,
   getSeasonalProducts,
+  getSimilarProducts,
   type GetProductsParams,
 } from "./products";
+import { Product } from "../model/types";
 
 export function usePopularProducts(limit = 8) {
   return useQuery({
@@ -39,5 +42,21 @@ export function useInfiniteProducts(params: GetProductsParams = {}) {
     queryFn: ({ pageParam }) => getProducts({ ...params, page: pageParam }),
     initialPageParam: 1,
     getNextPageParam: (last) => (last.page < last.totalPages ? last.page + 1 : undefined),
+  });
+}
+
+export function useProduct(id: string) {
+  return useQuery({
+    queryKey: ["products", "detail", id],
+    queryFn: () => getProductById(id),
+    enabled: !!id,
+  });
+}
+
+export function useSimilarProducts(product?: Pick<Product, "id" | "category">, limit = 6) {
+  return useQuery({
+    queryKey: ["products", "similar", product?.id],
+    queryFn: () => getSimilarProducts(product!, limit),
+    enabled: !!product,
   });
 }

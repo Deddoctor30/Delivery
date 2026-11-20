@@ -96,3 +96,13 @@ export async function getDiscountedProducts(limit = 8): Promise<Product[]> {
   const { items } = await getProducts({ discounted: true, limit });
   return items;
 }
+
+export async function getSimilarProducts(
+  product: Pick<Product, "id" | "category">,
+  limit = 6,
+): Promise<Product[]> {
+  const base = product.category
+    ? await getProducts({ categoryId: product.category, limit: limit + 1 })
+    : await getProducts({ limit: limit + 1 });
+  return base.items.filter((p) => p.id !== product.id).slice(0, limit);
+}
