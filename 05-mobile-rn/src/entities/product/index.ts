@@ -13,6 +13,7 @@ export {
   usePopularProducts,
   useProduct,
   useProducts,
+  useSearchProducts,
   useSeasonalProducts,
   useSimilarProducts,
 } from "./api/queries";

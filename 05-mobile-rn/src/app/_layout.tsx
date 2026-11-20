@@ -45,6 +45,7 @@ export default function RootLayout() {
               <Stack.Screen name="(tabs)" />
               <Stack.Screen name="product/[id]" options={{ headerShown: true, title: "Товар" }} />
               <Stack.Screen name="ui-kit" options={{ headerShown: true, title: "UI Kit" }} />
+              <Stack.Screen name="search" options={{ headerShown: true, title: "Поиск" }} />
             </Stack>
             <StatusBar style="auto" />
           </SessionProvider>

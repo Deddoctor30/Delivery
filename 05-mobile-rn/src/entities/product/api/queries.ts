@@ -60,3 +60,12 @@ export function useSimilarProducts(product?: Pick<Product, "id" | "category">, l
     enabled: !!product,
   });
 }
+
+export function useSearchProducts(query: string) {
+  const q = query.trim();
+  return useQuery({
+    queryKey: ["products", "search", q],
+    queryFn: () => getProducts({ search: q, limit: 20 }),
+    enabled: q.length >= 2, // короче 2 символов — не ищем
+  });
+}

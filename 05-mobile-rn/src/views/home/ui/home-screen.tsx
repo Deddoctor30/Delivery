@@ -1,8 +1,17 @@
-import { router } from "expo-router";
+import { Link, router } from "expo-router";
 import { useState } from "react";
-import { ActivityIndicator, FlatList, Pressable, RefreshControl, ScrollView, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  Pressable,
+  RefreshControl,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { useTopCategories, type Category } from "@/entities/category";
 import {
   ProductCard,
   useDiscountedProducts,
@@ -10,7 +19,6 @@ import {
   useSeasonalProducts,
   type Product,
 } from "@/entities/product";
-import { useTopCategories, type Category } from "@/entities/category";
 
 function Showcase({ title, data, loading }: { title: string; data?: Product[]; loading: boolean }) {
   return (
@@ -70,7 +78,12 @@ export function HomeScreen() {
 
   async function onRefresh() {
     setRefreshing(true);
-    await Promise.all([popular.refetch(), seasonal.refetch(), discounted.refetch(), categories.refetch()]);
+    await Promise.all([
+      popular.refetch(),
+      seasonal.refetch(),
+      discounted.refetch(),
+      categories.refetch(),
+    ]);
     setRefreshing(false);
   }
 
@@ -81,6 +94,11 @@ export function HomeScreen() {
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
       >
         <Text className="px-4 font-inter-bold text-3xl text-foreground">Delivery</Text>
+        <Link href="/search" asChild>
+          <Pressable className="mx-4 rounded-lg border border-border bg-card px-4 py-3 active:opacity-70">
+            <Text className="font-sans text-muted-foreground">Поиск товаров…</Text>
+          </Pressable>
+        </Link>
         <Showcase title="Популярные" data={popular.data} loading={popular.isLoading} />
         <Showcase title="Сезонные" data={seasonal.data} loading={seasonal.isLoading} />
         <Showcase title="Со скидкой" data={discounted.data} loading={discounted.isLoading} />
