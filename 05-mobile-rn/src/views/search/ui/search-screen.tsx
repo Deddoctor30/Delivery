@@ -2,8 +2,9 @@ import { router, Stack } from "expo-router";
 import { useState } from "react";
 import { ActivityIndicator, FlatList, Text, TextInput, View } from "react-native";
 
-import { ProductCard, useSearchProducts } from "@/entities/product";
+import { useSearchProducts } from "@/entities/product";
 import { useDebouncedValue } from "@/shared/lib/use-debounced-value";
+import { ConnectedProductCard } from "@/widgets/product-card";
 
 export function SearchScreen() {
   const [query, setQuery] = useState("");
@@ -43,7 +44,7 @@ export function SearchScreen() {
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => (
-              <ProductCard
+              <ConnectedProductCard
                 product={item}
                 className="flex-1"
                 onPress={() => router.push({ pathname: "/product/[id]", params: { id: item.id } })}

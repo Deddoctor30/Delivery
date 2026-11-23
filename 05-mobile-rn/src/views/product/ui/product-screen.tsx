@@ -1,17 +1,20 @@
+import { useCartStore } from "@/features/cart";
 import { Image } from "expo-image";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
-import { ActivityIndicator, Alert, FlatList, ScrollView, Text, View } from "react-native";
+import { ActivityIndicator, FlatList, ScrollView, Text, View } from "react-native";
 
-import { ProductCard, useProduct, useSimilarProducts } from "@/entities/product";
+import { useProduct, useSimilarProducts } from "@/entities/product";
 import { formatPrice } from "@/shared/lib/format";
 import { Badge, Button, Counter } from "@/shared/ui";
+import { ConnectedProductCard } from "@/widgets/product-card";
 
 export function ProductScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { data: product, isLoading } = useProduct(id);
   const { data: similar } = useSimilarProducts(product ?? undefined);
   const [qty, setQty] = useState(1);
+  const addItem = useCartStore((s) => s.addItem);
 
   if (isLoading) {
     return (
@@ -75,7 +78,7 @@ export function ProductScreen() {
               label="В корзину"
               className="flex-1"
               disabled={!product.inStock}
-              onPress={() => Alert.alert("Корзина", "Подключим на Этапе 13")}
+              onPress={() => addItem(product, qty)}
             />
           </View>
         </View>
@@ -90,7 +93,7 @@ export function ProductScreen() {
               showsHorizontalScrollIndicator={false}
               contentContainerClassName="gap-3 px-4"
               renderItem={({ item }) => (
-                <ProductCard
+                <ConnectedProductCard
                   product={item}
                   className="w-40"
                   onPress={() =>

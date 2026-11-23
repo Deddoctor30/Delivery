@@ -13,12 +13,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useTopCategories, type Category } from "@/entities/category";
 import {
-  ProductCard,
   useDiscountedProducts,
   usePopularProducts,
   useSeasonalProducts,
   type Product,
 } from "@/entities/product";
+import { ConnectedProductCard } from "@/widgets/product-card";
 
 function Showcase({ title, data, loading }: { title: string; data?: Product[]; loading: boolean }) {
   return (
@@ -34,7 +34,7 @@ function Showcase({ title, data, loading }: { title: string; data?: Product[]; l
           showsHorizontalScrollIndicator={false}
           contentContainerClassName="gap-3 px-4"
           renderItem={({ item }) => (
-            <ProductCard
+            <ConnectedProductCard
               product={item}
               className="w-40"
               onPress={() => router.push({ pathname: "/product/[id]", params: { id: item.id } })}

@@ -3,9 +3,10 @@ import { useMemo, useState } from "react";
 import { ActivityIndicator, FlatList, Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { ProductCard, useInfiniteProducts } from "@/entities/product";
+import { useInfiniteProducts } from "@/entities/product";
 import { BottomSheet } from "@/shared/ui";
 
+import { ConnectedProductCard } from "@/widgets/product-card";
 import { CatalogFilters, type CatalogFilterValue } from "./catalog-filters";
 
 export function CatalogScreen() {
@@ -49,7 +50,7 @@ export function CatalogScreen() {
             contentContainerClassName="gap-3 pb-4"
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => (
-              <ProductCard
+              <ConnectedProductCard
                 product={item}
                 className="flex-1"
                 onPress={() => router.push({ pathname: "/product/[id]", params: { id: item.id } })}
@@ -59,7 +60,9 @@ export function CatalogScreen() {
               if (query.hasNextPage && !query.isFetchingNextPage) query.fetchNextPage();
             }}
             onEndReachedThreshold={0.5}
-            ListFooterComponent={query.isFetchingNextPage ? <ActivityIndicator className="py-4" /> : undefined}
+            ListFooterComponent={
+              query.isFetchingNextPage ? <ActivityIndicator className="py-4" /> : undefined
+            }
           />
         )}
       </View>
