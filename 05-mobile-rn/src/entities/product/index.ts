@@ -5,6 +5,7 @@ export {
   getProducts,
   getSeasonalProducts,
   getSimilarProducts,
+  toProduct,
   type GetProductsParams,
 } from "./api/products";
 export {

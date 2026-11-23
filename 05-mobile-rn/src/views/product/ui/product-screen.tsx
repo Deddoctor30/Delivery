@@ -1,10 +1,10 @@
-import { useCartStore } from "@/features/cart";
 import { Image } from "expo-image";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { ActivityIndicator, FlatList, ScrollView, Text, View } from "react-native";
 
 import { useProduct, useSimilarProducts } from "@/entities/product";
+import { useCart } from "@/features/cart";
 import { formatPrice } from "@/shared/lib/format";
 import { Badge, Button, Counter } from "@/shared/ui";
 import { ConnectedProductCard } from "@/widgets/product-card";
@@ -14,7 +14,7 @@ export function ProductScreen() {
   const { data: product, isLoading } = useProduct(id);
   const { data: similar } = useSimilarProducts(product ?? undefined);
   const [qty, setQty] = useState(1);
-  const addItem = useCartStore((s) => s.addItem);
+  const { addItem } = useCart();
 
   if (isLoading) {
     return (

@@ -15,10 +15,16 @@ import { useEffect } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { SessionProvider } from "@/features/auth";
+import { useCartSync } from "@/features/cart";
 import { queryClient } from "@/shared/api/query-client";
 import { ThemeProvider } from "@/shared/lib/theme";
 
 SplashScreen.preventAutoHideAsync();
+
+function CartSync() {
+  useCartSync();
+  return null;
+}
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -41,6 +47,7 @@ export default function RootLayout() {
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>
           <SessionProvider>
+            <CartSync />
             <Stack screenOptions={{ headerShown: false }}>
               <Stack.Screen name="(tabs)" />
               <Stack.Screen name="product/[id]" options={{ headerShown: true, title: "Товар" }} />

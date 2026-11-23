@@ -49,8 +49,3 @@ export const useCartStore = create<CartState>()(
     },
   ),
 );
-
-/** Суммарное число единиц товара — для бейджа. */
-export function useCartCount() {
-  return useCartStore((s) => s.lines.reduce((n, l) => n + l.quantity, 0));
-}
