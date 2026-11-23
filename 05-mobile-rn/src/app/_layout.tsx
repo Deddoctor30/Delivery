@@ -55,6 +55,7 @@ export default function RootLayout() {
               <Stack.Screen name="search" options={{ headerShown: true, title: "Поиск" }} />
               <Stack.Screen name="checkout" options={{ headerShown: true, title: "Оформление" }} />
               <Stack.Screen name="checkout/success" options={{ headerShown: false }} />
+              <Stack.Screen name="order/[id]" options={{ headerShown: true, title: "Заказ" }} />
             </Stack>
             <StatusBar style="auto" />
           </SessionProvider>
