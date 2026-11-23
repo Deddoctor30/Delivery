@@ -4,3 +4,4 @@ export { Badge, type BadgeProps } from "./badge";
 export { Input } from "./input";
 export { Counter } from "./counter";
 export { BottomSheet } from "./bottom-sheet";
+export { MapPicker, type MapPickerCoords } from "./map-picker";
