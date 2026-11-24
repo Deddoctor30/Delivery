@@ -1,0 +1,46 @@
+name: CI Mobile
+
+on:
+  pull_request:
+    branches: [develop, master]
+    paths:
+      - '05-mobile-rn/**'
+      - '.github/workflows/ci-mobile.yml'
+  push:
+    branches: [develop, master]
+    paths:
+      - '05-mobile-rn/**'
+      - '.github/workflows/ci-mobile.yml'
+
+jobs:
+  mobile:
+    name: Mobile checks
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 05-mobile-rn
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: 05-mobile-rn/package-lock.json
+
+      # .npmrc в пакете уже содержит legacy-peer-deps=true (конфликт TS5↔TS6 у openapi-typescript)
+      - name: Install deps
+        run: npm ci
+
+      - name: Lint (ESLint + FSD boundaries)
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Arch (FSD / Steiger)
+        run: npm run arch
+
+      - name: Unit tests (jest-expo)
+        run: npm test
