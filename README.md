@@ -51,7 +51,7 @@ Next.js приложение (App Router): SSR/SSG, общий API-клиент 
 
 ### 05-mobile-rn
 
-React Native приложение (Expo). Переиспользует тот же бэк и доменные типы.
+React Native приложение на **Expo** (SDK 58, Expo Router). Тот же бэкенд и доменная модель, что у веба, та же архитектура Feature-Sliced Design — но нативные решения: авторизация **Bearer + `expo-secure-store`** напрямую в Nest (без cookie-моста/CORS/CSRF), данные через TanStack Query, стилизация NativeWind, гостевая корзина в AsyncStorage, карта выбора адреса — **Leaflet в WebView**, сборка — EAS Build (APK/AAB). Запуск — Expo Go на устройстве; детали (сетевая гоча, env, тесты, EAS) — [`05-mobile-rn/README.md`](05-mobile-rn/README.md).
 
 ## Принципы
 
@@ -69,11 +69,4 @@ docker compose up --build       # postgres + redis + backend (:3001) + web (:300
 
 - Веб — `http://localhost:3000`, API/Swagger — `http://localhost:3001/api/docs`.
 - Детали по вебу (env, auth-мост, карты) — [`04-web-nextjs/README.md`](04-web-nextjs/README.md); по бэку — [`03-backend-nestjs/README.md`](03-backend-nestjs/README.md).
-
-## Что дальше
-
-1. [x] Заполнить `01-requirements` бизнес-требованиями.
-2. [x] Завести проект в Pencil и положить ссылку в `02-design/PENCIL_LINK.md`.
-3. [x] Поднять NestJS + Postgres скелет.
-4. [x] Поднять Next.js веб-приложение (все экраны, подключены к бэку, в Docker).
-5. [ ] Поднять React Native скелет.
+- **Мобилка в Docker не входит** — запускается через Expo Go: `cd 05-mobile-rn && npx expo start` (бэк при этом должен быть поднят; адрес бэка — LAN-IP ПК, см. [`05-mobile-rn/README.md`](05-mobile-rn/README.md)).
