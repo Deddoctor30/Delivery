@@ -16,8 +16,7 @@ import { useAdminUserOrders, useAdminUsers, useCancelAdminOrder } from "@/featur
 import { useSession } from "@/features/auth";
 import { formatDate, formatPrice } from "@/shared/lib/format";
 import { useDebouncedValue } from "@/shared/lib/use-debounced-value";
-import { Input } from "@/shared/ui";
-import { Button } from "@/shared/ui";
+import { Button, Input } from "@/shared/ui";
 
 /** Заказы пользователя (грузятся лениво при раскрытии). */
 function AdminUserOrders({ userId }: { userId: string }) {
