@@ -17,6 +17,8 @@ export function Counter({ value, onChange, min = 1, max = 99, className }: Count
       <Pressable
         onPress={() => onChange(Math.max(min, value - 1))}
         disabled={value <= min}
+        accessibilityRole="button"
+        accessibilityLabel="Уменьшить"
         className="px-3 py-2 active:opacity-60 disabled:opacity-30"
       >
         <Minus size={16} color="#646a75" />
@@ -25,6 +27,8 @@ export function Counter({ value, onChange, min = 1, max = 99, className }: Count
       <Pressable
         onPress={() => onChange(Math.min(max, value + 1))}
         disabled={value >= max}
+        accessibilityRole="button"
+        accessibilityLabel="Увеличить"
         className="px-3 py-2 active:opacity-60 disabled:opacity-30"
       >
         <Plus size={16} color="#646a75" />
