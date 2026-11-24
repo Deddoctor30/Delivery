@@ -1,4 +1,4 @@
-import { router, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { useMemo, useState } from "react";
 import { ActivityIndicator, FlatList, Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -54,13 +54,7 @@ export function CatalogScreen() {
             maxToRenderPerBatch={6}
             updateCellsBatchingPeriod={50}
             windowSize={7}
-            renderItem={({ item }) => (
-              <ConnectedProductCard
-                product={item}
-                className="flex-1"
-                onPress={() => router.push({ pathname: "/product/[id]", params: { id: item.id } })}
-              />
-            )}
+            renderItem={({ item }) => <ConnectedProductCard product={item} className="flex-1" />}
             onEndReached={() => {
               if (query.hasNextPage && !query.isFetchingNextPage) query.fetchNextPage();
             }}

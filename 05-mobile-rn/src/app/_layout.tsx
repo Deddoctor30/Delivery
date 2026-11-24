@@ -16,9 +16,10 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { SessionProvider } from "@/features/auth";
 import { useCartSync } from "@/features/cart";
+import { CookieBanner } from "@/features/cookie-consent";
+import { OfflineBanner } from "@/features/network";
 import { queryClient } from "@/shared/api/query-client";
 import { ThemeProvider } from "@/shared/lib/theme";
-import { CookieBanner } from "@/features/cookie-consent";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -74,6 +75,7 @@ export default function RootLayout() {
                 options={{ headerShown: true, title: "Политика cookie" }}
               />
             </Stack>
+            <OfflineBanner />
             <CookieBanner />
             <StatusBar style="auto" />
           </SessionProvider>

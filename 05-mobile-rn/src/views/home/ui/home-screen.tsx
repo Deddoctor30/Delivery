@@ -33,13 +33,7 @@ function Showcase({ title, data, loading }: { title: string; data?: Product[]; l
           keyExtractor={(p) => p.id}
           showsHorizontalScrollIndicator={false}
           contentContainerClassName="gap-3 px-4"
-          renderItem={({ item }) => (
-            <ConnectedProductCard
-              product={item}
-              className="w-40"
-              onPress={() => router.push({ pathname: "/product/[id]", params: { id: item.id } })}
-            />
-          )}
+          renderItem={({ item }) => <ConnectedProductCard product={item} className="w-40" />}
         />
       )}
     </View>

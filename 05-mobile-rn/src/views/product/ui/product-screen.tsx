@@ -1,5 +1,5 @@
 import { Image } from "expo-image";
-import { router, Stack, useLocalSearchParams } from "expo-router";
+import { Stack, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { ActivityIndicator, FlatList, ScrollView, Text, View } from "react-native";
 
@@ -92,15 +92,7 @@ export function ProductScreen() {
               keyExtractor={(p) => p.id}
               showsHorizontalScrollIndicator={false}
               contentContainerClassName="gap-3 px-4"
-              renderItem={({ item }) => (
-                <ConnectedProductCard
-                  product={item}
-                  className="w-40"
-                  onPress={() =>
-                    router.push({ pathname: "/product/[id]", params: { id: item.id } })
-                  }
-                />
-              )}
+              renderItem={({ item }) => <ConnectedProductCard product={item} className="w-40" />}
             />
           </View>
         ) : null}

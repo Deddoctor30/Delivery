@@ -1,4 +1,4 @@
-import { router, Stack } from "expo-router";
+import { Stack } from "expo-router";
 import { useState } from "react";
 import { ActivityIndicator, FlatList, Text, TextInput, View } from "react-native";
 
@@ -48,13 +48,7 @@ export function SearchScreen() {
             maxToRenderPerBatch={6}
             updateCellsBatchingPeriod={50}
             windowSize={7}
-            renderItem={({ item }) => (
-              <ConnectedProductCard
-                product={item}
-                className="flex-1"
-                onPress={() => router.push({ pathname: "/product/[id]", params: { id: item.id } })}
-              />
-            )}
+            renderItem={({ item }) => <ConnectedProductCard product={item} className="flex-1" />}
           />
         )}
       </View>
