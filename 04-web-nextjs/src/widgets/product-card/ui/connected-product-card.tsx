@@ -16,6 +16,7 @@ export function ConnectedProductCard({
   product: Product;
   className?: string;
 }) {
+
   return (
     <CartProductCard
       product={product}
