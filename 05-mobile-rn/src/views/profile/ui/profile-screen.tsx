@@ -1,5 +1,7 @@
 import { Image } from "expo-image";
+import { router } from "expo-router";
 import { useState } from "react";
+
 import {
   ActivityIndicator,
   Alert,
@@ -11,13 +13,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import {
-  AVATAR_OPTIONS,
-  avatarSrc,
-  updateMe,
-  type AvatarId,
-  type User,
-} from "@/entities/user";
+import { AVATAR_OPTIONS, avatarSrc, updateMe, type AvatarId, type User } from "@/entities/user";
 import { authErrorMessage, loginOrRegister, useSession, type AuthMode } from "@/features/auth";
 import { ApiError } from "@/shared/api/error";
 import { formatDate } from "@/shared/lib/format";
@@ -41,7 +37,12 @@ function Field({
   return (
     <View className="gap-1.5">
       <Text className="font-inter-medium text-sm text-foreground">{label}</Text>
-      <Input value={value} onChangeText={onChangeText} placeholder={placeholder} keyboardType={keyboardType} />
+      <Input
+        value={value}
+        onChangeText={onChangeText}
+        placeholder={placeholder}
+        keyboardType={keyboardType}
+      />
     </View>
   );
 }
@@ -83,8 +84,19 @@ function AuthForm() {
       <Text className="font-inter-bold text-2xl text-foreground">
         {mode === "login" ? "Вход" : "Регистрация"}
       </Text>
-      <Input placeholder="email" autoCapitalize="none" keyboardType="email-address" value={email} onChangeText={setEmail} />
-      <Input placeholder="пароль (мин. 8)" secureTextEntry value={password} onChangeText={setPassword} />
+      <Input
+        placeholder="email"
+        autoCapitalize="none"
+        keyboardType="email-address"
+        value={email}
+        onChangeText={setEmail}
+      />
+      <Input
+        placeholder="пароль (мин. 8)"
+        secureTextEntry
+        value={password}
+        onChangeText={setPassword}
+      />
       {error && <Text className="font-sans text-destructive">{error}</Text>}
       <Button
         label={mode === "login" ? "Войти" : "Зарегистрироваться"}
@@ -158,7 +170,10 @@ function ProfileView({
       setUser(await updateMe({ avatarId: id }));
       setPickerOpen(false);
     } catch (e) {
-      Alert.alert("Не удалось обновить аватар", e instanceof ApiError ? e.message : "Попробуйте позже");
+      Alert.alert(
+        "Не удалось обновить аватар",
+        e instanceof ApiError ? e.message : "Попробуйте позже",
+      );
     } finally {
       setAvatarSaving(false);
     }
@@ -171,7 +186,11 @@ function ProfileView({
         <Pressable onPress={() => setPickerOpen(true)} className="items-center active:opacity-80">
           <View className="h-20 w-20 items-center justify-center overflow-hidden rounded-full bg-secondary">
             {src ? (
-              <Image source={{ uri: src }} style={{ width: "100%", height: "100%" }} contentFit="cover" />
+              <Image
+                source={{ uri: src }}
+                style={{ width: "100%", height: "100%" }}
+                contentFit="cover"
+              />
             ) : (
               <Text className="font-inter-bold text-2xl text-secondary-foreground">{initials}</Text>
             )}
@@ -193,11 +212,28 @@ function ProfileView({
         {editing ? (
           <>
             <Field label="Имя" value={firstName} onChangeText={setFirstName} placeholder="Имя" />
-            <Field label="Фамилия" value={lastName} onChangeText={setLastName} placeholder="Фамилия" />
-            <Field label="Телефон" value={phone} onChangeText={setPhone} placeholder="+7..." keyboardType="phone-pad" />
+            <Field
+              label="Фамилия"
+              value={lastName}
+              onChangeText={setLastName}
+              placeholder="Фамилия"
+            />
+            <Field
+              label="Телефон"
+              value={phone}
+              onChangeText={setPhone}
+              placeholder="+7..."
+              keyboardType="phone-pad"
+            />
             <View className="flex-row gap-2">
               <Button label="Сохранить" className="flex-1" loading={saving} onPress={save} />
-              <Button label="Отмена" variant="ghost" className="flex-1" disabled={saving} onPress={() => setEditing(false)} />
+              <Button
+                label="Отмена"
+                variant="ghost"
+                className="flex-1"
+                disabled={saving}
+                onPress={() => setEditing(false)}
+              />
             </View>
           </>
         ) : (
@@ -220,6 +256,10 @@ function ProfileView({
         </Text>
       </Pressable>
 
+      {user.role === "ADMIN" && (
+        <Button label="Админ-панель" variant="outline" onPress={() => router.push("/admin")} />
+      )}
+
       {/* Выход */}
       <Button label="Выйти" variant="destructive" onPress={() => void logout()} />
 
@@ -239,8 +279,19 @@ function ProfileView({
                 disabled={avatarSaving}
                 className="items-center gap-2 active:opacity-80"
               >
-                <View className={cn("h-20 w-20 overflow-hidden rounded-full border-2", active ? "border-primary" : "border-transparent")}>
-                  {url ? <Image source={{ uri: url }} style={{ width: "100%", height: "100%" }} contentFit="cover" /> : null}
+                <View
+                  className={cn(
+                    "h-20 w-20 overflow-hidden rounded-full border-2",
+                    active ? "border-primary" : "border-transparent",
+                  )}
+                >
+                  {url ? (
+                    <Image
+                      source={{ uri: url }}
+                      style={{ width: "100%", height: "100%" }}
+                      contentFit="cover"
+                    />
+                  ) : null}
                 </View>
                 <Text className="font-sans text-sm text-foreground">{opt.label}</Text>
               </Pressable>

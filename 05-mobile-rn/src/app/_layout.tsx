@@ -56,6 +56,10 @@ export default function RootLayout() {
               <Stack.Screen name="checkout" options={{ headerShown: true, title: "Оформление" }} />
               <Stack.Screen name="checkout/success" options={{ headerShown: false }} />
               <Stack.Screen name="order/[id]" options={{ headerShown: true, title: "Заказ" }} />
+              <Stack.Screen
+                name="admin"
+                options={{ headerShown: true, title: "Администрирование" }}
+              />
             </Stack>
             <StatusBar style="auto" />
           </SessionProvider>
