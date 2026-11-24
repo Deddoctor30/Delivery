@@ -18,6 +18,7 @@ import { SessionProvider } from "@/features/auth";
 import { useCartSync } from "@/features/cart";
 import { queryClient } from "@/shared/api/query-client";
 import { ThemeProvider } from "@/shared/lib/theme";
+import { CookieBanner } from "@/features/cookie-consent";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -60,7 +61,20 @@ export default function RootLayout() {
                 name="admin"
                 options={{ headerShown: true, title: "Администрирование" }}
               />
+              <Stack.Screen
+                name="legal/about"
+                options={{ headerShown: true, title: "О магазине" }}
+              />
+              <Stack.Screen
+                name="legal/privacy"
+                options={{ headerShown: true, title: "Политика ПД" }}
+              />
+              <Stack.Screen
+                name="legal/cookies"
+                options={{ headerShown: true, title: "Политика cookie" }}
+              />
             </Stack>
+            <CookieBanner />
             <StatusBar style="auto" />
           </SessionProvider>
         </ThemeProvider>

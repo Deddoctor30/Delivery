@@ -2,6 +2,7 @@ import { Image } from "expo-image";
 import { router } from "expo-router";
 import { useState } from "react";
 
+import { ChevronRight } from "lucide-react-native";
 import {
   ActivityIndicator,
   Alert,
@@ -109,6 +110,29 @@ function AuthForm() {
         </Text>
       </Pressable>
     </View>
+  );
+}
+
+function LegalRow({
+  label,
+  onPress,
+  first,
+}: {
+  label: string;
+  onPress: () => void;
+  first?: boolean;
+}) {
+  return (
+    <Pressable
+      onPress={onPress}
+      className={cn(
+        "flex-row items-center justify-between px-4 py-3.5 active:opacity-70",
+        !first && "border-t border-border",
+      )}
+    >
+      <Text className="font-sans text-foreground">{label}</Text>
+      <ChevronRight size={18} color="#646a75" />
+    </Pressable>
   );
 }
 
@@ -255,6 +279,15 @@ function ProfileView({
           {colorScheme === "dark" ? "Вкл" : "Выкл"}
         </Text>
       </Pressable>
+
+      <View className="overflow-hidden rounded-xl bg-card">
+        <LegalRow label="О магазине" onPress={() => router.push("/legal/about")} first />
+        <LegalRow
+          label="Политика персональных данных"
+          onPress={() => router.push("/legal/privacy")}
+        />
+        <LegalRow label="Политика cookie" onPress={() => router.push("/legal/cookies")} />
+      </View>
 
       {user.role === "ADMIN" && (
         <Button label="Админ-панель" variant="outline" onPress={() => router.push("/admin")} />
