@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "05-mobile-rn",
+    "name": "Delivery",
     "slug": "05-mobile-rn",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -8,10 +8,13 @@
     "scheme": "05mobilern",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/expo.icon"
+      "icon": "./assets/expo.icon",
+      "bundleIdentifier": "com.delivery.mobile"
     },
     "android": {
       "adaptiveIcon": {
+        "package": "com.delivery.mobile",
+        "predictiveBackGestureEnabled": false,
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "backgroundImage": "./assets/images/android-icon-background.png",
