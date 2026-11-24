@@ -13,6 +13,12 @@ import {
 } from "../api/cart-api";
 import { useCartStore, type CartItem } from "./cart-store";
 
+import { useCallback } from "react";
+import { Alert } from "react-native";
+
+import { ApiError } from "@/shared/api/error";
+
+
 export const CART_QUERY_KEY = ["cart"] as const;
 
 export interface UseCart {
@@ -102,4 +108,68 @@ export function useCart(): UseCart {
 /** Число единиц товара — для бейджа на табе (учитывает и гостя, и сервер). */
 export function useCartCount(): number {
   return useCart().count;
+}
+
+/**
+ * Количество одного товара в корзине — точечная подписка.
+ * Гость: селектор zustand (примитив) → ре-рендер только при смене ЭТОГО числа.
+ * Сервер: useQuery c select (примитив) → то же самое. Соседние карточки не трогаются.
+ */
+export function useItemQuantity(productId: string): number {
+  const { user } = useSession();
+  const isAuth = !!user;
+
+  const guestQty = useCartStore(
+    (s) => s.lines.find((l) => l.product.id === productId)?.quantity ?? 0,
+  );
+  const { data: serverQty = 0 } = useQuery({
+    queryKey: CART_QUERY_KEY,
+    queryFn: getServerCart,
+    enabled: isAuth,
+    select: (lines) => lines.find((l) => l.product.id === productId)?.quantity ?? 0,
+  });
+
+  return isAuth ? serverQty : guestQty;
+}
+
+/**
+ * Стабильные экшены корзины (add/setQuantity) — без подписки на содержимое,
+ * поэтому не вызывают ре-рендеров сами по себе. Для карточек в гриде.
+ */
+export function useCartActions() {
+  const { user } = useSession();
+  const isAuth = !!user;
+  const qc = useQueryClient();
+
+  const addItem = useCallback(
+    (product: Product, quantity = 1) => {
+      if (!isAuth) {
+        useCartStore.getState().addItem(product, quantity);
+        return;
+      }
+      void addServerItem(product.id, quantity)
+        .then((lines) => qc.setQueryData(CART_QUERY_KEY, lines))
+        .catch((e) =>
+          Alert.alert("Не удалось добавить", e instanceof ApiError ? e.message : "Попробуйте позже"),
+        );
+    },
+    [isAuth, qc],
+  );
+
+  const setQuantity = useCallback(
+    (productId: string, quantity: number) => {
+      if (!isAuth) {
+        useCartStore.getState().setQuantity(productId, quantity);
+        return;
+      }
+      void updateServerItem(productId, quantity)
+        .then((lines) => qc.setQueryData(CART_QUERY_KEY, lines))
+        .catch((e) =>
+          Alert.alert("Не удалось обновить", e instanceof ApiError ? e.message : "Попробуйте позже"),
+        );
+    },
+    [isAuth, qc],
+  );
+
+  return { addItem, setQuantity };
 }

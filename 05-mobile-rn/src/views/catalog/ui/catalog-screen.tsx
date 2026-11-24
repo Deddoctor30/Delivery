@@ -49,6 +49,11 @@ export function CatalogScreen() {
             columnWrapperStyle={{ gap: 12 }}
             contentContainerClassName="gap-3 pb-4"
             showsVerticalScrollIndicator={false}
+            removeClippedSubviews
+            initialNumToRender={6}
+            maxToRenderPerBatch={6}
+            updateCellsBatchingPeriod={50}
+            windowSize={7}
             renderItem={({ item }) => (
               <ConnectedProductCard
                 product={item}

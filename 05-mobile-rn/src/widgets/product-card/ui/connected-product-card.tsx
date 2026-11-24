@@ -1,7 +1,8 @@
 import { ProductCard, type Product } from "@/entities/product";
 import { useCart } from "@/features/cart";
+import { memo } from "react";
 
-export function ConnectedProductCard({
+export const ConnectedProductCard= memo(function ConnectedProductCard({
   product,
   className,
   onPress,
@@ -23,4 +24,4 @@ export function ConnectedProductCard({
       onQuantityChange={(v) => setQuantity(product.id, v)}
     />
   );
-}
+})

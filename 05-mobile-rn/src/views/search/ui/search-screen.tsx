@@ -43,6 +43,11 @@ export function SearchScreen() {
             contentContainerClassName="gap-3 pb-4"
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
+            removeClippedSubviews
+            initialNumToRender={6}
+            maxToRenderPerBatch={6}
+            updateCellsBatchingPeriod={50}
+            windowSize={7}
             renderItem={({ item }) => (
               <ConnectedProductCard
                 product={item}

@@ -107,6 +107,11 @@ function OrdersList() {
           data={filtered}
           keyExtractor={(o) => o.id}
           contentContainerClassName="gap-3 p-4"
+          removeClippedSubviews
+          initialNumToRender={6}
+          maxToRenderPerBatch={6}
+          updateCellsBatchingPeriod={50}
+          windowSize={7}
           renderItem={({ item }) => (
             <OrderCard
               order={item}

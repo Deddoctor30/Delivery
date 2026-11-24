@@ -1,11 +1,12 @@
 import { Image } from "expo-image";
 import { Pressable, Text, View } from "react-native";
 
-import { Badge, Button, Counter } from "@/shared/ui";
-import { cn } from "@/shared/lib/utils";
 import { formatPrice } from "@/shared/lib/format";
+import { cn } from "@/shared/lib/utils";
+import { Badge, Button, Counter } from "@/shared/ui";
 
 import type { Product } from "../model/types";
+import { memo } from "react";
 
 interface ProductCardProps {
   product: Product;
@@ -16,7 +17,7 @@ interface ProductCardProps {
   className?: string;
 }
 
-export function ProductCard({
+export const ProductCard = memo(function ProductCard({
   product,
   quantity = 0,
   onPress,
@@ -36,10 +37,16 @@ export function ProductCard({
               style={{ width: "100%", height: "100%" }}
               contentFit="contain"
               transition={150}
+              cachePolicy="memory-disk"
+              recyclingKey={product.id}
             />
           ) : null}
           {discountPercent ? (
-            <Badge label={`−${discountPercent}%`} variant="discount" className="absolute left-2 top-2" />
+            <Badge
+              label={`−${discountPercent}%`}
+              variant="discount"
+              className="absolute left-2 top-2"
+            />
           ) : null}
         </View>
 
@@ -62,7 +69,12 @@ export function ProductCard({
       {onAddToCart ? (
         <View className="px-3 pb-3">
           {quantity > 0 ? (
-            <Counter value={quantity} min={0} onChange={(v) => onQuantityChange?.(v)} className="w-full justify-between" />
+            <Counter
+              value={quantity}
+              min={0}
+              onChange={(v) => onQuantityChange?.(v)}
+              className="w-full justify-between"
+            />
           ) : (
             <Button label="В корзину" size="sm" disabled={!inStock} onPress={onAddToCart} />
           )}
@@ -70,4 +82,4 @@ export function ProductCard({
       ) : null}
     </View>
   );
-}
+})
